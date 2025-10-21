@@ -1,9 +1,12 @@
 <template>
-   <div class="bg-blue-500 text-white p-4">
-      Hello Mother Fucker
+   <div class="card">
+      <Button
+         color="secondary"
+         label="Submit"
+      />
    </div>
 </template>
 
-<script setup lang="ts">
+<script setup></script>
 
-</script>
+<script setup lang="ts"></script>
