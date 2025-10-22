@@ -1,12 +1,10 @@
 <template>
-   <div class="card">
-      <Button
-         color="secondary"
-         label="Submit"
-      />
-   </div>
+   <RouterView class="h-dvh" />
 </template>
+<script setup lang="ts">
+import { useUserStore } from './stories/UserStore';
 
-<script setup></script>
+const UserStore = useUserStore();
+UserStore.getAuthUser();
 
-<script setup lang="ts"></script>
+</script>
