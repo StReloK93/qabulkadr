@@ -2,18 +2,26 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import { useUserStore } from "../stories/UserStore";
 
-// Simulate authentication check
-const userStore = useUserStore();
-const isAuthenticated = !!userStore.user;
-const router =  createRouter({
+const router = createRouter({
    history: createWebHistory(),
    routes,
 });
 
-// GOOD
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && isAuthenticated) next({ name: 'Login' })
-  else next()
-})
+router.beforeEach(async (to, from, next) => {
+   const userStore = useUserStore();
 
-export default router
+   if (!userStore.initialized) {
+      try {
+         await userStore.getAuthUser();
+      } catch {
+         // optional: handle network error
+      }
+   }
+   const isAuthenticated = userStore.user !== null;
+
+   if (!isAuthenticated && to.name !== "login-page" && userStore.initialized) return next({ name: "login-page" });
+   else if (isAuthenticated && to.name == "login-page") return next({ name: "home-page" });
+   else return next();
+});
+
+export default router;

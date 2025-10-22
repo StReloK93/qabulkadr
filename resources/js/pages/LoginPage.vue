@@ -1,5 +1,5 @@
 <template>
-   <div class="flex justify-center items-center bg-blue-500">
+   <div class="flex justify-center items-center bg-surface-50 dark:bg-surface-950">
       <Form
          v-slot="$form"
          :initial-values="initialValues"
@@ -7,61 +7,64 @@
          @submit="onFormSubmit"
          autocomplete="off"
       >
-         <Card style="width: 25rem; overflow: hidden">
+         <Card class="w-96 max-w-md">
             <template #title>
                Kirish
             </template>
             <template #content>
-               <div class="flex flex-col gap-2">
-                  <InputText
-                     @keydown="clearError"
-                     name="login"
-                     type="text"
-                     placeholder="Login"
-                     fluid
-                     autocomplete="new-login"
-                  />
+               <div class="flex flex-col gap-4">
+                  <aside>
+                     <InputText
+                        @keydown="clearError"
+                        name="login"
+                        type="text"
+                        placeholder="Login"
+                        fluid
+                        autocomplete="new-login"
+                     />
+                     <Message
+                        v-if="$form.login?.invalid"
+                        severity="error"
+                        size="small"
+                        variant="simple"
+                     >
+                        {{ $form.login.error?.message }}
+                     </Message>
+                  </aside>
+                  <aside>
+                     <InputText
+                        @keydown="clearError"
+                        name="password"
+                        type="password"
+                        placeholder="Parol"
+                        autocomplete="new-password"
+                        fluid
+                     />
+                     <Message
+                        v-if="$form.password?.invalid"
+                        severity="error"
+                        size="small"
+                        variant="simple"
+                     >
+                        {{ $form.password.error?.message }}
+                     </Message>
+                  </aside>
                   <Message
-                     v-if="$form.login?.invalid"
+                     v-if="error.length"
                      severity="error"
                      size="small"
                      variant="simple"
                   >
-                     {{ $form.login.error?.message }}
-                  </Message>
-
-                  <InputText
-                     @keydown="clearError"
-                     name="password"
-                     type="password"
-                     placeholder="Parol"
-                     autocomplete="new-password"
-                     fluid
-                  />
-                  <Message
-                     v-if="$form.password?.invalid"
-                     severity="error"
-                     size="small"
-                     variant="simple"
-                  >
-                     {{ $form.password.error?.message }}
+                     {{ error }}
                   </Message>
                </div>
-               <Message
-                  v-if="error.length"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                  class="mt-1"
-               >
-                  {{ error }}
-               </Message>
             </template>
-            <template #footer>
-               <div class="flex gap-4">
+            <template
+               #footer
+            >
+               <div class="flex">
                   <Button
                      :loading="loading"
-                     severity="secondary"
                      type="submit"
                      label="Kirish"
                      class="w-full"
