@@ -1,5 +1,6 @@
 import { ref } from "vue";
-import axios, { AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
+import axios from "axios";
 type HttpMethod = "get" | "post" | "put" | "delete"; // Define allowed HTTP methods
 
 const wialonHttp = axios.create({

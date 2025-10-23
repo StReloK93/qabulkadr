@@ -1,5 +1,5 @@
 <template>
-   <div class="flex justify-center items-center bg-surface-50 dark:bg-surface-950">
+   <div class="flex justify-center items-center bg-surface-50">
       <Form
          v-slot="$form"
          :initial-values="initialValues"

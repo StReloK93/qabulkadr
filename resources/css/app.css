@@ -1,2 +1,9 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
+
+@font-face {
+   font-family: "Trickster";
+   src: url("../js/assets/fonts/Copperplate\ Regular.ttf") format("truetype");
+   font-weight: normal;
+   font-style: normal;
+}

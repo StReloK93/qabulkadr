@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IUser } from "../Interfaces";
+import type { IUser } from "@/Interfaces";
 async function login(formData: { login: string; password: string }) {
    return await axios.post<{ user: IUser; type: "Bearer"; token: string }>(
       "api/login",

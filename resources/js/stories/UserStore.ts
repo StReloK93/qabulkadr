@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import UserRepo from "../repositories/UserRepo";
-import { IUser } from "../Interfaces";
+import UserRepo from "@/repositories/UserRepo";
+import type { IUser } from "@/Interfaces";
 import { AxiosError } from "axios";
-import router from "../router";
+import router from "@/router";
 export const useUserStore = defineStore("userStore", () => {
    const user = ref<null | IUser>(null);
    const initialized = ref(false);
-
+   const logoutLoading = ref(false);
    async function login(formData: { login: string; password: string }) {
       const result = await UserRepo.login(formData);
 
@@ -30,11 +30,13 @@ export const useUserStore = defineStore("userStore", () => {
    }
 
    async function logout() {
+      logoutLoading.value = true;
       await UserRepo.logout();
       localStorage.removeItem("token");
       user.value = null;
+      logoutLoading.value = false;
       await router.push({ name: "login-page" });
    }
 
-   return { user, initialized, login, getAuthUser, logout };
+   return { user, initialized, login, getAuthUser, logout, logoutLoading };
 });
