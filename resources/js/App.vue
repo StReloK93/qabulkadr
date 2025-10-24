@@ -6,7 +6,7 @@
    />
 </template>
 <script setup lang="ts">
-import SplashScreen from './components/SplashScreen.vue';
+import SplashScreen from '@/components/BaseSplashScreen.vue';
 import { useUserStore } from './stories/UserStore';
 
 const UserStore = useUserStore();

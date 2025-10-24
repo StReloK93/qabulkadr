@@ -8,14 +8,19 @@ export default defineConfig([
    {
       ignores: ["dist/**", "node_modules/**"], // ⬅️ ignore shu yerda
    },
+   
    {
       files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
       plugins: { js },
       extends: ["js/recommended"],
-      languageOptions: { globals: globals.browser },
+      languageOptions: {
+         globals: globals.browser,
+         parser: tseslint.parser,
+      },
       rules: {
          "vue/html-indent": ["error", 3], // ⬅️ shu yerda yoziladi
-			"@typescript-eslint/no-explicit-any": "off", 
+         "@typescript-eslint/no-explicit-any": "off",
+         "@typescript-eslint/ban-types": "off",
       },
    },
    tseslint.configs.recommended,

@@ -12,7 +12,7 @@ createApp(App)
       theme: {
          preset: MyPreset,
          options: {
-            darkModeSelector: "dark",
+            darkModeSelector: ".dark",
          },
       },
    })

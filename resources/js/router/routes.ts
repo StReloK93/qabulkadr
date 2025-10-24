@@ -4,7 +4,7 @@ const routes: RouteRecordRaw[] = [
    {
       path: "/",
       name: "home-page",
-      component: () => import("@pages/HomePage.vue"),
+      component: () => import("@/layouts/SiteLayout.vue"),
       redirect: { name: "dashboard-page" },
       children: [
          { path: "", name: "dashboard-page", component: () => import("@pages/DashboardPage.vue") },

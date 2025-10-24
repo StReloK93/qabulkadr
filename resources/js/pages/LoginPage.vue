@@ -1,5 +1,5 @@
 <template>
-   <div class="flex justify-center items-center bg-surface-50">
+   <div class="flex justify-center items-center bg-surface-50 dark:bg-surface-800 min-h-screen p-4">
       <Form
          v-slot="$form"
          :initial-values="initialValues"
@@ -59,9 +59,7 @@
                   </Message>
                </div>
             </template>
-            <template
-               #footer
-            >
+            <template #footer>
                <div class="flex">
                   <Button
                      :loading="loading"
@@ -85,7 +83,7 @@ import { yupResolver } from "@primevue/forms/resolvers/yup";
 import * as yup from "yup";
 
 const error = ref<string>("");
-const loading = ref(false)
+const loading = ref(false);
 const UserStore = useUserStore();
 const initialValues = reactive({
    login: "",
@@ -99,24 +97,21 @@ const resolver = yupResolver(
    })
 );
 
-
 function clearError() {
    error.value = "";
 }
 
-
 async function onFormSubmit(params: FormSubmitEvent) {
    if (params.valid) {
       const values = params.values as { login: string; password: string };
-      loading.value = true
+      loading.value = true;
       try {
          await UserStore.login(values);
       } catch (axiosError) {
          const err = axiosError as AxiosError<{ message: string }>;
          error.value = err.response?.data?.message ?? err.message ?? "Noma'lum xatolik yuz berdi";
-      }
-      finally{
-         loading.value = false
+      } finally {
+         loading.value = false;
       }
    }
 }

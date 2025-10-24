@@ -1,63 +1,57 @@
 <template>
    <Form
-      ref="formRef"
-      :initial-values="props.initialValues"
-      @submit="handleSubmit"
-      class="space-y-4"
+      v-slot="$form"
+      ref="instance"
+      :initial-values
+      :resolver
+      @submit="onFormSubmit"
+      class="flex flex-col gap-4 w-full"
    >
-      <!-- Title -->
-      <h2
-         v-if="props.title"
-         class="text-xl font-semibold mb-2"
-      >
-         {{ props.title }}
-      </h2>
-
-      <!-- Fields -->
-      <slot />
-
-      <!-- Actions -->
-      <div class="flex justify-end gap-2 pt-4">
-         <Button
-            v-if="props.cancelText"
-            :label="props.cancelText"
-            severity="secondary"
-            @click="props.onCancel"
-            :disabled="loading"
-         />
-         <Button
-            type="submit"
-            :label="props.submitText ?? 'Submit'"
-            :loading="loading"
-         />
+      <div class="flex flex-col">
+         <slot :form="$form" />
       </div>
+      <div class="grow" />
+      <main class="flex gap-3">
+         <Button
+            type="button"
+            size="small"
+            severity="secondary"
+            @click="emit('close')"
+            label="Bekor qilish"
+            :fluid="true"
+         />
+         <Button type="submit" size="small" severity="contrast" label="Saqlash" :fluid="true" :loading="buttonLoader" />
+      </main>
    </Form>
 </template>
+
 <script setup lang="ts">
+import type { FormResolverOptions, FormSubmitEvent } from "@primevue/forms";
 import { ref } from "vue";
+const instance = ref();
 
-interface Props {
-   title?: string;
-   onSubmit: (values: Record<string, any>) => Promise<void> | void;
-   initialValues?: Record<string, any>;
-   submitText?: string;
-   cancelText?: string;
-   onCancel?: () => void;
-}
+const emit = defineEmits(["close"]);
 
-const props = defineProps<Props>();
+const buttonLoader = ref(false);
 
-const loading = ref(false);
-const formRef = ref();
+type FormResolver = (options: FormResolverOptions) => Record<string, any> | Promise<Record<string, any>> | undefined;
+const props = defineProps<{
+   initialValues: object;
 
-const handleSubmit = async (params: any) => {
-   if (!params.valid) return;
+   resolver: FormResolver;
+   submit: (values: unknown) => Promise<void>;
+}>();
 
-   try {
-      loading.value = true;
-      await props.onSubmit(params.values);
-   } finally {
-      loading.value = false;
+const onFormSubmit = async (formEvent: FormSubmitEvent) => {
+   console.log(formEvent);
+
+   if (formEvent.valid) {
+      buttonLoader.value = true;
+      await props.submit(formEvent.values).finally(() => {
+         buttonLoader.value = false;
+      });
    }
 };
+
+defineExpose({ instance });
 </script>

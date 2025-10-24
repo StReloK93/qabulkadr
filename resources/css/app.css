@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
+
+@custom-variant dark (&:where(.dark, .dark *));
 @font-face {
    font-family: "Trickster";
    src: url("../js/assets/fonts/Copperplate\ Regular.ttf") format("truetype");
