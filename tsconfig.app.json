@@ -5,10 +5,10 @@
       "types": ["vite/client"],
 
       /* Alias */
-      "baseUrl": ".",
+      "moduleResolution": "bundler",
       "paths": {
-         "@/*": ["resources/js/*"],
-         "@pages/*": ["resources/js/pages/*"],
+         "@/*": ["./resources/js/*"],
+         "@pages/*": ["./resources/js/pages/*"],
       },
 
       /* Yordamchi */

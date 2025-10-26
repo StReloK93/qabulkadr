@@ -20,7 +20,14 @@
             label="Bekor qilish"
             :fluid="true"
          />
-         <Button type="submit" size="small" severity="contrast" label="Saqlash" :fluid="true" :loading="buttonLoader" />
+         <Button
+            type="submit"
+            size="small"
+            severity="contrast"
+            label="Saqlash"
+            :fluid="true"
+            :loading="buttonLoader"
+         />
       </main>
    </Form>
 </template>

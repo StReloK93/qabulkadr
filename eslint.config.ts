@@ -20,7 +20,6 @@ export default defineConfig([
       rules: {
          "vue/html-indent": ["error", 3], // ⬅️ shu yerda yoziladi
          "@typescript-eslint/no-explicit-any": "off",
-         "@typescript-eslint/ban-types": "off",
       },
    },
    tseslint.configs.recommended,
