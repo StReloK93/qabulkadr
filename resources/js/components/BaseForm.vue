@@ -5,7 +5,7 @@
       :initial-values
       :resolver
       @submit="onFormSubmit"
-      class="flex flex-col gap-4 w-full"
+      class="flex flex-col gap-4 w-full h-full"
    >
       <div class="flex flex-col">
          <slot :form="$form" />

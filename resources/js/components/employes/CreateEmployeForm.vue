@@ -11,42 +11,15 @@
             :submit
             :resolver
             :initial-values
-            @vue:mounted="() => {console.log('setup mounted')}"
          >
-            <div class="mb-4">
-               <InputText
-                  name="full_name"
-                  type="text"
-                  placeholder="F.I.SH"
-                  size="small"
-                  fluid
+            <template v-if="slotProps.form">
+               <BaseFormField
+                  v-for="settingInput in settingInputs"
+                  :field="settingInput"
+                  :input-field="slotProps.form[settingInput.name]!"
+                  :key="settingInput.name"
                />
-               <Message
-                  v-if="slotProps.form.name?.invalid"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-               >
-                  {{ slotProps.form.name.error.message }}
-               </Message>
-            </div>
-            <div>
-               <InputText
-                  name="birth_date"
-                  type="text"
-                  placeholder="Tug'ilgan sana"
-                  size="small"
-                  fluid
-               />
-               <Message
-                  v-if="slotProps.form.name_ru?.invalid"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-               >
-                  {{ slotProps.form.name_ru.error.message }}
-               </Message>
-            </div>
+            </template>
          </BaseForm>
       </Drawer>
       <Button
@@ -59,13 +32,12 @@
 </template>
 
 <script setup lang="ts">
+import BaseFormField from "../BaseFormField.vue";
 import * as yup from "yup";
 import BaseForm from "@/components/BaseForm.vue";
 import { yupResolver } from "@primevue/forms/resolvers/yup";
 import { reactive, ref } from "vue";
 const visible = ref(false);
-
-
 
 function submit(values: unknown) {
    return new Promise<void>((resolve) => {
@@ -76,31 +48,35 @@ function submit(values: unknown) {
    });
 }
 
-const initialValues = reactive({
-   full_name: "",
-   birth_date: "",
-   // education: "",
-   // university: "",
-   // cause_id: "",
-   // organization_id: "",
-   // profession: "",
-   // status: "",
-});
-const resolver = yupResolver(
-   yup.object({
-      full_name: yup.string().default('Aziz').required("To'ldiring"),
-      birth_date: yup.string().required("To'ldiring"),
-      // education: yup.string().required("To'ldiring"),
-      // university: yup.string().required("To'ldiring"),
-      // cause_id: yup.string().required("To'ldiring"),
-      // organization_id: yup.string().required("To'ldiring"),
-      // profession: yup.string().required("To'ldiring"),
-      // status: yup.string().required("To'ldiring"),
-   })
+const settingInputs = [
+   { name: "full_name", placeholder: "F.I.SH", type: "text", schema: yup.string().required("To'ldiring") },
+   { name: "birth_date", placeholder: "Tug'ilgan sana", type: "text", schema: yup.string().required("To'ldiring") },
+   { name: "education", placeholder: "Ma'lumot", type: "text", schema: yup.string().required("To'ldiring") },
+   { name: "university", placeholder: "Oliy o'quv yurti", type: "text", schema: yup.string().required("To'ldiring") },
+   {
+      name: "cause_id",
+      placeholder: "Ishga qabul qilish sababi",
+      type: "text",
+      schema: yup.string().required("To'ldiring"),
+   },
+   { name: "organization_id", placeholder: "Bo'lim", type: "text", schema: yup.string().required("To'ldiring") },
+   { name: "profession", placeholder: "Lavozim", type: "text   ", schema: yup.string().required("To'ldiring") },
+   { name: "status", placeholder: "Holat", type: "text", schema: yup.string().required("To'ldiring") },
+];
+
+const initialValues = reactive(
+   settingInputs.reduce((acc, curr) => {
+      acc[curr.name] = "";
+      return acc;
+   }, {} as Record<string, unknown>)
 );
 
-setTimeout(() => {
-   initialValues.full_name = "Aziz";
-
-}, 2000);
+const resolver = yupResolver(
+   yup.object(
+      settingInputs.reduce((acc, curr) => {
+         acc[curr.name] = curr.schema;
+         return acc;
+      }, {} as Record<string, yup.AnySchema>)
+   )
+);
 </script>

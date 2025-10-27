@@ -4,11 +4,26 @@
       <Card class="shadow-none! border border-surface-200 dark:border-surface-800">
          <template #header />
          <template #content>
-            <DataTable :value="products" table-style="min-width: 50rem">
-               <Column field="full_name" header="F.I.SH" />
-               <Column field="organization" header="Bo'lim" />
-               <Column field="profession" header="Lavozim" />
-               <Column field="status" header="Holat" />
+            <DataTable
+               :value="products"
+               table-style="min-width: 50rem"
+            >
+               <Column
+                  field="full_name"
+                  header="F.I.SH"
+               />
+               <Column
+                  field="organization"
+                  header="Bo'lim"
+               />
+               <Column
+                  field="profession"
+                  header="Lavozim"
+               />
+               <Column
+                  field="status"
+                  header="Holat"
+               />
             </DataTable>
          </template>
       </Card>
