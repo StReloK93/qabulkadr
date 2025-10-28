@@ -1,10 +1,10 @@
 import { InputText, DatePicker, Select } from "primevue";
 import type { IFormInputs } from "@/Interfaces";
 import * as yup from "yup";
-import axios from "axios";
+// import axios from "axios";
 
 export const useEmployeInputs = async () => {
-   const departments = await axios.get("http://192.168.14.23:3005/api/organization"); // async chaqiriq
+   // const departments = await axios.get("http://192.168.14.23:3005/api/organization"); // async chaqiriq
 
    const employeInputs: IFormInputs[] = [
       {
@@ -43,22 +43,22 @@ export const useEmployeInputs = async () => {
          type: "text",
          schema: yup.string().required("To'ldiring"),
       },
-      {
-         is: Select,
-         name: "organization_id",
-         placeholder: "Bo'lim",
-         type: "text",
-         schema: yup.number().required("To'ldiring"),
-         attr: {
-            options: departments.data.map((dept: { id: number; fullname: string, shortname: string }) => ({
-               label: dept.shortname,
-               value: dept.id,
-            })),
-            optionLabel: "label",
-            optionValue: "value",
-            showClear: true,
-         },
-      },
+      // {
+      //    is: Select,
+      //    name: "organization_id",
+      //    placeholder: "Bo'lim",
+      //    type: "text",
+      //    schema: yup.number().required("To'ldiring"),
+      //    attr: {
+      //       options: departments.data.map((dept: { id: number; fullname: string, shortname: string }) => ({
+      //          label: dept.shortname,
+      //          value: dept.id,
+      //       })),
+      //       optionLabel: "label",
+      //       optionValue: "value",
+      //       showClear: true,
+      //    },
+      // },
       {
          is: InputText,
          name: "profession",

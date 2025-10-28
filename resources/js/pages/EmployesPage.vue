@@ -29,6 +29,10 @@
                table-style="min-width: 50rem"
             >
                <Column
+                  field="id"
+                  header="ID"
+               />
+               <Column
                   field="full_name"
                   header="F.I.SH"
                />
@@ -44,6 +48,22 @@
                   field="status"
                   header="Holat"
                />
+
+               <Column
+                  header-style="width: 5rem; text-align: center"
+                  body-style="text-align: center; overflow: visible"
+               >
+                  <template #body="{ data }">
+                     <Button
+                        variant="text"
+                        type="button"
+                        icon="pi pi-pencil"
+                        rounded
+                        :loading="loadingId === data.status"
+                        @click="editEmploye(data)"
+                     />
+                  </template>
+               </Column>
             </DataTable>
          </template>
       </Card>
@@ -66,11 +86,27 @@ function submit(values: unknown) {
       }, 1000);
    });
 }
+const loadingId = ref<number | null>(null);
+async function editEmploye(row: unknown) {
+   loadingId.value = row.status;
+   try {
+      // Masalan, API dan ma'lumot olish:
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // simulate loading
+      console.log("Editing:", row);
+   } finally {
+      loadingId.value = null;
+   }
+}
 
 onMounted(async () => {
    buttonLoading.value = true;
-   employeInputs = await useEmployeInputs();
-   buttonLoading.value = false;
+   try {
+      employeInputs = await useEmployeInputs();
+   } catch (error) {
+      console.error("Error fetching employee inputs:", error);
+   } finally {
+      buttonLoading.value = false;
+   }
 });
 // Fish
 // tugilgan sana
@@ -82,10 +118,8 @@ onMounted(async () => {
 // sex nomi
 // lavozimi
 // mehnat sharoitiу
-// 
+//
 // telefon raqami
-
-
 
 const products = [
    {

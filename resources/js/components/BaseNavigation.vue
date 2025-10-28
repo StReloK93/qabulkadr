@@ -44,13 +44,13 @@
 
          <RouterLink
             class="w-full"
-            :to="{ name: 'employes-page' }"
+            :to="{ name: 'organizations-page' }"
          >
             <Button
                class="w-full justify-start! border border-surface-300"
                variant="text"
                severity="contrast"
-               label="Xodimlar"
+               label="Bo'limlar"
                icon="pi pi-users"
                size="small"
             />
