@@ -1,6 +1,26 @@
 <template>
    <div>
-      <CreateEmployeForm />
+      <nav class="text-right mb-4">
+         <Drawer
+            :show-close-icon="false"
+            position="right"
+            v-model:visible="openDrawer"
+            header="Yangi xodim qo'shish"
+         >
+            <BaseForm
+               :submit
+               :setting-inputs="employeInputs"
+               @close="openDrawer = false"
+            />
+         </Drawer>
+         <Button
+            icon="pi pi-plus"
+            severity="secondary"
+            rounded
+            :loading="buttonLoading"
+            @click="openDrawer = true"
+         />
+      </nav>
       <Card class="shadow-none! border border-surface-200 dark:border-surface-800">
          <template #header />
          <template #content>
@@ -31,11 +51,61 @@
 </template>
 
 <script setup lang="ts">
-import CreateEmployeForm from '@/components/employes/CreateEmployeForm.vue';
+import BaseForm from "@/components/BaseForm.vue";
+import { useEmployeInputs } from "@/components/employes/EmployeInputs";
+import { onMounted, ref } from "vue";
+import type { IFormInputs } from "@/Interfaces";
+const openDrawer = ref(false);
+let employeInputs: IFormInputs[] = [];
+const buttonLoading = ref(false);
+function submit(values: unknown) {
+   return new Promise<void>((resolve) => {
+      setTimeout(() => {
+         console.log("Form submitted with values:", values);
+         resolve();
+      }, 1000);
+   });
+}
+
+onMounted(async () => {
+   buttonLoading.value = true;
+   employeInputs = await useEmployeInputs();
+   buttonLoading.value = false;
+});
+// Fish
+// tugilgan sana
+// malumoti
+// Oliy uquv yurti
+// --
+// Ishga olish asosi (sababi)
+// ish joyi (bo'limi)
+// sex nomi
+// lavozimi
+// mehnat sharoitiу
+// 
+// telefon raqami
+
+
+
 const products = [
-   { code: "P1001", name: "Product 1", category: "Category A", quantity: 10 },
-   { code: "P1002", name: "Product 2", category: "Category B", quantity: 20 },
-   { code: "P1003", name: "Product 3", category: "Category A", quantity: 15 },
-   { code: "P1004", name: "Product 4", category: "Category C", quantity: 5 },
+   {
+      full_name: "P1001",
+      organization: "Product 1",
+      profession: "Category A",
+      status: 10,
+   },
+   {
+      full_name: "P1002",
+      organization: "Product 2",
+      profession: "Category B",
+      status: 20,
+   },
+   {
+      full_name: "P1003",
+      organization: "Product 3",
+      profession: "Category A",
+      status: 15,
+   },
+   { full_name: "P1004", organization: "Product 4", profession: "Category C", status: 5 },
 ];
 </script>

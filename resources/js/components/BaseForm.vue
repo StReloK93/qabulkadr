@@ -8,7 +8,12 @@
       class="flex flex-col gap-4 w-full h-full"
    >
       <div class="flex flex-col">
-         <slot :form="$form" />
+         <BaseFormField
+            v-for="settingInput in props.settingInputs"
+            :field="settingInput"
+            :input-field="$form[settingInput.name]!"
+            :key="settingInput.name"
+         />
       </div>
       <div class="grow" />
       <main class="flex gap-3">
@@ -33,19 +38,20 @@
 </template>
 
 <script setup lang="ts">
-import type { FormResolverOptions, FormSubmitEvent } from "@primevue/forms";
-import { ref } from "vue";
+import BaseFormField from "@/components/BaseFormField.vue";
+import * as yup from "yup";
+import type { FormSubmitEvent } from "@primevue/forms";
+import { yupResolver } from "@primevue/forms/resolvers/yup";
+import { reactive, ref } from "vue";
+import type { IFormInputs } from "@/Interfaces";
 const instance = ref();
 
 const emit = defineEmits(["close"]);
 
 const buttonLoader = ref(false);
 
-type FormResolver = (options: FormResolverOptions) => Record<string, any> | Promise<Record<string, any>> | undefined;
 const props = defineProps<{
-   initialValues: object;
-
-   resolver: FormResolver;
+   settingInputs: IFormInputs[];
    submit: (values: unknown) => Promise<void>;
 }>();
 
@@ -59,6 +65,22 @@ const onFormSubmit = async (formEvent: FormSubmitEvent) => {
       });
    }
 };
+
+const initialValues = reactive(
+   props.settingInputs.reduce((acc, curr) => {
+      acc[curr.name] = curr.value;
+      return acc;
+   }, {} as Record<string, unknown>)
+);
+
+const resolver = yupResolver(
+   yup.object(
+      props.settingInputs.reduce((acc, curr) => {
+         acc[curr.name] = curr.schema;
+         return acc;
+      }, {} as Record<string, yup.AnySchema>)
+   )
+);
 
 defineExpose({ instance });
 </script>

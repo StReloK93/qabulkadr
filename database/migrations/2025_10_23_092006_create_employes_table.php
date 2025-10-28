@@ -21,6 +21,7 @@ return new class extends Migration
             
             $table->integer('organization_id');
             $table->text('profession');
+            $table->text('phone');
             $table->integer('status');
             $table->timestamps();
         });

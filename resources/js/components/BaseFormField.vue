@@ -1,24 +1,29 @@
 <template>
-   <div class="mb-4">
-      <InputText
+   <div class="mb-3">
+      <component
+         :is="props.field.is"
          :name="props.field.name"
          :type="props.field.type"
          :placeholder="props.field.placeholder"
-         size="small"
+         v-bind="props.field.attr"
          fluid
+         size="small"
       />
-      <Message
+      <component
+         :is="Message"
          v-if="props.inputField?.invalid"
          severity="error"
          size="small"
          variant="simple"
       >
          {{ props.inputField.error.message }}
-      </Message>
+      </component>
    </div>
 </template>
 
 <script setup lang="ts">
+import { Message } from "primevue";
+import type { IFormInputs } from "@/Interfaces";
 const props = defineProps<{
    inputField?: {
       invalid: boolean;
@@ -26,10 +31,6 @@ const props = defineProps<{
          message: string;
       };
    };
-   field: {
-      name: string;
-      placeholder: string;
-      type: string;
-   };
+   field: IFormInputs;
 }>();
 </script>
