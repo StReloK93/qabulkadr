@@ -23,3 +23,10 @@ Route::controller(AuthController::class)
     Route::get('user', 'user');
     Route::post('logout', 'logout');
 });
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    // Route::apiResource('crud/employes', \App\Http\Controllers\EmployeController::class);
+    Route::apiResource('crud/organizations', \App\Http\Controllers\OrganizationController::class);
+    Route::apiResource('crud/causes', \App\Http\Controllers\CauseController::class);
+});

@@ -25,4 +25,9 @@ export default defineConfig({
          "@pages": path.resolve(__dirname, "./resources/js/pages"),
       },
    },
+     server: {
+    cors: true,
+    origin: 'http://192.168.14.92:5173',
+    port: 5173
+  }
 });

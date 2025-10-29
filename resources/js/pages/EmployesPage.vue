@@ -26,12 +26,9 @@
          <template #content>
             <DataTable
                :value="products"
-               table-style="min-width: 50rem"
+               table-style="min-width: 50rem;"
+               size="small"
             >
-               <Column
-                  field="id"
-                  header="ID"
-               />
                <Column
                   field="full_name"
                   header="F.I.SH"
@@ -87,7 +84,7 @@ function submit(values: unknown) {
    });
 }
 const loadingId = ref<number | null>(null);
-async function editEmploye(row: unknown) {
+async function editEmploye(row: { status: number }) {
    loadingId.value = row.status;
    try {
       // Masalan, API dan ma'lumot olish:

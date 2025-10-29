@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-class OrganizationController extends Controller
+use App\Models\Organization;
+class OrganizationController extends BaseCrudController
 {
-    //
+    protected string $model = Organization::class;
+
+    
 }

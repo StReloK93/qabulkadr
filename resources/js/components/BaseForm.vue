@@ -8,12 +8,14 @@
       class="flex flex-col gap-4 w-full h-full"
    >
       <div class="flex flex-col">
-         <BaseFormField
-            v-for="settingInput in props.settingInputs"
-            :field="settingInput"
-            :input-field="$form[settingInput.name]!"
-            :key="settingInput.name"
-         />
+         <template v-for="settingInput in props.settingInputs">
+            <BaseFormField
+               v-if="settingInput.is"
+               :field="settingInput"
+               :input-field="$form[settingInput.name]!"
+               :key="settingInput.name"
+            />
+         </template>
       </div>
       <div class="grow" />
       <main class="flex gap-3">

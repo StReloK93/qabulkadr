@@ -2,7 +2,7 @@
    <nav class="p-3 border-r border-r-surface-200 dark:border-r-surface-800 w-80 bg-white dark:bg-surface-950">
       <div class="flex items-center gap-3 mb-8 px-2">
          <img
-            src="http://127.0.0.1:8000/logo.svg"
+            :src="`/logo.svg`"
             class="w-12 dark:invert"
          >
          <span class="text-lg font-semibold text-surface-700 dark:text-surface-300 leading-3 font-[Trickster]"> QabulHR </span>
@@ -43,18 +43,28 @@
          </p>
 
          <RouterLink
+            v-for="page in crudPages"
             class="w-full"
-            :to="{ name: 'organizations-page' }"
+            :to="{ name: 'crud-page' , params: { entity: page.name } }"
+            :key="page.name"
          >
             <Button
                class="w-full justify-start! border border-surface-300"
                variant="text"
                severity="contrast"
-               label="Bo'limlar"
-               icon="pi pi-users"
+               :label="page.label"
+               :icon="page.icon"
                size="small"
             />
          </RouterLink>
       </div>
    </nav>
 </template>
+<script setup lang="ts">
+
+
+const crudPages = [
+   { name: 'organizations', label: "Bo'limlar", icon: 'pi pi-building' },
+   { name: 'causes', label: "Sabablar", icon: 'pi pi-list' },
+];
+</script>

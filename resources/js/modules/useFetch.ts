@@ -3,9 +3,9 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 type HttpMethod = "get" | "post" | "put" | "delete"; // Define allowed HTTP methods
 
-const wialonHttp = axios.create({
+const api = axios.create({
    baseURL: "/api",
-   headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` },
+   headers: { "Content-Type": "application/json"},
    withCredentials: false,
 });
 type FetchOptions<T = unknown> = {
@@ -26,7 +26,7 @@ function useFetch<T>({ url, formData = {}, method = "get", onLoad }: FetchOption
       error.value = null;
 
       try {
-         const response: AxiosResponse<T> = await wialonHttp[method](url, options); // No need to lowercase, method is already typed
+         const response: AxiosResponse<T> = await api[method](url, options); // No need to lowercase, method is already typed
          data.value = response.data;
       } catch (err) {
          error.value = err as object | null;
@@ -41,4 +41,4 @@ function useFetch<T>({ url, formData = {}, method = "get", onLoad }: FetchOption
    return { data, error, isLoading, fetchData, isFirstLoading };
 }
 
-export { useFetch, wialonHttp };
+export { useFetch, api };
