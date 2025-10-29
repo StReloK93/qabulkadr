@@ -64,7 +64,7 @@
 
 
 const crudPages = [
-   { name: 'organizations', label: "Bo'limlar", icon: 'pi pi-building' },
-   { name: 'causes', label: "Sabablar", icon: 'pi pi-list' },
+   { name: 'organizations', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },
+   { name: 'causes', label: "Asoslar ro'yhati", icon: 'pi pi-list' },
 ];
 </script>

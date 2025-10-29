@@ -4,7 +4,6 @@
       <template #content>
          <DataTable
             :value="items"
-            table-style="min-width: 50rem"
             size="small"
          >
             <Column
@@ -13,14 +12,13 @@
                :field="col.name"
                :header="col.placeholder"
             />
-            <Column
-               body-style="text-align:center;width:10rem"
-            >
+            <Column body-style="text-align:center;width:10rem">
                <template #body="{ data }">
                   <Button
                      icon="pi pi-pencil"
                      text
                      rounded
+                     :loading="props.editButtonLoading == data.id"
                      @click="emit('edit', data.id)"
                   />
                   <Button
@@ -28,7 +26,8 @@
                      text
                      rounded
                      severity="danger"
-                     @click="emit('delete', data.id)"
+                     :loading="props.deleteButtonLoading == data.id"
+                     @click="confirmDelete($event, data.id)"
                   />
                </template>
             </Column>
@@ -38,18 +37,46 @@
 </template>
 
 <script setup lang="ts">
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
+
+const confirmDelete = (event, id:number) => {
+   confirm.require({
+      target: event.currentTarget,
+      message: "Aniq o'chirmoqchimisiz (Malumot qayta tiklanmaydi)?",
+      icon: "pi pi-exclamation-triangle",
+      rejectProps: {
+         label: "Bekor qilish",
+         severity: "secondary",
+         outlined: true,
+      },
+      acceptProps: {
+         label: "O'chirish",
+         severity: "danger",
+      },
+      accept: () => {
+         emit("delete", id);
+      },
+      reject: () => {
+
+      },
+   });
+};
+
 const emit = defineEmits<{
    (e: "edit", id: number): void;
    (e: "delete", id: number): void;
 }>();
 
-defineProps<{
-   items: [];
+const props = defineProps<{
+   items: unknown[];
    columns: [
       {
          name: string;
          placeholder: string;
       }
    ];
+   editButtonLoading: number | null;
+   deleteButtonLoading: number | null;
 }>();
 </script>

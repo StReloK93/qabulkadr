@@ -9,103 +9,85 @@
          >
             <BaseForm
                :submit
-               :setting-inputs="config.inputs"
+               :setting-inputs="configInputs"
+               @on-submit="loadData"
                @close="openDrawer = false"
             />
          </Drawer>
          <Button
             icon="pi pi-plus"
-            severity="secondary"
             rounded
-            :loading="buttonLoading"
-            @click="openDrawer = true"
+            :loading="createButtonLoading"
+            @click="openCreateForm"
          />
       </nav>
 
       <CrudTable
          :items="items"
-         :columns="config.inputs"
-         @edit="openForm"
+         :columns="configColumns"
+         :edit-button-loading
+         :delete-button-loading
+         @edit="openEditForm"
          @delete="deleteItem"
       />
-
-      <!-- <CrudForm
-         v-if="showForm"
-         :columns="config.columns"
-         :model-value="selectedItem"
-         @close="showForm = false"
-         @submit="saveItem"
-      /> -->
    </div>
 </template>
 
 <script setup lang="ts">
 import BaseForm from "@/components/BaseForm.vue";
-import { onMounted, watch, ref, shallowRef } from "vue";
+import { onMounted, watch, ref, shallowRef, type Ref } from "vue";
 import { useRoute } from "vue-router";
-import { crudConfigs } from "@/configs/CrudConfig";
+import { crudConfigs, inputValues } from "@/configs/CrudConfig";
 import CrudRepo from "@/repositories/CrudRepo";
 import CrudTable from "@/components/CrudTable.vue";
-// import CrudForm from "@/components/CrudForm.vue";
 const route = useRoute();
-const entity = route.params.entity as string;
-const crudRepo = new CrudRepo(entity);
-const config = shallowRef(crudConfigs[entity]);
+const crudRepo = new CrudRepo(route.params.entity as string);
+let submit: (values: unknown) => Promise<void>;
 
-
-
-
+const configColumns = shallowRef(crudConfigs[crudRepo.endpoint].columns);
+const configInputs = shallowRef(crudConfigs[crudRepo.endpoint].inputs);
 
 const openDrawer = ref(false);
-const buttonLoading = ref(false);
+const createButtonLoading = ref(false);
+const editButtonLoading: Ref<null | number> = ref(null);
+const deleteButtonLoading: Ref<null | number> = ref(null);
 
-
-
-
-
-
-
-const items = ref([]);
-const showForm = ref(false);
-// const selectedItem = ref<number | null>(null);
-const loadingId = ref<number | null>(null);
+const items = ref<unknown[]>([]);
 
 async function loadData() {
    items.value = await crudRepo.index();
 }
 
-function openForm() {
-   // selectedItem.value = id;
-   showForm.value = true;
+async function openCreateForm() {
+   configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
+   submit = async (data) => await crudRepo.store(data);
+   openDrawer.value = true;
 }
 
+async function openEditForm(id) {
+   editButtonLoading.value = id;
+   submit = async (data) => await crudRepo.update(id, data);
+   const result = (await crudRepo.show(id)) as object;
+   configInputs.value = inputValues(crudConfigs[crudRepo.endpoint].inputs, result);
 
-async function submit(){
-
+   openDrawer.value = true;
+   editButtonLoading.value = null;
 }
-
-// async function saveItem(data: any) {
-//    if (data.id) await crudRepository.update(config.endpoint, data.id, data);
-//    else await crudRepository.store(config.endpoint, data);
-//    showForm.value = false;
-//    await loadData();
-// }
 
 async function deleteItem(id: number) {
-   if (confirm("Rostdan ham o‘chirmoqchimisiz?")) {
-      loadingId.value = id;
-      await crudRepo.delete(id);
-      loadingId.value = null;
-      await loadData();
-   }
+   deleteButtonLoading.value = id;
+   await crudRepo.delete(id);
+   deleteButtonLoading.value = null;
+   await loadData();
 }
 
 watch(
    () => route.params.entity,
-   async (entity) => {
-      crudRepo.endpoint = entity as string;
+   async (currentEntity) => {
+      crudRepo.endpoint = currentEntity as string;
       await loadData();
-      config.value = crudConfigs[crudRepo.endpoint];
+      configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
+      configColumns.value = crudConfigs[crudRepo.endpoint].columns;
    }
 );
 

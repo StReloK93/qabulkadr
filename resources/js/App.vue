@@ -1,4 +1,5 @@
 <template>
+   <ConfirmPopup />
    <SplashScreen v-if="UserStore.initialized == false" />
    <RouterView
       v-else

@@ -13,13 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::create([
-        //     'name' => 'Shoxa Admin',
-        //     'login' => 'admin',
-        //     'password' => Hash::make('zzzz1111*'),
-        // ]);
+        \App\Models\User::create([
+            'name' => 'Shoxa Admin',
+            'login' => 'admin',
+            'password' => Hash::make('zzzz1111*'),
+        ]);
 
 
         \App\Models\Organization::create([
@@ -33,16 +31,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        // \App\Models\Cause::create([
-        //     'name' => 'Qorboboni jiyani',
-        // ]);
+        \App\Models\Cause::create([
+            'name' => 'Qorboboni jiyani',
+        ]);
 
-        // \App\Models\Cause::create([
-        //     'name' => 'Tanishi bor',
-        // ]);
+        \App\Models\Cause::create([
+            'name' => 'Tanishi bor',
+        ]);
 
-        // \App\Models\Cause::create([
-        //     'name' => 'Kallasi bigiz',
-        // ]);
+        \App\Models\Cause::create([
+            'name' => 'Kallasi bigiz',
+        ]);
     }
 }

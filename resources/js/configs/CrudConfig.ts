@@ -1,10 +1,14 @@
-import { InputText, DatePicker } from "primevue";
+import type { IFormInputs } from "@/Interfaces";
+import { InputText } from "primevue";
 import * as yup from "yup";
 
 export const crudConfigs = {
    organizations: {
       title: "Bo'limlar",
-      inputs: [
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
          {
             is: null,
             name: "id",
@@ -30,11 +34,10 @@ export const crudConfigs = {
    },
    causes: {
       title: "Sabablar",
-      columns: [
-         { field: "id", label: "ID", readonly: true },
-         { field: "name", label: "Nomi", required: true },
-      ],
-      inputs: [
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
          {
             is: null,
             name: "id",
@@ -52,3 +55,7 @@ export const crudConfigs = {
       ],
    },
 };
+
+export function inputValues(inputs: IFormInputs[], values: object) {
+   return inputs.map((item) => ({ ...item, value: values[item.name] }));
+}

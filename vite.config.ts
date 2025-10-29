@@ -4,8 +4,7 @@ import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import Components from "unplugin-vue-components/vite";
 import { PrimeVueResolver } from "@primevue/auto-import-resolver";
-import path from 'path'
-
+import path from "path";
 
 export default defineConfig({
    plugins: [
@@ -25,9 +24,9 @@ export default defineConfig({
          "@pages": path.resolve(__dirname, "./resources/js/pages"),
       },
    },
-     server: {
-    cors: true,
-    origin: 'http://192.168.14.92:5173',
-    port: 5173
-  }
+   server: {
+      cors: true,
+      //  origin: 'http://192.168.14.92:5173',
+      port: 5173,
+   },
 });

@@ -30,7 +30,6 @@
          <Button
             type="submit"
             size="small"
-            severity="contrast"
             label="Saqlash"
             :fluid="true"
             :loading="buttonLoader"
@@ -48,7 +47,7 @@ import { reactive, ref } from "vue";
 import type { IFormInputs } from "@/Interfaces";
 const instance = ref();
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "onSubmit"]);
 
 const buttonLoader = ref(false);
 
@@ -58,13 +57,14 @@ const props = defineProps<{
 }>();
 
 const onFormSubmit = async (formEvent: FormSubmitEvent) => {
-   console.log(formEvent);
-
    if (formEvent.valid) {
       buttonLoader.value = true;
       await props.submit(formEvent.values).finally(() => {
          buttonLoader.value = false;
       });
+
+      emit('onSubmit')
+      emit('close')
    }
 };
 

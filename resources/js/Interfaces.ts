@@ -12,6 +12,6 @@ export interface IFormInputs {
    placeholder: string;
    type: string;
    schema: yup.AnySchema;
-   value?: string | number;
+   value?: string | number | null;
    attr?: Record<string, string | number | boolean>;
 }
