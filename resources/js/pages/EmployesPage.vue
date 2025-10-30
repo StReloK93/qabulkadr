@@ -15,10 +15,9 @@
          </Drawer>
          <Button
             icon="pi pi-plus"
-            severity="secondary"
             rounded
             :loading="buttonLoading"
-            @click="openDrawer = true"
+            @click="onOpenDrawer"
          />
       </nav>
       <Card class="shadow-none! border border-surface-200 dark:border-surface-800">
@@ -69,10 +68,23 @@
 
 <script setup lang="ts">
 import BaseForm from "@/components/BaseForm.vue";
-import { useEmployeInputs } from "@/components/employes/EmployeInputs";
-import { onMounted, ref } from "vue";
+import { useEmployeInputs } from "@/configs/EmployeInputs";
+import { ref } from "vue";
 import type { IFormInputs } from "@/Interfaces";
 const openDrawer = ref(false);
+
+async function onOpenDrawer() {
+   try {
+      buttonLoading.value = true;
+      employeInputs = await useEmployeInputs();
+      openDrawer.value = true;
+   } catch (error) {
+      console.log(error);
+   } finally {
+      buttonLoading.value = false;
+   }
+}
+
 let employeInputs: IFormInputs[] = [];
 const buttonLoading = ref(false);
 function submit(values: unknown) {
@@ -95,16 +107,6 @@ async function editEmploye(row: { status: number }) {
    }
 }
 
-onMounted(async () => {
-   buttonLoading.value = true;
-   try {
-      employeInputs = await useEmployeInputs();
-   } catch (error) {
-      console.error("Error fetching employee inputs:", error);
-   } finally {
-      buttonLoading.value = false;
-   }
-});
 // Fish
 // tugilgan sana
 // malumoti

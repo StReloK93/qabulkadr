@@ -1,4 +1,4 @@
-import { api } from "@/modules/useFetch";
+import { api } from "@/helpers/useFetch";
 import type { IUser } from "@/Interfaces";
 async function login(formData: { login: string; password: string }) {
    const result = await api.post<{ user: IUser; type: "Bearer"; token: string }>(

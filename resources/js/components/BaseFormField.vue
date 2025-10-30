@@ -1,22 +1,31 @@
 <template>
    <div class="mb-3">
+      <main :class="{'flex items-center gap-2': props.field.withLabel}">
+         <component
+            :is="props.field.is"
+            :name="props.field.name"
+            :placeholder="props.field.placeholder"
+            v-bind="props.field.attr"
+            fluid
+            :input-id="props.field.name"
+            size="small"
+         />
+         <label
+            v-if="props.field.withLabel"
+            :for="props.field.name"
+            class="text-sm text-surface-500"
+         >
+            {{ props.field.placeholder }}
+         </label>
+      </main>
       <component
-         :is="props.field.is"
-         :name="props.field.name"
-         :type="props.field.type"
-         :placeholder="props.field.placeholder"
-         v-bind="props.field.attr"
-         fluid
-         size="small"
-      />
-      <component
-         :is="Message"
          v-if="props.inputField?.invalid"
+         :is="Message"
          severity="error"
          size="small"
          variant="simple"
       >
-         {{ props.inputField.error.message }}
+         {{ props.inputField?.error.message }}
       </component>
    </div>
 </template>

@@ -10,46 +10,85 @@ export const crudConfigs = {
       },
       inputs: <IFormInputs[]>[
          {
-            is: null,
-            name: "id",
-            placeholder: "ID",
-            type: null,
-            schema: null,
-         },
-         {
             is: InputText,
             name: "name",
             placeholder: "Nomi",
-            type: "text",
             schema: yup.string().required("To'ldiring"),
          },
          {
             is: InputText,
             name: "shortname",
             placeholder: "Qisqa nomi",
-            type: "text",
             schema: yup.string(),
          },
       ],
    },
    causes: {
-      title: "Sabablar",
+      title: "Asoslar",
       get columns() {
          return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
       },
       inputs: <IFormInputs[]>[
          {
-            is: null,
-            name: "id",
-            placeholder: "ID",
-            type: null,
-            schema: null,
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
          },
+      ],
+   },
+   work_environment: {
+      title: "Mehnat sharoitlari",
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
          {
             is: InputText,
             name: "name",
             placeholder: "Nomi",
-            type: "text",
+            schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
+   education_level: {
+      title: "Ta'lim darajasi",
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
+   disability_type: {
+      title: "Nogironlik turlari",
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
+   quot_type: {
+      title: "Kvota turlari",
+      get columns() {
+         return this.inputs.map(({ name, placeholder }) => ({ name, placeholder }));
+      },
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
             schema: yup.string().required("To'ldiring"),
          },
       ],

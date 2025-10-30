@@ -1,4 +1,4 @@
-import { api } from "@/modules/useFetch";
+import { api } from "@/helpers/useFetch";
 export default class CrudRepo {
    endpoint: string;
    constructor(endpoint: string) {

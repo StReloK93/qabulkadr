@@ -1,11 +1,12 @@
 <template>
-   <div class="p-5">
-      <nav class="text-right mb-4">
+   <div>
+      <nav class="flex justify-end mb-4">
          <Drawer
             :show-close-icon="false"
             position="right"
             v-model:visible="openDrawer"
-            header="Yangi xodim qo'shish"
+            :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
+            @hide="selectedRow = null"
          >
             <BaseForm
                :submit
@@ -14,21 +15,34 @@
                @close="openDrawer = false"
             />
          </Drawer>
-         <Button
-            icon="pi pi-plus"
-            rounded
-            :loading="createButtonLoading"
-            @click="openCreateForm"
-         />
+         <div>
+            <Button
+               v-if="configInputs"
+               icon="pi pi-plus"
+               rounded
+               :loading="createButtonLoading"
+               @click="openCreateForm"
+            />
+            <Skeleton
+               v-else
+               shape="circle"
+               size="40px"
+            />
+         </div>
       </nav>
-
       <CrudTable
+         v-if="configColumns"
          :items="items"
          :columns="configColumns"
          :edit-button-loading
          :delete-button-loading
          @edit="openEditForm"
          @delete="deleteItem"
+      />
+      <Skeleton
+         v-else
+         width="100%"
+         height="300px"
       />
    </div>
 </template>
@@ -51,12 +65,15 @@ const openDrawer = ref(false);
 const createButtonLoading = ref(false);
 const editButtonLoading: Ref<null | number> = ref(null);
 const deleteButtonLoading: Ref<null | number> = ref(null);
+const selectedRow: Ref<null | number> = ref(null);
 
-const items = ref<unknown[]>([]);
+const items: Ref<unknown[]> = ref([]);
 
 async function loadData() {
    items.value = await crudRepo.index();
 }
+
+
 
 async function openCreateForm() {
    configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
@@ -66,6 +83,7 @@ async function openCreateForm() {
 
 async function openEditForm(id) {
    editButtonLoading.value = id;
+   selectedRow.value = id
    submit = async (data) => await crudRepo.update(id, data);
    const result = (await crudRepo.show(id)) as object;
    configInputs.value = inputValues(crudConfigs[crudRepo.endpoint].inputs, result);
@@ -84,6 +102,8 @@ async function deleteItem(id: number) {
 watch(
    () => route.params.entity,
    async (currentEntity) => {
+      configInputs.value = null
+      configColumns.value = null
       crudRepo.endpoint = currentEntity as string;
       await loadData();
       configInputs.value = crudConfigs[crudRepo.endpoint].inputs;

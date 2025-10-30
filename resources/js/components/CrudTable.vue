@@ -7,6 +7,11 @@
             size="small"
          >
             <Column
+               body-style="text-align:center;width:2rem"
+               field="id"
+               header="ID"
+            />
+            <Column
                v-for="col in columns"
                :key="col.name"
                :field="col.name"
@@ -40,10 +45,10 @@
 import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 
-const confirmDelete = (event, id:number) => {
+const confirmDelete = (event, id: number) => {
    confirm.require({
       target: event.currentTarget,
-      message: "Aniq o'chirmoqchimisiz (Malumot qayta tiklanmaydi)?",
+      message: "Aniq o'chirmoqchimisiz - Malumot qayta tiklanmaydi?",
       icon: "pi pi-exclamation-triangle",
       rejectProps: {
          label: "Bekor qilish",
@@ -56,9 +61,6 @@ const confirmDelete = (event, id:number) => {
       },
       accept: () => {
          emit("delete", id);
-      },
-      reject: () => {
-
       },
    });
 };

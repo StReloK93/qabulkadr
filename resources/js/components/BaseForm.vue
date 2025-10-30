@@ -8,17 +8,15 @@
       class="flex flex-col gap-4 w-full h-full"
    >
       <div class="flex flex-col">
-         <template v-for="settingInput in props.settingInputs">
-            <BaseFormField
-               v-if="settingInput.is"
-               :field="settingInput"
-               :input-field="$form[settingInput.name]!"
-               :key="settingInput.name"
-            />
-         </template>
+         <BaseFormField
+            v-for="settingInput in props.settingInputs"
+            :field="settingInput"
+            :input-field="$form[settingInput.name]!"
+            :key="settingInput.name"
+         />
       </div>
       <div class="grow" />
-      <main class="flex gap-3">
+      <main class="flex gap-3 pb-4 -mb-4">
          <Button
             type="button"
             size="small"
@@ -63,8 +61,8 @@ const onFormSubmit = async (formEvent: FormSubmitEvent) => {
          buttonLoader.value = false;
       });
 
-      emit('onSubmit')
-      emit('close')
+      emit("onSubmit");
+      emit("close");
    }
 };
 

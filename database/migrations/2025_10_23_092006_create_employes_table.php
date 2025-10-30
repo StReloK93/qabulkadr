@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('profession');
             $table->text('phone');
             $table->integer('status');
+            $table->boolean('company')->default(false);
             $table->timestamps();
         });
     }

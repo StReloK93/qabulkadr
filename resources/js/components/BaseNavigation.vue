@@ -66,5 +66,9 @@
 const crudPages = [
    { name: 'organizations', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },
    { name: 'causes', label: "Asoslar ro'yhati", icon: 'pi pi-list' },
+   { name: 'work_environment', label: "Mehnat sharoitlari", icon: 'pi pi-bullseye' },
+   { name: 'education_level', label: "Ta'lim darajasi", icon: 'pi pi-graduation-cap' },
+   { name: 'disability_type', label: "Nogironlik turlari", icon: 'pi pi-clone' },
+   { name: 'quot_type', label: "Kvota turlari", icon: 'pi pi-bookmark' },
 ];
 </script>
