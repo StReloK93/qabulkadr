@@ -1,5 +1,5 @@
 <template>
-   <nav class="p-3 border-r border-r-surface-200 dark:border-r-surface-800 w-80 bg-white dark:bg-surface-950">
+   <nav class="p-3 border-r border-r-surface-200 dark:border-r-surface-800 w-72 bg-white dark:bg-surface-950">
       <div class="flex items-center gap-3 mb-8 px-2">
          <img
             :src="`/logo.svg`"
@@ -16,9 +16,9 @@
             :to="{ name: 'dashboard-page' }"
          >
             <Button
+               :severity="route.name == 'dashboard-page' ? 'primary': 'contrast'"
                class="w-full justify-start! border border-surface-300"
                variant="text"
-               severity="contrast"
                label="Dashboard"
                icon="pi pi-home"
                size="small"
@@ -29,9 +29,9 @@
             :to="{ name: 'employes-page' }"
          >
             <Button
+               :severity="route.name == 'employes-page' ? 'primary': 'contrast'"
                class="w-full justify-start! border border-surface-300"
                variant="text"
-               severity="contrast"
                label="Xodimlar"
                icon="pi pi-users"
                size="small"
@@ -41,7 +41,6 @@
          <p class="text-xs text-surface-600 dark:text-surface-400 px-3">
             Qo'llanmalar
          </p>
-
          <RouterLink
             v-for="page in crudPages"
             class="w-full"
@@ -51,7 +50,7 @@
             <Button
                class="w-full justify-start! border border-surface-300"
                variant="text"
-               severity="contrast"
+               :severity="route.params.entity == page.name ? 'primary': 'contrast'"
                :label="page.label"
                :icon="page.icon"
                size="small"
@@ -61,7 +60,9 @@
    </nav>
 </template>
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 
+const route = useRoute()
 
 const crudPages = [
    { name: 'organizations', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },

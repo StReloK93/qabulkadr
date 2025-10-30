@@ -24,7 +24,7 @@
          <template #header />
          <template #content>
             <DataTable
-               :value="products"
+               :value="employes"
                table-style="min-width: 50rem;"
                size="small"
             >
@@ -67,11 +67,19 @@
 </template>
 
 <script setup lang="ts">
+import CrudRepo from "@/repositories/CrudRepo";
 import BaseForm from "@/components/BaseForm.vue";
 import { useEmployeInputs } from "@/configs/EmployeInputs";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import type { IFormInputs } from "@/Interfaces";
 const openDrawer = ref(false);
+const employes: Ref<unknown[] | null> = ref(null);
+const crudRepo = new CrudRepo("employes");
+
+async function getEmployes() {
+   employes.value = await crudRepo.index();
+}
+getEmployes();
 
 async function onOpenDrawer() {
    try {
@@ -87,13 +95,8 @@ async function onOpenDrawer() {
 
 let employeInputs: IFormInputs[] = [];
 const buttonLoading = ref(false);
-function submit(values: unknown) {
-   return new Promise<void>((resolve) => {
-      setTimeout(() => {
-         console.log("Form submitted with values:", values);
-         resolve();
-      }, 1000);
-   });
+async function submit(values: unknown) {
+   await crudRepo.store(values);
 }
 const loadingId = ref<number | null>(null);
 async function editEmploye(row: { status: number }) {
@@ -106,39 +109,4 @@ async function editEmploye(row: { status: number }) {
       loadingId.value = null;
    }
 }
-
-// Fish
-// tugilgan sana
-// malumoti
-// Oliy uquv yurti
-// --
-// Ishga olish asosi (sababi)
-// ish joyi (bo'limi)
-// sex nomi
-// lavozimi
-// mehnat sharoitiу
-//
-// telefon raqami
-
-const products = [
-   {
-      full_name: "P1001",
-      organization: "Product 1",
-      profession: "Category A",
-      status: 10,
-   },
-   {
-      full_name: "P1002",
-      organization: "Product 2",
-      profession: "Category B",
-      status: 20,
-   },
-   {
-      full_name: "P1003",
-      organization: "Product 3",
-      profession: "Category A",
-      status: 15,
-   },
-   { full_name: "P1004", organization: "Product 4", profession: "Category C", status: 5 },
-];
 </script>

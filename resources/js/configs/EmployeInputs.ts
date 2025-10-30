@@ -85,6 +85,12 @@ export async function useEmployeInputs() {
       },
       {
          is: InputText,
+         name: "division",
+         placeholder: "Uchastka nomi",
+         schema: yup.string(),
+      },
+      {
+         is: InputText,
          name: "profession",
          placeholder: "Lavozimi",
          schema: yup.string().required("To'ldiring"),

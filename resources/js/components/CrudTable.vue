@@ -1,44 +1,44 @@
 <template>
-   <Card class="shadow-none! border border-surface-200 dark:border-surface-800">
-      <template #header />
-      <template #content>
-         <DataTable
-            :value="items"
-            size="small"
-         >
-            <Column
-               body-style="text-align:center;width:2rem"
-               field="id"
-               header="ID"
-            />
-            <Column
-               v-for="col in columns"
-               :key="col.name"
-               :field="col.name"
-               :header="col.placeholder"
-            />
-            <Column body-style="text-align:center;width:10rem">
-               <template #body="{ data }">
-                  <Button
-                     icon="pi pi-pencil"
-                     text
-                     rounded
-                     :loading="props.editButtonLoading == data.id"
-                     @click="emit('edit', data.id)"
-                  />
-                  <Button
-                     icon="pi pi-trash"
-                     text
-                     rounded
-                     severity="danger"
-                     :loading="props.deleteButtonLoading == data.id"
-                     @click="confirmDelete($event, data.id)"
-                  />
-               </template>
-            </Column>
-         </DataTable>
-      </template>
-   </Card>
+   <main class="p-1">
+      <DataTable
+         class="border border-surface-200 dark:border-surface-800 rounded-xl overflow-hidden no-last-border"
+         :value="items"
+         size="small"
+      >
+         <Column
+            body-style="text-align:center;width:5rem"
+            field="id"
+            header="ID"
+            header-class="px-8!"
+         />
+         <Column
+            v-for="col in columns"
+            :key="col.name"
+            :field="col.name"
+            :header="col.placeholder"
+         />
+         <Column body-style="text-align:center;width:6rem">
+            <template #body="{ data }">
+               <Button
+                  icon="pi pi-pencil"
+                  text
+                  severity="info"
+                  rounded
+                  :loading="props.editButtonLoading == data.id"
+                  @click="emit('edit', data.id)"
+               />
+               <Button
+                  icon="pi pi-trash"
+                  text
+                  rounded
+                  severity="danger"
+                  :loading="props.deleteButtonLoading == data.id"
+                  @click="confirmDelete($event, data.id)"
+               />
+            </template>
+         </Column>
+      </DataTable>
+   </main>
 </template>
 
 <script setup lang="ts">
@@ -71,7 +71,7 @@ const emit = defineEmits<{
 }>();
 
 const props = defineProps<{
-   items: unknown[];
+   items: unknown[] | null;
    columns: [
       {
          name: string;
@@ -82,3 +82,8 @@ const props = defineProps<{
    deleteButtonLoading: number | null;
 }>();
 </script>
+<style>
+.no-last-border .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+</style>

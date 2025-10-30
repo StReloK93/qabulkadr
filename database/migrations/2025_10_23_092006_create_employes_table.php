@@ -15,15 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->date('birth_date');
-            $table->integer('education');
+            $table->integer('education_level_id');
             $table->text('university');
             $table->integer('cause_id');
             
             $table->integer('organization_id');
+            $table->text('division');
             $table->text('profession');
+            $table->text('work_environment_id');
             $table->text('phone');
-            $table->integer('status');
             $table->boolean('company')->default(false);
+
+            
+            $table->integer('disability_type_id')->nullable()->default(null);
+            $table->integer('quot_type_id')->nullable()->default(null);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

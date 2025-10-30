@@ -42,5 +42,54 @@ class DatabaseSeeder extends Seeder
         \App\Models\Cause::create([
             'name' => 'Kallasi bigiz',
         ]);
+
+
+        \App\Models\WorkEnvironment::insert([
+            [
+                'name' => 'Yengil',
+            ],
+            [
+                'name' => "Og'ir",
+            ],
+            [
+                'name' => "O'ta Og'ir",
+            ]
+        ]);
+
+        \App\Models\EducationLevel::insert([
+            [
+                'name' => "O'rta",
+            ],
+            [
+                'name' => "O'rta maxsus",
+            ],
+            [
+                'name' => "Oliy",
+            ]
+        ]);
+
+        \App\Models\DisabilityType::insert([
+            [
+                'name' => "1 - Nogironlik",
+            ],
+            [
+                'name' => "2 - Nogironlik",
+            ],
+            [
+                'name' => "3 - Nogironlik",
+            ]
+        ]);
+
+        \App\Models\QuotType::insert([
+            [
+                'name' => "1 - Kvota",
+            ],
+            [
+                'name' => "2 - Kvota",
+            ],
+            [
+                'name' => "3 - Kvota",
+            ]
+        ]);
     }
 }

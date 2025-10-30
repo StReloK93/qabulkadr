@@ -1,46 +1,72 @@
 <template>
    <div>
-      <nav class="flex justify-end mb-4">
-         <Drawer
-            :show-close-icon="false"
-            position="right"
-            v-model:visible="openDrawer"
-            :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
-            @hide="selectedRow = null"
-         >
-            <BaseForm
-               :submit
-               :setting-inputs="configInputs"
-               @on-submit="loadData"
-               @close="openDrawer = false"
+      <Breadcrumb
+         :home="{
+            label: `Qo'llanmalar`,
+         }"
+         :model="[{label: crudConfigs[crudRepo.endpoint].title }]"
+         class="bg-transparent!"
+      >
+         <template #separator>
+            <i class="pi pi-angle-right" />
+         </template>
+      </Breadcrumb>
+      <Card
+         v-if="configColumns && items != null"
+         class="shadow-none! rounded-2xl! border border-surface-200 dark:border-surface-800 overflow-hidden"
+      >
+         <template #header>
+            <nav
+               class="flex justify-between items-center px-8 py-3 border-b border-surface-200 dark:border-surface-800"
+            >
+               <span class="font-semibold">
+                  {{ crudConfigs[crudRepo.endpoint].title }}
+               </span>
+               <Drawer
+                  :show-close-icon="false"
+                  position="right"
+                  v-model:visible="openDrawer"
+                  :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
+                  @hide="selectedRow = null"
+               >
+                  <BaseForm
+                     :submit
+                     :setting-inputs="configInputs"
+                     @on-submit="loadData"
+                     @close="openDrawer = false"
+                  />
+               </Drawer>
+               <div>
+                  <Button
+                     v-if="configInputs && items != null"
+                     icon="pi pi-plus"
+                     rounded
+                     severity="secondary"
+                     :loading="createButtonLoading"
+                     @click="openCreateForm"
+                  />
+                  <Skeleton
+                     v-else
+                     shape="circle"
+                     size="40px"
+                  />
+               </div>
+            </nav>
+         </template>
+         <template #content>
+            <CrudTable
+               :items="items"
+               :columns="configColumns"
+               :edit-button-loading
+               :delete-button-loading
+               @edit="openEditForm"
+               @delete="deleteItem"
             />
-         </Drawer>
-         <div>
-            <Button
-               v-if="configInputs"
-               icon="pi pi-plus"
-               rounded
-               :loading="createButtonLoading"
-               @click="openCreateForm"
-            />
-            <Skeleton
-               v-else
-               shape="circle"
-               size="40px"
-            />
-         </div>
-      </nav>
-      <CrudTable
-         v-if="configColumns"
-         :items="items"
-         :columns="configColumns"
-         :edit-button-loading
-         :delete-button-loading
-         @edit="openEditForm"
-         @delete="deleteItem"
-      />
+         </template>
+      </Card>
       <Skeleton
          v-else
+         border-radius="15px"
          width="100%"
          height="300px"
       />
@@ -67,13 +93,11 @@ const editButtonLoading: Ref<null | number> = ref(null);
 const deleteButtonLoading: Ref<null | number> = ref(null);
 const selectedRow: Ref<null | number> = ref(null);
 
-const items: Ref<unknown[]> = ref([]);
+const items: Ref<unknown[] | null> = ref(null);
 
 async function loadData() {
    items.value = await crudRepo.index();
 }
-
-
 
 async function openCreateForm() {
    configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
@@ -83,7 +107,7 @@ async function openCreateForm() {
 
 async function openEditForm(id) {
    editButtonLoading.value = id;
-   selectedRow.value = id
+   selectedRow.value = id;
    submit = async (data) => await crudRepo.update(id, data);
    const result = (await crudRepo.show(id)) as object;
    configInputs.value = inputValues(crudConfigs[crudRepo.endpoint].inputs, result);
@@ -102,8 +126,8 @@ async function deleteItem(id: number) {
 watch(
    () => route.params.entity,
    async (currentEntity) => {
-      configInputs.value = null
-      configColumns.value = null
+      configInputs.value = null;
+      configColumns.value = null;
       crudRepo.endpoint = currentEntity as string;
       await loadData();
       configInputs.value = crudConfigs[crudRepo.endpoint].inputs;

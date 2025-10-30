@@ -1,19 +1,27 @@
 <template>
    <div class="mb-3">
-      <main :class="{'flex items-center gap-2': props.field.withLabel}">
-         <component
-            :is="props.field.is"
-            :name="props.field.name"
-            :placeholder="props.field.placeholder"
-            v-bind="props.field.attr"
-            fluid
-            :input-id="props.field.name"
-            size="small"
-         />
+      <main :class="{'flex items-center gap-2 w-full': props.field.withLabel}">
+         <FloatLabel variant="on">
+            <component
+               :is="props.field.is"
+               :name="props.field.name"
+               v-bind="props.field.attr"
+               fluid
+               :input-id="props.field.name"
+               size="small"
+            />
+            <label
+               v-if="props.field.withLabel != true"
+               :for="props.field.name"
+               class="text-sm text-surface-500"
+            >
+               {{ props.field.placeholder }}
+            </label>
+         </FloatLabel>
          <label
             v-if="props.field.withLabel"
             :for="props.field.name"
-            class="text-sm text-surface-500"
+            class="text-sm text-surface-500 relative top-1"
          >
             {{ props.field.placeholder }}
          </label>

@@ -5,7 +5,7 @@
       :initial-values
       :resolver
       @submit="onFormSubmit"
-      class="flex flex-col gap-4 w-full h-full"
+      class="flex flex-col gap-4 w-full h-full pt-2"
    >
       <div class="flex flex-col">
          <BaseFormField
