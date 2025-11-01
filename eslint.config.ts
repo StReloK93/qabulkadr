@@ -19,7 +19,7 @@ export default defineConfig([
       },
       rules: {
          "vue/html-indent": ["error", 3], // ⬅️ shu yerda yoziladi
-         "@typescript-eslint/no-explicit-any": "off",
+         "@typescript-eslint/no-explicit-any": "on",
       },
    },
    tseslint.configs.recommended,

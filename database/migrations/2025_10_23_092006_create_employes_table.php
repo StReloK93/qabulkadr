@@ -20,10 +20,10 @@ return new class extends Migration
             $table->integer('cause_id');
             
             $table->integer('organization_id');
-            $table->text('division');
+            $table->text('division')->nullable();
             $table->text('profession');
             $table->text('work_environment_id');
-            $table->text('phone');
+            $table->text('phone')->nullable();
             $table->boolean('company')->default(false);
 
             

@@ -4,7 +4,7 @@
          :home="{
             label: `Qo'llanmalar`,
          }"
-         :model="[{label: crudConfigs[crudRepo.endpoint].title }]"
+         :model="[{ label: crudConfigs[crudRepo.endpoint].title }]"
          class="bg-transparent!"
       >
          <template #separator>
@@ -45,11 +45,7 @@
                      :loading="createButtonLoading"
                      @click="openCreateForm"
                   />
-                  <Skeleton
-                     v-else
-                     shape="circle"
-                     size="40px"
-                  />
+                  <Skeleton v-else shape="circle" size="40px" />
                </div>
             </nav>
          </template>
@@ -64,12 +60,7 @@
             />
          </template>
       </Card>
-      <Skeleton
-         v-else
-         border-radius="15px"
-         width="100%"
-         height="300px"
-      />
+      <Skeleton v-else border-radius="15px" width="100%" height="300px" />
    </div>
 </template>
 
@@ -83,6 +74,12 @@ import CrudTable from "@/components/CrudTable.vue";
 const route = useRoute();
 const crudRepo = new CrudRepo(route.params.entity as string);
 let submit: (values: unknown) => Promise<void>;
+
+// async function columns() {
+//    return await this.inputs().map(({ name, placeholder }) => ({ name, placeholder }));
+// }
+
+
 
 const configColumns = shallowRef(crudConfigs[crudRepo.endpoint].columns);
 const configInputs = shallowRef(crudConfigs[crudRepo.endpoint].inputs);

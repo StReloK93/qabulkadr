@@ -29,11 +29,15 @@
                size="small"
             >
                <Column
+                  field="id"
+                  header="#"
+               />
+               <Column
                   field="full_name"
                   header="F.I.SH"
                />
                <Column
-                  field="organization"
+                  field="organization.shortname"
                   header="Bo'lim"
                />
                <Column
@@ -92,6 +96,7 @@ async function onOpenDrawer() {
       buttonLoading.value = false;
    }
 }
+
 
 let employeInputs: IFormInputs[] = [];
 const buttonLoading = ref(false);
