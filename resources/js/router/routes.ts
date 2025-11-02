@@ -13,11 +13,6 @@ const routes: RouteRecordRaw[] = [
             component: () => import("@pages/DashboardPage.vue"),
          },
          {
-            path: "employes",
-            name: "employes-page",
-            component: () => import("@pages/EmployesPage.vue"),
-         },
-         {
             path: "crud/:entity",
             props: true,
             name: "crud-page",

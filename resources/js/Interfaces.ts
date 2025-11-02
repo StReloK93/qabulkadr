@@ -13,7 +13,10 @@ export interface IFormInputs {
    schema: yup.AnySchema;
    value?: string | number | null | boolean;
    withLabel?: boolean;
+   notColumn?: boolean;
+   columnName?: string;
    attr?: Record<string, string | number | boolean | { label: string; value: number }[]>;
+   generateAttributes?: () => Promise<void>;
 }
 
 export interface IOrganization {

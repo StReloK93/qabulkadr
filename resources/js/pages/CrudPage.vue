@@ -2,7 +2,7 @@
    <div>
       <Breadcrumb
          :home="{
-            label: `Qo'llanmalar`,
+            label: crudConfigs[crudRepo.endpoint].parentTitle,
          }"
          :model="[{ label: crudConfigs[crudRepo.endpoint].title }]"
          class="bg-transparent!"
@@ -38,14 +38,12 @@
                </Drawer>
                <div>
                   <Button
-                     v-if="configInputs && items != null"
                      icon="pi pi-plus"
                      rounded
                      severity="secondary"
                      :loading="createButtonLoading"
                      @click="openCreateForm"
                   />
-                  <Skeleton v-else shape="circle" size="40px" />
                </div>
             </nav>
          </template>
@@ -68,21 +66,16 @@
 import BaseForm from "@/components/BaseForm.vue";
 import { onMounted, watch, ref, shallowRef, type Ref } from "vue";
 import { useRoute } from "vue-router";
-import { crudConfigs, inputValues } from "@/configs/CrudConfig";
+import { crudConfigs, inputValues, columns, generateAttributes } from "@/configs/CrudConfig";
 import CrudRepo from "@/repositories/CrudRepo";
 import CrudTable from "@/components/CrudTable.vue";
+
 const route = useRoute();
 const crudRepo = new CrudRepo(route.params.entity as string);
 let submit: (values: unknown) => Promise<void>;
 
-// async function columns() {
-//    return await this.inputs().map(({ name, placeholder }) => ({ name, placeholder }));
-// }
-
-
-
-const configColumns = shallowRef(crudConfigs[crudRepo.endpoint].columns);
-const configInputs = shallowRef(crudConfigs[crudRepo.endpoint].inputs);
+const configColumns: Ref<any> = shallowRef(columns(crudConfigs[crudRepo.endpoint].inputs));
+const configInputs: Ref<any> = shallowRef(null);
 
 const openDrawer = ref(false);
 const createButtonLoading = ref(false);
@@ -93,21 +86,36 @@ const selectedRow: Ref<null | number> = ref(null);
 const items: Ref<unknown[] | null> = ref(null);
 
 async function loadData() {
-   items.value = await crudRepo.index();
+   try {
+      items.value = await crudRepo.index();
+   } catch (error) {
+      console.error("Xatolik:", error);
+      items.value = [];
+   }
 }
 
 async function openCreateForm() {
-   configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
+   createButtonLoading.value = true;
    submit = async (data) => await crudRepo.store(data);
+
+   const fullInputs = await generateAttributes(crudConfigs[crudRepo.endpoint].inputs);
+
+   configInputs.value = fullInputs;
    openDrawer.value = true;
+   createButtonLoading.value = false;
 }
 
 async function openEditForm(id) {
+   submit = async (data) => await crudRepo.update(id, data);
    editButtonLoading.value = id;
    selectedRow.value = id;
-   submit = async (data) => await crudRepo.update(id, data);
+
    const result = (await crudRepo.show(id)) as object;
-   configInputs.value = inputValues(crudConfigs[crudRepo.endpoint].inputs, result);
+   const fullInputs = await generateAttributes(crudConfigs[crudRepo.endpoint].inputs);
+
+   configInputs.value = inputValues(fullInputs, result);
+
+   console.log(configInputs.value);
 
    openDrawer.value = true;
    editButtonLoading.value = null;
@@ -128,7 +136,7 @@ watch(
       crudRepo.endpoint = currentEntity as string;
       await loadData();
       configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
-      configColumns.value = crudConfigs[crudRepo.endpoint].columns;
+      configColumns.value = columns(crudConfigs[crudRepo.endpoint].inputs);
    }
 );
 

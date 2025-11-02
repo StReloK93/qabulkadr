@@ -1,117 +1,138 @@
 <template>
    <div>
-      <nav class="text-right mb-4">
-         <Drawer
-            :show-close-icon="false"
-            position="right"
-            v-model:visible="openDrawer"
-            header="Yangi xodim qo'shish"
-         >
-            <BaseForm
-               :submit
-               :setting-inputs="employeInputs"
-               @close="openDrawer = false"
-            />
-         </Drawer>
-         <Button
-            icon="pi pi-plus"
-            rounded
-            :loading="buttonLoading"
-            @click="onOpenDrawer"
-         />
-      </nav>
-      <Card class="shadow-none! border border-surface-200 dark:border-surface-800">
-         <template #header />
-         <template #content>
-            <DataTable
-               :value="employes"
-               table-style="min-width: 50rem;"
-               size="small"
+      <Breadcrumb
+         :home="{
+            label: `Qo'llanmalar`,
+         }"
+         :model="[{ label: crudConfigs[crudRepo.endpoint].title }]"
+         class="bg-transparent!"
+      >
+         <template #separator>
+            <i class="pi pi-angle-right" />
+         </template>
+      </Breadcrumb>
+      <Card
+         v-if="configColumns && items != null"
+         class="shadow-none! rounded-2xl! border border-surface-200 dark:border-surface-800 overflow-hidden"
+      >
+         <template #header>
+            <nav
+               class="flex justify-between items-center px-8 py-3 border-b border-surface-200 dark:border-surface-800"
             >
-               <Column
-                  field="id"
-                  header="#"
-               />
-               <Column
-                  field="full_name"
-                  header="F.I.SH"
-               />
-               <Column
-                  field="organization.shortname"
-                  header="Bo'lim"
-               />
-               <Column
-                  field="profession"
-                  header="Lavozim"
-               />
-               <Column
-                  field="status"
-                  header="Holat"
-               />
-
-               <Column
-                  header-style="width: 5rem; text-align: center"
-                  body-style="text-align: center; overflow: visible"
+               <span class="font-semibold">
+                  {{ crudConfigs[crudRepo.endpoint].title }}
+               </span>
+               <Drawer
+                  :show-close-icon="false"
+                  position="right"
+                  v-model:visible="openDrawer"
+                  :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
+                  @hide="selectedRow = null"
                >
-                  <template #body="{ data }">
-                     <Button
-                        variant="text"
-                        type="button"
-                        icon="pi pi-pencil"
-                        rounded
-                        :loading="loadingId === data.status"
-                        @click="editEmploye(data)"
-                     />
-                  </template>
-               </Column>
-            </DataTable>
+                  <BaseForm
+                     :submit
+                     :setting-inputs="configInputs"
+                     @on-submit="loadData"
+                     @close="openDrawer = false"
+                  />
+               </Drawer>
+               <div>
+                  <Button
+                     v-if="configInputs && items != null"
+                     icon="pi pi-plus"
+                     rounded
+                     severity="secondary"
+                     :loading="createButtonLoading"
+                     @click="openCreateForm"
+                  />
+                  <Skeleton v-else shape="circle" size="40px" />
+               </div>
+            </nav>
+         </template>
+         <template #content>
+            <CrudTable
+               :items="items"
+               :columns="configColumns"
+               :edit-button-loading
+               :delete-button-loading
+               @edit="openEditForm"
+               @delete="deleteItem"
+            />
          </template>
       </Card>
+      <Skeleton v-else border-radius="15px" width="100%" height="300px" />
    </div>
 </template>
 
 <script setup lang="ts">
-import CrudRepo from "@/repositories/CrudRepo";
 import BaseForm from "@/components/BaseForm.vue";
-import { useEmployeInputs } from "@/configs/EmployeInputs";
-import { ref, type Ref } from "vue";
-import type { IFormInputs } from "@/Interfaces";
+import { onMounted, watch, ref, shallowRef, type Ref } from "vue";
+import { useRoute } from "vue-router";
+import { crudConfigs, inputValues } from "@/configs/CrudConfig";
+import CrudRepo from "@/repositories/CrudRepo";
+import CrudTable from "@/components/CrudTable.vue";
+const route = useRoute();
+const crudRepo = new CrudRepo(route.params.entity as string);
+let submit: (values: unknown) => Promise<void>;
+
+// async function columns() {
+//    return await this.inputs().map(({ name, placeholder }) => ({ name, placeholder }));
+// }
+
+
+
+const configColumns = shallowRef(crudConfigs[crudRepo.endpoint].columns);
+const configInputs = shallowRef(crudConfigs[crudRepo.endpoint].inputs);
+
 const openDrawer = ref(false);
-const employes: Ref<unknown[] | null> = ref(null);
-const crudRepo = new CrudRepo("employes");
+const createButtonLoading = ref(false);
+const editButtonLoading: Ref<null | number> = ref(null);
+const deleteButtonLoading: Ref<null | number> = ref(null);
+const selectedRow: Ref<null | number> = ref(null);
 
-async function getEmployes() {
-   employes.value = await crudRepo.index();
+const items: Ref<unknown[] | null> = ref(null);
+
+async function loadData() {
+   items.value = await crudRepo.index();
 }
-getEmployes();
 
-async function onOpenDrawer() {
-   try {
-      buttonLoading.value = true;
-      employeInputs = await useEmployeInputs();
-      openDrawer.value = true;
-   } catch (error) {
-      console.log(error);
-   } finally {
-      buttonLoading.value = false;
+async function openCreateForm() {
+   configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
+   submit = async (data) => await crudRepo.store(data);
+   openDrawer.value = true;
+}
+
+async function openEditForm(id) {
+   editButtonLoading.value = id;
+   selectedRow.value = id;
+   submit = async (data) => await crudRepo.update(id, data);
+   const result = (await crudRepo.show(id)) as object;
+   configInputs.value = inputValues(crudConfigs[crudRepo.endpoint].inputs, result);
+
+   openDrawer.value = true;
+   editButtonLoading.value = null;
+}
+
+async function deleteItem(id: number) {
+   deleteButtonLoading.value = id;
+   await crudRepo.delete(id);
+   deleteButtonLoading.value = null;
+   await loadData();
+}
+
+watch(
+   () => route.params.entity,
+   async (currentEntity) => {
+      configInputs.value = null;
+      configColumns.value = null;
+      crudRepo.endpoint = currentEntity as string;
+      await loadData();
+      configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
+      configColumns.value = crudConfigs[crudRepo.endpoint].columns;
    }
-}
+);
 
-
-let employeInputs: IFormInputs[] = [];
-const buttonLoading = ref(false);
-async function submit(values: unknown) {
-   await crudRepo.store(values);
-}
-const loadingId = ref<number | null>(null);
-async function editEmploye(row: { status: number }) {
-   loadingId.value = row.status;
-   try {
-      // Masalan, API dan ma'lumot olish:
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // simulate loading
-      console.log("Editing:", row);
-   } finally {
-      loadingId.value = null;
-   }
-}
+onMounted(() => {
+   loadData();
+});
 </script>

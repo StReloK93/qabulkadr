@@ -16,8 +16,8 @@ Route::controller(AuthController::class)
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/employes', \App\Http\Controllers\EmployeController::class);
 
-    Route::apiResource('crud/organizations', \App\Http\Controllers\OrganizationController::class);
-    Route::apiResource('crud/causes', \App\Http\Controllers\CauseController::class);
+    Route::apiResource('crud/organization', \App\Http\Controllers\OrganizationController::class);
+    Route::apiResource('crud/cause', \App\Http\Controllers\CauseController::class);
     Route::apiResource('crud/work_environment', \App\Http\Controllers\WorkEnvironmentController::class);
     Route::apiResource('crud/education_level', \App\Http\Controllers\EducationLevelController::class);
     Route::apiResource('crud/disability_type', \App\Http\Controllers\DisabilityTypeController::class);

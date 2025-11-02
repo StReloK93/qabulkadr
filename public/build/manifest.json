@@ -1,8 +1,128 @@
 {
+  "_index-Cft2Nqec.js": {
+    "file": "assets/index-Cft2Nqec.js",
+    "name": "index",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "node_modules/primeicons/fonts/primeicons.eot": {
+    "file": "assets/primeicons-DMOk5skT.eot",
+    "src": "node_modules/primeicons/fonts/primeicons.eot"
+  },
+  "node_modules/primeicons/fonts/primeicons.svg": {
+    "file": "assets/primeicons-Dr5RGzOO.svg",
+    "src": "node_modules/primeicons/fonts/primeicons.svg"
+  },
+  "node_modules/primeicons/fonts/primeicons.ttf": {
+    "file": "assets/primeicons-MpK4pl85.ttf",
+    "src": "node_modules/primeicons/fonts/primeicons.ttf"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff": {
+    "file": "assets/primeicons-WjwUDZjB.woff",
+    "src": "node_modules/primeicons/fonts/primeicons.woff"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff2": {
+    "file": "assets/primeicons-C6QP2o4f.woff2",
+    "src": "node_modules/primeicons/fonts/primeicons.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Fn4VwJsQ.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
   "resources/js/app.ts": {
-    "file": "assets/app-BboQxKUt.js",
+    "file": "assets/app-C1nWRGf0.js",
     "name": "app",
     "src": "resources/js/app.ts",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/layouts/SiteLayout.vue",
+      "resources/js/pages/DashboardPage.vue",
+      "resources/js/pages/CrudPage.vue",
+      "resources/js/pages/LoginPage.vue"
+    ],
+    "css": [
+      "assets/app-CH7Z7jF2.css",
+      "assets/app-Fn4VwJsQ.css"
+    ],
+    "assets": [
+      "assets/primeicons-DMOk5skT.eot",
+      "assets/primeicons-C6QP2o4f.woff2",
+      "assets/primeicons-WjwUDZjB.woff",
+      "assets/primeicons-MpK4pl85.ttf",
+      "assets/primeicons-Dr5RGzOO.svg",
+      "assets/Copperplate Regular-D1g2Gh2H.ttf"
+    ]
+  },
+  "resources/js/assets/fonts/Copperplate Regular.ttf": {
+    "file": "assets/Copperplate Regular-D1g2Gh2H.ttf",
+    "src": "resources/js/assets/fonts/Copperplate Regular.ttf"
+  },
+  "resources/js/layouts/SiteLayout.vue": {
+    "file": "assets/SiteLayout-E9CLJOv0.js",
+    "name": "SiteLayout",
+    "src": "resources/js/layouts/SiteLayout.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/app-Fn4VwJsQ.css"
+    ],
+    "assets": [
+      "assets/Copperplate Regular-D1g2Gh2H.ttf"
+    ]
+  },
+  "resources/js/pages/CrudPage.vue": {
+    "file": "assets/CrudPage-BjfU4GWn.js",
+    "name": "CrudPage",
+    "src": "resources/js/pages/CrudPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts",
+      "_index-Cft2Nqec.js"
+    ],
+    "css": [
+      "assets/CrudPage-DWLS6kxf.css",
+      "assets/app-Fn4VwJsQ.css"
+    ],
+    "assets": [
+      "assets/Copperplate Regular-D1g2Gh2H.ttf"
+    ]
+  },
+  "resources/js/pages/DashboardPage.vue": {
+    "file": "assets/DashboardPage-NnA1zImE.js",
+    "name": "DashboardPage",
+    "src": "resources/js/pages/DashboardPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/app-Fn4VwJsQ.css"
+    ],
+    "assets": [
+      "assets/Copperplate Regular-D1g2Gh2H.ttf"
+    ]
+  },
+  "resources/js/pages/LoginPage.vue": {
+    "file": "assets/LoginPage-CtYoOf0M.js",
+    "name": "LoginPage",
+    "src": "resources/js/pages/LoginPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-Cft2Nqec.js",
+      "resources/js/app.ts"
+    ],
+    "css": [
+      "assets/app-Fn4VwJsQ.css"
+    ],
+    "assets": [
+      "assets/Copperplate Regular-D1g2Gh2H.ttf"
+    ]
   }
 }

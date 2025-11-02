@@ -6,6 +6,7 @@
                :is="props.field.is"
                :name="props.field.name"
                v-bind="props.field.attr"
+               v-model="field.value"
                fluid
                :input-id="props.field.name"
                size="small"
@@ -41,6 +42,7 @@
 <script setup lang="ts">
 import { Message } from "primevue";
 import type { IFormInputs } from "@/Interfaces";
+
 const props = defineProps<{
    inputField?: {
       invalid: boolean;
@@ -50,4 +52,5 @@ const props = defineProps<{
    };
    field: IFormInputs;
 }>();
+
 </script>

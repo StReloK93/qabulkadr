@@ -1,30 +1,32 @@
-import type { IFormInputs } from "@/Interfaces";
-import { InputText } from "primevue";
+import type { IEducationLevel, IFormInputs } from "@/Interfaces";
 import * as yup from "yup";
+import { api } from "@/helpers/useFetch";
+
+import { InputText, DatePicker, Select, Checkbox } from "primevue";
 
 export const crudConfigs = {
-   organizations: {
+   organization: {
       title: "Bo'limlar",
-      inputs: async function () {
-         return <IFormInputs[]>[
-            {
-               is: InputText,
-               name: "name",
-               placeholder: "Nomi",
-               schema: yup.string().required("To'ldiring"),
-            },
-            {
-               is: InputText,
-               name: "shortname",
-               placeholder: "Qisqa nomi",
-               schema: yup.string(),
-            },
-         ];
-      },
+      parentTitle: "Qo'llanmalar",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: InputText,
+            name: "shortname",
+            placeholder: "Qisqa nomi",
+            schema: yup.string(),
+         },
+      ],
    },
 
-   causes: {
+   cause: {
       title: "Asoslar",
+      parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
             is: InputText,
@@ -36,6 +38,7 @@ export const crudConfigs = {
    },
    work_environment: {
       title: "Mehnat sharoitlari",
+      parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
             is: InputText,
@@ -47,6 +50,7 @@ export const crudConfigs = {
    },
    education_level: {
       title: "Ta'lim darajasi",
+      parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
             is: InputText,
@@ -58,6 +62,7 @@ export const crudConfigs = {
    },
    disability_type: {
       title: "Nogironlik turlari",
+      parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
             is: InputText,
@@ -69,6 +74,7 @@ export const crudConfigs = {
    },
    quot_type: {
       title: "Kvota turlari",
+      parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
             is: InputText,
@@ -79,8 +85,170 @@ export const crudConfigs = {
       ],
    },
 
-}
+   employes: {
+      title: "Xodimlar",
+      parentTitle: "Asosiy bo'lim",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "full_name",
+            placeholder: "F.I.SH",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: DatePicker,
+            name: "birth_date",
+            placeholder: "Tug'ilgan sana",
+            schema: yup.date().required("Kunni tanlang"),
+            attr: { showIcon: true, iconDisplay: "input", dateFormat: "dd.mm.yy" },
+         },
+         {
+            is: Select,
+            name: "education_level_id",
+            columnName: "education_level.name",
+            placeholder: "Ma'lumoti",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/education_level`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            is: InputText,
+            name: "university",
+            placeholder: "Oliy o'quv yurti",
+            schema: yup.string().required("To'ldiring"),
+            notColumn: true,
+         },
+         {
+            is: Select,
+            name: "cause_id",
+            columnName: "cause.name",
+            placeholder: "Ishga qabul qilish uchun asos",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/cause`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            is: Select,
+            name: "organization_id",
+            columnName: "organization.name",
+            placeholder: "Bo'lim",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/organization`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            is: InputText,
+            name: "division",
+            placeholder: "Uchastka nomi",
+            schema: yup.string().nullable(),
+            notColumn: true,
+         },
+         {
+            is: InputText,
+            name: "profession",
+            placeholder: "Lavozimi",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: Select,
+            name: "work_environment_id",
+            placeholder: "Mehnat sharoiti",
+            schema: yup.number().required("To'ldiring"),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/work_environment`);
+               this.attr = selectOption(data, "name");
+            },
+            notColumn: true,
+         },
+         {
+            is: InputText,
+            name: "phone",
+            placeholder: "Telefon raqami",
+            schema: yup.string().nullable(),
+            notColumn: true,
+         },
+         {
+            is: Checkbox,
+            name: "company",
+            placeholder: "Korxona hisobidan",
+            schema: yup.boolean(),
+            withLabel: true,
+            attr: { binary: true },
+            notColumn: true,
+         },
+         {
+            is: Select,
+            name: "disability_type_id",
+            columnName: "disability_type.name",
+            placeholder: "Nogironlik turlari",
+            schema: yup.number().nullable(),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/disability_type`);
+               this.attr = selectOption(data, "name", true);
+            },
+            notColumn: true,
+         },
+         {
+            is: Select,
+            name: "quot_type_id",
+            placeholder: "Kvota yo'nalishlari",
+            schema: yup.number().nullable(),
+            generateAttributes: async function () {
+               var { data } = await api.get<IEducationLevel[]>(`crud/quot_type`);
+               this.attr = selectOption(data, "name", true);
+            },
+            notColumn: true,
+         },
+      ],
+   },
+};
 
 export function inputValues(inputs: IFormInputs[], values: object) {
-   return inputs.map((item) => ({ ...item, value: values[item.name] }));
+   return inputs.map((item) => {
+      let value = values[item.name];
+      if (item.is?.name === "DatePicker" && typeof value === "string") {
+         value = new Date(value);
+         console.log(value);
+         
+      }
+      return { ...item, value };
+   });
+}
+
+export function columns(inputs: IFormInputs[]) {
+   return inputs
+      .filter((i) => !i.notColumn)
+      .map(({ name, columnName, placeholder }) => ({
+         name: columnName ? columnName : name,
+         placeholder,
+      }));
+}
+
+export async function generateAttributes(inputs: IFormInputs[]) {
+   return await Promise.all(
+      inputs.map(async (input) => {
+         if (input.generateAttributes) {
+            await input.generateAttributes();
+         }
+         return input;
+      })
+   );
+}
+
+function selectOption(array: any[], key: string, showClear: boolean = false) {
+   return {
+      options: array.map((dept: { id: number }) => ({
+         label: dept[key],
+         value: dept.id,
+      })),
+      optionLabel: "label",
+      optionValue: "value",
+      showClear: showClear,
+   };
 }

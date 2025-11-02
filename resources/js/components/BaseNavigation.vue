@@ -26,7 +26,7 @@
          </RouterLink>
          <RouterLink
             class="w-full"
-            :to="{ name: 'employes-page' }"
+            :to="{ name: 'crud-page' , params: { entity: 'employes' } }"
          >
             <Button
                :severity="route.name == 'employes-page' ? 'primary': 'contrast'"
@@ -65,8 +65,8 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const crudPages = [
-   { name: 'organizations', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },
-   { name: 'causes', label: "Asoslar ro'yhati", icon: 'pi pi-list' },
+   { name: 'organization', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },
+   { name: 'cause', label: "Asoslar ro'yhati", icon: 'pi pi-list' },
    { name: 'work_environment', label: "Mehnat sharoitlari", icon: 'pi pi-bullseye' },
    { name: 'education_level', label: "Ta'lim darajasi", icon: 'pi pi-graduation-cap' },
    { name: 'disability_type', label: "Nogironlik turlari", icon: 'pi pi-clone' },

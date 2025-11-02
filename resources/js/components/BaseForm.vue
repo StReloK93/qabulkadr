@@ -47,6 +47,7 @@ const instance = ref();
 
 const emit = defineEmits(["close", "onSubmit"]);
 
+
 const buttonLoader = ref(false);
 
 const props = defineProps<{
@@ -72,6 +73,7 @@ const initialValues = reactive(
       return acc;
    }, {} as Record<string, unknown>)
 );
+console.log(initialValues);
 
 const resolver = yupResolver(
    yup.object(
