@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('shortname')->nullable();
+            $table->string('bossname')->nullable();
         });
     }
 

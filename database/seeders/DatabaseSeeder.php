@@ -23,11 +23,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\Organization::create([
             'name' => 'Avtomobil transport boshqarmasi',
             'shortname' => 'ATB',
+            'bossname' => 'Boss - 1',
         ]);
 
         \App\Models\Organization::create([
             'name' => 'Shimoliy kon boshqarmasi',
-            'shortname' => 'SHKB',
+            'bossname' => 'Boss - 2',
         ]);
 
 

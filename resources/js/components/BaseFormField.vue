@@ -14,7 +14,7 @@
             <label
                v-if="props.field.withLabel != true"
                :for="props.field.name"
-               class="text-sm text-surface-500"
+               class="text-xs text-surface-500"
             >
                {{ props.field.placeholder }}
             </label>
@@ -22,7 +22,7 @@
          <label
             v-if="props.field.withLabel"
             :for="props.field.name"
-            class="text-sm text-surface-500 relative top-1"
+            class="text-xs text-surface-500 relative top-1"
          >
             {{ props.field.placeholder }}
          </label>

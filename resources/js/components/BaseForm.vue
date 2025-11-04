@@ -73,8 +73,6 @@ const initialValues = reactive(
       return acc;
    }, {} as Record<string, unknown>)
 );
-console.log(initialValues);
-
 const resolver = yupResolver(
    yup.object(
       props.settingInputs.reduce((acc, curr) => {

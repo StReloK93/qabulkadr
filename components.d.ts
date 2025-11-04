@@ -17,6 +17,7 @@ declare module 'vue' {
     Column: typeof import('primevue/column')['default']
     ConfirmPopup: typeof import('primevue/confirmpopup')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     FloatLabel: typeof import('primevue/floatlabel')['default']

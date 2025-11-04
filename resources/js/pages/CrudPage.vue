@@ -22,9 +22,11 @@
                <span class="font-semibold">
                   {{ crudConfigs[crudRepo.endpoint].title }}
                </span>
-               <Drawer
+               <Dialog
+                  class="w-1/3"
+                  modal
+                  pt:mask:class="backdrop-blur-xs"
                   :show-close-icon="false"
-                  position="right"
                   v-model:visible="openDrawer"
                   :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
                   @hide="selectedRow = null"
@@ -35,7 +37,7 @@
                      @on-submit="loadData"
                      @close="openDrawer = false"
                   />
-               </Drawer>
+               </Dialog>
                <div>
                   <Button
                      icon="pi pi-plus"

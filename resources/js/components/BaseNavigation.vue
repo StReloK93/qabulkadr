@@ -66,7 +66,7 @@ const route = useRoute()
 
 const crudPages = [
    { name: 'organization', label: "Bo'limlar ro'yhati", icon: 'pi pi-building' },
-   { name: 'cause', label: "Asoslar ro'yhati", icon: 'pi pi-list' },
+   { name: 'cause', label: "Qabul shakli", icon: 'pi pi-list' },
    { name: 'work_environment', label: "Mehnat sharoitlari", icon: 'pi pi-bullseye' },
    { name: 'education_level', label: "Ta'lim darajasi", icon: 'pi pi-graduation-cap' },
    { name: 'disability_type', label: "Nogironlik turlari", icon: 'pi pi-clone' },

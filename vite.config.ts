@@ -9,7 +9,7 @@ import path from "path";
 export default defineConfig({
    plugins: [
       laravel({
-         input: ["resources/js/app.ts", 'resources/css/app.css'],
+         input: ["resources/js/app.ts", "resources/css/app.css"],
          refresh: true,
       }),
       tailwindcss(),
@@ -26,7 +26,7 @@ export default defineConfig({
    },
    server: {
       cors: true,
-      //  origin: 'http://192.168.14.92:5173',
+      origin: "http://192.168.14.92:5173",
       port: 5173,
    },
 });

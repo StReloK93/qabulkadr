@@ -22,6 +22,7 @@ class Employe extends Model
     protected $with = ['organization', 'education_level', 'cause'];
     protected $fillable = [
         'full_name',
+        'cause_text',
         'birth_date',
         'education_level_id',
         'university',

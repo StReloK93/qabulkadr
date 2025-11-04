@@ -21,11 +21,17 @@ export const crudConfigs = {
             placeholder: "Qisqa nomi",
             schema: yup.string(),
          },
+         {
+            is: InputText,
+            name: "bossname",
+            placeholder: "Bo'lim rahbari",
+            schema: yup.string(),
+         },
       ],
    },
 
    cause: {
-      title: "Asoslar",
+      title: "Qabul shakllari",
       parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
@@ -124,12 +130,18 @@ export const crudConfigs = {
             is: Select,
             name: "cause_id",
             columnName: "cause.name",
-            placeholder: "Ishga qabul qilish uchun asos",
+            placeholder: "Qabul shakli",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
                var { data } = await api.get<IEducationLevel[]>(`crud/cause`);
                this.attr = selectOption(data, "name");
             },
+         },
+         {
+            is: InputText,
+            name: "cause_text",
+            placeholder: "Asos",
+            schema: yup.string(),
          },
          {
             is: Select,
@@ -215,7 +227,6 @@ export function inputValues(inputs: IFormInputs[], values: object) {
       if (item.is?.name === "DatePicker" && typeof value === "string") {
          value = new Date(value);
          console.log(value);
-         
       }
       return { ...item, value };
    });

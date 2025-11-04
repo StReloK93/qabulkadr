@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('education_level_id');
             $table->text('university');
             $table->integer('cause_id');
+            $table->text('cause_text')->nullable();
             
             $table->integer('organization_id');
             $table->text('division')->nullable();
