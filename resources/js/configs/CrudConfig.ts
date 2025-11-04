@@ -115,7 +115,7 @@ export const crudConfigs = {
             placeholder: "Ma'lumoti",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/education_level`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/education_level`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -133,7 +133,7 @@ export const crudConfigs = {
             placeholder: "Qabul shakli",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/cause`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/cause`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -150,7 +150,7 @@ export const crudConfigs = {
             placeholder: "Bo'lim",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/organization`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -173,7 +173,7 @@ export const crudConfigs = {
             placeholder: "Mehnat sharoiti",
             schema: yup.number().required("To'ldiring"),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/work_environment`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/work_environment`);
                this.attr = selectOption(data, "name");
             },
             notColumn: true,
@@ -201,7 +201,7 @@ export const crudConfigs = {
             placeholder: "Nogironlik turlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/disability_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/disability_type`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
@@ -212,7 +212,7 @@ export const crudConfigs = {
             placeholder: "Kvota yo'nalishlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               var { data } = await api.get<IEducationLevel[]>(`crud/quot_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/quot_type`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,

@@ -1,6 +1,6 @@
 <template>
    <div class="mb-3">
-      <main :class="{'flex items-center gap-2 w-full': props.field.withLabel}">
+      <main :class="{ 'flex items-center gap-2 w-full': props.field.withLabel }">
          <FloatLabel variant="on">
             <component
                :is="props.field.is"
@@ -52,5 +52,4 @@ const props = defineProps<{
    };
    field: IFormInputs;
 }>();
-
 </script>

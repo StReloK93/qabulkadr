@@ -1,33 +1,42 @@
+// eslint.config.js
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginVue from "eslint-plugin-vue";
-import { defineConfig } from "eslint/config";
 
-export default defineConfig([
+export default tseslint.config(
+   // Ignore patterns
    {
-      ignores: ["dist/**", "node_modules/**"], // ⬅️ ignore shu yerda
+      ignores: ["dist/**", "node_modules/**"],
    },
-   
+   // Tavsiya etilgan configlar
+   js.configs.recommended,
+   ...tseslint.configs.recommended,
+   ...pluginVue.configs["flat/recommended"],
+
+   // JavaScript global config
    {
-      files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
-      plugins: { js },
-      extends: ["js/recommended"],
+      files: ["**/*.{ts,vue}"],
       languageOptions: {
          globals: globals.browser,
-         parser: tseslint.parser,
+         parserOptions: {
+            parser: tseslint.parser,
+            sourceType: "module",
+         },
       },
       rules: {
-         "vue/html-indent": ["error", 3], // ⬅️ shu yerda yoziladi
-         "@typescript-eslint/no-explicit-any": "on",
+         "vue/html-indent": ["error", 3],
+         "@typescript-eslint/no-explicit-any": "off",
+         "@typescript-eslint/no-unused-vars": "error",
       },
    },
-   tseslint.configs.recommended,
-   pluginVue.configs["flat/strongly-recommended"],
    {
       files: ["**/*.vue"],
       languageOptions: {
-         parserOptions: { parser: tseslint.parser },
+         parser: pluginVue.processors["vue"],
+         parserOptions: {
+            parser: tseslint.parser,
+         },
       },
-   },
-]);
+   }
+);
