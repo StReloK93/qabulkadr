@@ -5,18 +5,10 @@
          :value="items"
          size="small"
       >
-         <Column
-            body-style="text-align:center;width:5rem"
-            field="id"
-            header="ID"
-            header-class="px-8!"
-         />
-         <Column
-            v-for="col in columns"
-            :key="col.name"
-            :field="col.name"
-            :header="col.placeholder"
-         />
+         <Column body-style="text-align:center;width:5rem" field="id" header="ID" header-class="px-8!" />
+         <Column v-for="col in columns" :key="col.name" :field="col.name" :header="col.placeholder" />
+         <slot name="column"></slot>
+
          <Column body-style="text-align:center;width:6rem">
             <template #body="{ data }">
                <Button
@@ -84,6 +76,6 @@ const props = defineProps<{
 </script>
 <style>
 .no-last-border .p-datatable-tbody > tr:last-child > td {
-  border-bottom: none !important;
+   border-bottom: none !important;
 }
 </style>

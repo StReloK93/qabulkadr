@@ -17,11 +17,11 @@
       >
          <template #header>
             <nav
-               class="flex justify-between items-center px-8 py-3 border-b border-surface-200 dark:border-surface-800"
+               class="flex justify-between items-center px-6 py-3 border-b border-surface-200 dark:border-surface-800"
             >
-               <span class="font-semibold">
-                  {{ crudConfigs[crudRepo.endpoint].title }}
-               </span>
+               <div>
+                  <slot name="buttons"></slot>
+               </div>
                <Dialog
                   class="w-1/3"
                   modal
@@ -57,7 +57,11 @@
                :delete-button-loading
                @edit="openEditForm"
                @delete="deleteItem"
-            />
+            >
+               <template #column>
+                  <slot name="column"></slot>
+               </template>
+            </CrudTable>
          </template>
       </Card>
       <Skeleton v-else border-radius="15px" width="100%" height="300px" />
@@ -71,9 +75,9 @@ import { useRoute } from "vue-router";
 import { crudConfigs, inputValues, columns, generateAttributes } from "@/configs/CrudConfig";
 import CrudRepo from "@/repositories/CrudRepo";
 import CrudTable from "@/components/CrudTable.vue";
-
 const route = useRoute();
 const crudRepo = new CrudRepo(route.params.entity as string);
+
 let submit: (values: unknown) => Promise<void>;
 
 const configColumns: Ref<any> = shallowRef(columns(crudConfigs[crudRepo.endpoint].inputs));
@@ -116,9 +120,6 @@ async function openEditForm(id) {
    const fullInputs = await generateAttributes(crudConfigs[crudRepo.endpoint].inputs);
 
    configInputs.value = inputValues(fullInputs, result);
-
-   console.log(configInputs.value);
-
    openDrawer.value = true;
    editButtonLoading.value = null;
 }

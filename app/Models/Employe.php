@@ -17,7 +17,7 @@ class Employe extends Model
         'disability_type_id' => 'integer',
         'quot_type_id' => 'integer',
         'company' => 'boolean',
-        // 'birth_date' => 'datetime:d.m.Y',
+        'created_at' => 'datetime:d.m.Y',
     ];
     protected $with = ['organization', 'education_level', 'cause'];
     protected $fillable = [

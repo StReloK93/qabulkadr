@@ -14,6 +14,7 @@ export interface IFormInputs {
    value?: string | number | null | boolean;
    withLabel?: boolean;
    notColumn?: boolean;
+   notInput?: boolean;
    columnName?: string;
    attr?: Record<string, string | number | boolean | { label: string; value: number }[]>;
    generateAttributes?: () => Promise<void>;
@@ -25,10 +26,9 @@ export interface IOrganization {
    shortname: string;
 }
 
-
 export interface IQuotType {
    id: number;
    name: string;
 }
 
-export type IEducationLevel = IQuotType
+export type IEducationLevel = IQuotType;

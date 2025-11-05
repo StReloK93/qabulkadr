@@ -1,8 +1,7 @@
-import type { IEducationLevel, IFormInputs } from "@/Interfaces";
-import * as yup from "yup";
-import { api } from "@/helpers/useFetch";
-
 import { InputText, DatePicker, Select, Checkbox } from "primevue";
+import type { IEducationLevel, IFormInputs } from "@/Interfaces";
+import { api } from "@/helpers/useFetch";
+import * as yup from "yup";
 
 export const crudConfigs = {
    organization: {
@@ -29,7 +28,6 @@ export const crudConfigs = {
          },
       ],
    },
-
    cause: {
       title: "Qabul shakllari",
       parentTitle: "Qo'llanmalar",
@@ -105,6 +103,7 @@ export const crudConfigs = {
             is: DatePicker,
             name: "birth_date",
             placeholder: "Tug'ilgan sana",
+            notColumn: true,
             schema: yup.date().required("Kunni tanlang"),
             attr: { showIcon: true, iconDisplay: "input", dateFormat: "dd.mm.yy" },
          },
@@ -141,12 +140,12 @@ export const crudConfigs = {
             is: InputText,
             name: "cause_text",
             placeholder: "Asos",
-            schema: yup.string(),
+            schema: yup.string().nullable(),
          },
          {
             is: Select,
             name: "organization_id",
-            columnName: "organization.name",
+            columnName: "organization.shortname",
             placeholder: "Bo'lim",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
@@ -166,6 +165,11 @@ export const crudConfigs = {
             name: "profession",
             placeholder: "Lavozimi",
             schema: yup.string().required("To'ldiring"),
+         },
+         {
+            name: "created_at",
+            placeholder: "Kiritilgan sana",
+            notInput: true,
          },
          {
             is: Select,
@@ -226,7 +230,6 @@ export function inputValues(inputs: IFormInputs[], values: object) {
       let value = values[item.name];
       if (item.is?.name === "DatePicker" && typeof value === "string") {
          value = new Date(value);
-         console.log(value);
       }
       return { ...item, value };
    });

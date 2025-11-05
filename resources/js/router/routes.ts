@@ -5,10 +5,10 @@ const routes: RouteRecordRaw[] = [
       path: "/",
       name: "home-page",
       component: () => import("@/layouts/SiteLayout.vue"),
-      redirect: { name: "dashboard-page" },
+      redirect: { name: "custom-page", params: { entity: "employes" } },
       children: [
          {
-            path: "",
+            path: "dashboard",
             name: "dashboard-page",
             component: () => import("@pages/DashboardPage.vue"),
          },
@@ -17,6 +17,12 @@ const routes: RouteRecordRaw[] = [
             props: true,
             name: "crud-page",
             component: () => import("@pages/CrudPage.vue"),
+         },
+         {
+            path: "custom/:entity",
+            props: true,
+            name: "custom-page",
+            component: () => import("@pages/EmployePage.vue"),
          },
       ],
    },

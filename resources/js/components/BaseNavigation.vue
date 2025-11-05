@@ -22,9 +22,9 @@
                size="small"
             />
          </RouterLink>
-         <RouterLink class="w-full" :to="{ name: 'crud-page', params: { entity: 'employes' } }">
+         <RouterLink class="w-full" :to="{ name: 'custom-page', params: { entity: 'employes' } }">
             <Button
-               :severity="route.name == 'employes-page' ? 'primary' : 'contrast'"
+               :severity="route.name == 'custom-page' ? 'primary' : 'contrast'"
                class="w-full justify-start! border border-surface-300"
                variant="text"
                label="Xodimlar"
@@ -54,7 +54,6 @@
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-
 const route = useRoute();
 
 const crudPages = [
@@ -65,6 +64,4 @@ const crudPages = [
    { name: "disability_type", label: "Nogironlik turlari", icon: "pi pi-clone" },
    { name: "quot_type", label: "Kvota turlari", icon: "pi pi-bookmark" },
 ];
-
-const alier = 5;
 </script>
