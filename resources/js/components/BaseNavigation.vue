@@ -63,5 +63,6 @@ const crudPages = [
    { name: "education_level", label: "Ta'lim darajasi", icon: "pi pi-graduation-cap" },
    { name: "disability_type", label: "Nogironlik turlari", icon: "pi pi-clone" },
    { name: "quot_type", label: "Kvota turlari", icon: "pi pi-bookmark" },
+   { name: "status", label: "Jarayon turlari", icon: "pi pi-tags" },
 ];
 </script>

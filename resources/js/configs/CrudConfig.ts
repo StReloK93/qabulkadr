@@ -1,4 +1,4 @@
-import { InputText, DatePicker, Select, Checkbox } from "primevue";
+import { InputText, DatePicker, Select, Checkbox, SelectButton } from "primevue";
 import type { IEducationLevel, IFormInputs } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
@@ -78,6 +78,19 @@ export const crudConfigs = {
    },
    quot_type: {
       title: "Kvota turlari",
+      parentTitle: "Qo'llanmalar",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
+
+   status: {
+      title: "Jarayon turlari",
       parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
@@ -188,6 +201,19 @@ export const crudConfigs = {
             placeholder: "Telefon raqami",
             schema: yup.string().nullable(),
             notColumn: true,
+         },
+         {
+            is: SelectButton,
+            name: "status_id",
+            columnName: "status.name",
+            placeholder: "",
+            schema: yup.number().nullable(),
+            notColumn: true,
+            value: 1,
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/status`);
+               this.attr = selectOption(data, "name");
+            },
          },
          {
             is: Checkbox,

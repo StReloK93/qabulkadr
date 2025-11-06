@@ -1,9 +1,9 @@
 <template>
    <CrudPage>
       <template #column>
-         <Column body-style="text-align:center;width:6rem">
+         <Column body-style="text-align:center;width:10rem">
             <template #body="{ data }">
-               {{ data.status }}
+               {{ data.status.name }}
                <!-- <Button icon="pi pi-trash" text rounded severity="danger" /> -->
             </template>
          </Column>

@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\WorkEnvironment;
 use App\Models\Cause;
 use App\Models\Employe;
+use App\Models\Status;
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
@@ -55,6 +56,11 @@ class DatabaseSeeder extends Seeder
             ['name' => "3 - Kvota"]
         ]);
 
+
+        Status::insert([
+            ['name' => "Tibbiy ko'rik"],
+            ['name' => "Yo'llanma"],
+        ]);
 
         Employe::insert([
             [

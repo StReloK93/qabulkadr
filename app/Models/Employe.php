@@ -16,10 +16,11 @@ class Employe extends Model
         'work_environment_id' => 'integer',
         'disability_type_id' => 'integer',
         'quot_type_id' => 'integer',
+        'status_id' => 'integer',
         'company' => 'boolean',
         'created_at' => 'datetime:d.m.Y',
     ];
-    protected $with = ['organization', 'education_level', 'cause'];
+    protected $with = ['organization', 'education_level', 'cause', 'status'];
     protected $fillable = [
         'full_name',
         'cause_text',
@@ -36,7 +37,7 @@ class Employe extends Model
         'company',
         'disability_type_id',
         'quot_type_id',
-        'status',
+        'status_id',
     ];
 
     public function organization()
@@ -54,5 +55,11 @@ class Employe extends Model
     {
         return $this->belongsTo(Cause::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
 
 }

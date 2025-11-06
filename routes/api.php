@@ -6,11 +6,11 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::controller(AuthController::class)
-->middleware('auth:sanctum')
-->group(function () {
-    Route::get('user', 'user');
-    Route::post('logout', 'logout');
-});
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('user', 'user');
+        Route::post('logout', 'logout');
+    });
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/education_level', \App\Http\Controllers\EducationLevelController::class);
     Route::apiResource('crud/disability_type', \App\Http\Controllers\DisabilityTypeController::class);
     Route::apiResource('crud/quot_type', \App\Http\Controllers\QuotTypeController::class);
+    Route::apiResource('crud/status', \App\Http\Controllers\StatusController::class);
 });
