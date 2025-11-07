@@ -19,9 +19,9 @@ class Employe extends Model
         'quot_type_id' => 'integer',
         'status_id' => 'integer',
         'company' => 'boolean',
-        'created_at' => 'datetime:d.m.Y',
+        // 'created_at' => 'datetime:d.m.Y H:s',
     ];
-    protected $with = ['organization', 'education_level', 'cause', 'status', 'creater'];
+    protected $with = ['organization', 'education_level', 'work_environment', 'cause', 'status', 'creater'];
     protected $fillable = [
         'full_name',
         'cause_text',
@@ -61,6 +61,11 @@ class Employe extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function work_environment()
+    {
+        return $this->belongsTo(WorkEnvironment::class);
     }
 
     public function creater()

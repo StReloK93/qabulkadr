@@ -8,14 +8,10 @@
    >
       <template #header>
          <main class="flex justify-between items-center w-full -my-2">
-            <Button
-               icon="pi pi-id-card"
-               disabled
-               severity="contrast"
-               variant="text"
-               size="small"
-               rounded
-            />
+            <span class="text-sm inline-flex items-center gap-3 text-surface-600">
+               <i class="pi pi-users"></i>
+               Xodim ma'lumotlari
+            </span>
             <Button
                icon="pi pi-times"
                size="small"
@@ -26,42 +22,62 @@
          </main>
       </template>
       <template #default>
-         <main class="flex flex-col gap-6">
-            <Fieldset legend="Xodim ma'lumotlari">
+         <main v-if="employe" class="flex flex-col bg-surface-100 -mx-5 px-5 -mb-5 pb-6 rounded-b-2xl">
+            <nav class="my-4 flex justify-between items-start">
+               <div class="flex flex-col items-start">
+                  <span class="text-sm text-surface-500 flex items-center gap-2">
+                     <i class="pi pi-user-edit"></i> {{ employe?.creater.name }}
+                  </span>
+                  <span class="text-sm">
+                     {{ moment(employe?.created_at).format("DD-MM-YYYY HH:mm") }}
+                  </span>
+               </div>
+               <div>
+                  <Button rounded size="small" icon="pi pi-print" />
+               </div>
+            </nav>
+            <Panel :header="employe?.full_name">
                <table>
                   <thead>
                      <tr>
-                        <td class="pr-16 py-1 text-surface-500">F.I.SH</td>
-                        <td>{{ employe?.full_name }}</td>
+                        <td class="pr-16 py-1">Tug'ilgan yili</td>
+                        <td>{{ moment(employe?.birth_date).format("DD-MM-YYYY") }}</td>
                      </tr>
                      <tr>
-                        <td class="pr-16 py-1 text-surface-500">Tug'ilgan yili</td>
-                        <td>{{ employe?.birth_date }}</td>
+                        <td class="pr-16 py-1">Oliy o'quv yurti</td>
+                        <td>{{ employe?.university }}</td>
                      </tr>
                      <tr>
-                        <td class="pr-16 py-1 text-surface-500">Ta'lim darajasi</td>
+                        <td class="pr-16 py-1">Ta'lim darajasi</td>
                         <td>{{ employe?.education_level.name }}</td>
                      </tr>
                      <tr>
-                        <td class="pr-16 py-1 text-surface-500">Ish joyi (Bo'linma)</td>
+                        <td class="pr-16 py-1">Ish joyi (Bo'linma)</td>
                         <td>{{ employe?.organization.name }}</td>
                      </tr>
                      <tr>
-                        <td class="pr-16 py-1 text-surface-500">Telefon raqami</td>
+                        <td class="pr-16 py-1">Lavozimi</td>
+                        <td>{{ employe?.profession }}</td>
+                     </tr>
+                     <tr>
+                        <td class="pr-16 py-1">Mehnat sharoiti</td>
+                        <td>{{ employe?.work_environment.name }}</td>
+                     </tr>
+                     <tr>
+                        <td class="pr-16 py-1">Telefon raqami</td>
                         <td>{{ employe?.phone }}</td>
                      </tr>
                   </thead>
                </table>
-            </Fieldset>
-            <main class="text-right">
-               <Button label="Chop etish" size="small" severity="secondary" icon="pi pi-print" />
-            </main>
+            </Panel>
+            <main class="text-right mt-6"></main>
          </main>
       </template>
    </Dialog>
 </template>
 
 <script setup lang="ts">
+import moment from "moment";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
