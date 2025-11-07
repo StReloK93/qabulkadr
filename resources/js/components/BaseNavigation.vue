@@ -22,9 +22,9 @@
                size="small"
             />
          </RouterLink>
-         <RouterLink class="w-full" :to="{ name: 'custom-page', params: { entity: 'employes' } }">
+         <RouterLink class="w-full" :to="{ name: 'employe-page' }">
             <Button
-               :severity="route.name == 'custom-page' ? 'primary' : 'contrast'"
+               :severity="route.name == 'employe-page' ? 'primary' : 'contrast'"
                class="w-full justify-start! border border-surface-300"
                variant="text"
                label="Xodimlar"

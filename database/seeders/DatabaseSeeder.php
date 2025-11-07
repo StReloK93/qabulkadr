@@ -74,6 +74,7 @@ class DatabaseSeeder extends Seeder
                 'work_environment_id' => 1,
                 'company' => false,
                 'created_at' => Carbon::parse('2025-09-10'),
+                'creater_id' => 1,
             ],
             [
                 'full_name' => "No'monov Shoxruh",
@@ -86,6 +87,8 @@ class DatabaseSeeder extends Seeder
                 'work_environment_id' => 1,
                 'company' => false,
                 'created_at' => Carbon::parse('2025-10-10'),
+                'creater_id' => 1,
+
             ],
             [
                 'full_name' => "Mustafoyev Zukhriddin",
@@ -98,6 +101,8 @@ class DatabaseSeeder extends Seeder
                 'work_environment_id' => 1,
                 'company' => false,
                 'created_at' => Carbon::parse('2025-11-10'),
+                'creater_id' => 1,
+
             ],
             [
                 'full_name' => "Ravshanov Jamshid",
@@ -110,6 +115,8 @@ class DatabaseSeeder extends Seeder
                 'work_environment_id' => 1,
                 'company' => false,
                 'created_at' => Carbon::parse('2025-12-10'),
+                'creater_id' => 1,
+
             ],
         ]);
     }

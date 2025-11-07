@@ -1,5 +1,5 @@
 <template>
-   <div class="mb-3">
+   <div :class="props.field.parentClass" class="mb-3">
       <main :class="{ 'flex items-center gap-2 w-full': props.field.withLabel }">
          <FloatLabel variant="on">
             <component

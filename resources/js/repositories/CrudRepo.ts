@@ -10,7 +10,7 @@ export default class CrudRepo {
       return response.data;
    }
 
-   async show<T>(id: number): Promise<T> {
+   async show<T>(id: number | string): Promise<T> {
       const response = await api.get<T>(`crud/${this.endpoint}/${id}`);
       return response.data;
    }

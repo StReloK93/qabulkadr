@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->integer('disability_type_id')->nullable()->default(null);
             $table->integer('quot_type_id')->nullable()->default(null);
             $table->integer('status_id')->default(1);
+            $table->integer('creater_id');
             $table->timestamps();
         });
     }

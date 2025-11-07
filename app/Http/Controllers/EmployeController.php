@@ -16,7 +16,9 @@ class EmployeController extends BaseCrudController
             'birth_date' => Carbon::parse($request->birth_date)
                 ->timezone('Asia/Tashkent')
                 ->format('Y-m-d'),
+            'creater_id' => $request->user()->id
         ]);
+
         return $this->model::create($request->all());
     }
 

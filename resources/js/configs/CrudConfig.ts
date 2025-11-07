@@ -209,6 +209,7 @@ export const crudConfigs = {
             placeholder: "",
             schema: yup.number().nullable(),
             notColumn: true,
+            parentClass: ["mb-1!"],
             value: 1,
             generateAttributes: async function () {
                const { data } = await api.get<IEducationLevel[]>(`crud/status`);
@@ -246,6 +247,7 @@ export const crudConfigs = {
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
+            parentClass: ["mb-0!"],
          },
       ],
    },

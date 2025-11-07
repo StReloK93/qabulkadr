@@ -5,7 +5,7 @@ const routes: RouteRecordRaw[] = [
       path: "/",
       name: "home-page",
       component: () => import("@/layouts/SiteLayout.vue"),
-      redirect: { name: "custom-page", params: { entity: "employes" } },
+      redirect: { name: "employe-page" },
       children: [
          {
             path: "dashboard",
@@ -13,16 +13,23 @@ const routes: RouteRecordRaw[] = [
             component: () => import("@pages/DashboardPage.vue"),
          },
          {
+            path: "employe",
+            name: "employe-page",
+            component: () => import("@pages/EmployePage.vue"),
+            children: [
+               {
+                  path: ":id",
+                  props: true,
+                  name: "employe-id-page",
+                  component: () => import("@pages/EmployePageId.vue"),
+               },
+            ],
+         },
+         {
             path: "crud/:entity",
             props: true,
             name: "crud-page",
             component: () => import("@pages/CrudPage.vue"),
-         },
-         {
-            path: "custom/:entity",
-            props: true,
-            name: "custom-page",
-            component: () => import("@pages/EmployePage.vue"),
          },
       ],
    },
@@ -30,6 +37,12 @@ const routes: RouteRecordRaw[] = [
       path: "/login",
       name: "login-page",
       component: () => import("@pages/LoginPage.vue"),
+   },
+   // 404 — Eng oxirida!
+   {
+      path: "/:pathMatch(.*)*", // yoki oddiy: "*"
+      name: "not-found",
+      component: () => import("@pages/NotFoundPage.vue"),
    },
 ];
 
