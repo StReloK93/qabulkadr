@@ -1,11 +1,37 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
-
 @custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
    font-family: "Trickster";
    src: url("./Copperplate\ Regular.ttf") format("truetype");
    font-weight: normal;
    font-style: normal;
+}
+
+@page {
+   size: A4; /* yoki 'A4' */
+   margin: 0mm; /* sahifa marginlari */
+}
+
+@media print {
+   body * {
+      visibility: hidden;
+   }
+   body,
+   html {
+      height: auto;
+      margin: 0;
+      padding: 0;
+   }
+
+   .sheet,
+   .sheet * {
+      visibility: visible;
+   }
+
+   .sheet:last-child {
+      page-break-after: auto;
+   }
 }
