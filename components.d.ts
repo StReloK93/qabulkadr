@@ -13,6 +13,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Breadcrumb: typeof import('primevue/breadcrumb')['default']
     Button: typeof import('primevue/button')['default']
+    ButtonGroup: typeof import('primevue/buttongroup')['default']
     Card: typeof import('primevue/card')['default']
     Chip: typeof import('primevue/chip')['default']
     Column: typeof import('primevue/column')['default']
@@ -25,10 +26,12 @@ declare module 'vue' {
     FloatLabel: typeof import('primevue/floatlabel')['default']
     Form: typeof import('@primevue/forms/form')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    Menu: typeof import('primevue/menu')['default']
     Message: typeof import('primevue/message')['default']
     Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Skeleton: typeof import('primevue/skeleton')['default']
+    SplitButton: typeof import('primevue/splitbutton')['default']
   }
 }
