@@ -33,5 +33,9 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Skeleton: typeof import('primevue/skeleton')['default']
     SplitButton: typeof import('primevue/splitbutton')['default']
+    Step: typeof import('primevue/step')['default']
+    StepList: typeof import('primevue/steplist')['default']
+    Stepper: typeof import('primevue/stepper')['default']
+    Tag: typeof import('primevue/tag')['default']
   }
 }
