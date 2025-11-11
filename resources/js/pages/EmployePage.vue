@@ -1,21 +1,17 @@
 <template>
    <section class="relative" id="employe-page">
       <RouterView />
+
       <BaseCrudBlock entity="employes">
          <template #column>
+            <Column header="Kiritilgan vaqt">
+               <template #body="{ data }">
+                  {{ moment(data.created_at).format("DD-MM-YYYY HH:mm") }}
+               </template>
+            </Column>
             <Column>
                <template #body="{ data }">
-                  <span
-                     :class="[
-                        { 'text-teal-700 bg-teal-100/70': data.status.id == 1 },
-                        { 'text-pink-700 bg-pink-100/70': data.status.id == 2 },
-                        { 'text-blue-700 bg-blue-100/70': data.status.id == 3 },
-                        { 'text-zinc-700 bg-zinc-100/70': data.status.id == 4 },
-                     ]"
-                     class="px-3 rounded-full py-1"
-                  >
-                     {{ data.status.name }}
-                  </span>
+                  <Tag :value="data.status.name" :severity="setSeverity(data.status.id)"></Tag>
                </template>
             </Column>
             <Column>
@@ -37,7 +33,13 @@
    </section>
 </template>
 <script setup lang="ts">
+import moment from "moment";
 import { ref } from "vue";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 const selectedEmploye = ref<number | null>();
+
+function setSeverity(status_id) {
+   const sever = ["secondary", "success", "info", "warn", "danger", "contrast"];
+   return sever[status_id];
+}
 </script>

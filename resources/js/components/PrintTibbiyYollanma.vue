@@ -1,6 +1,6 @@
 <template>
    <div
-      class="sheet invisible p-[1cm] bg-gray-100 -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
+      class="sheet text-black! invisible p-[1cm] -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
       <nav class="text-center leading-[18px] font-bold">
          Тиббий кўрикдан ўтиш учун
@@ -19,11 +19,11 @@
             </tr>
             <tr>
                <td class="w-2/5 h-6 align-bottom">Иш жойи</td>
-               <td class="border-b  align-bottom pl-2">{{ employe.organization.name }}</td>
+               <td class="border-b align-bottom pl-2">{{ employe.organization.name }}</td>
             </tr>
             <tr>
                <td class="w-2/5 h-6 align-bottom">Касби (лавозими)</td>
-               <td class="border-b  align-bottom pl-2">{{ employe.profession }}</td>
+               <td class="border-b align-bottom pl-2">{{ employe.profession }}</td>
             </tr>
             <tr>
                <td class="w-2/5 h-6 align-bottom"></td>
@@ -79,8 +79,8 @@
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  1. Шимолий кон бошқармасининг бўлинма ва мутахассислари билан қабул қилиш хатини келишиб
-                  олиш – 2 кун.
+                  1. Шимолий кон бошқармасининг бўлинма ва мутахассислари билан қабул қилиш хатини
+                  келишиб олиш – 2 кун.
                </td>
             </tr>
             <tr>
@@ -96,8 +96,8 @@
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  Ишга киришда ҳужжатларни расмийлаштириш учун 10 кунлик муддатга риоя қилинмаган ҳолатда,
-                  қабул варақаси бекор қилинади.
+                  Ишга киришда ҳужжатларни расмийлаштириш учун 10 кунлик муддатга риоя қилинмаган
+                  ҳолатда, қабул варақаси бекор қилинади.
                </td>
             </tr>
             <tr class="text-right">
@@ -109,50 +109,48 @@
             <tr class="text-right">
                <td colspan="2" class="pb-4 text-[10pt] font-bold">Танишдим______________________</td>
             </tr>
-   
-   
-   
-   
-   
-   
-   
+
             <tr>
                <td class="text-center text-[10pt] font-bold" colspan="2">ПАМЯТКА</td>
             </tr>
             <tr>
                <td class="text-center text-[10pt] font-bold pb-1" colspan="2">
-                 о сроках оформления документов при трудоустройстве 
+                  о сроках оформления документов при трудоустройстве
                </td>
             </tr>
-   
+
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  1. Согласование приемной записки со специалистами Северного рудоуправления и подразделений – 2 дня. 
+                  1. Согласование приемной записки со специалистами Северного рудоуправления и
+                  подразделений – 2 дня.
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  2. Прохождение мед. осмотра, оформление пластиковой карты и пенсионной накопительной книжки – 5 дней.
+                  2. Прохождение мед. осмотра, оформление пластиковой карты и пенсионной накопительной
+                  книжки – 5 дней.
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-1" colspan="2">
-                  3. Прохождение инструктажей после мед. осмотра – 3 дня. 
+                  3. Прохождение инструктажей после мед. осмотра – 3 дня.
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  В случае несоблюдения сроков  по трудоустройству 10 дней, приемная записка аннулируется.
+                  В случае несоблюдения сроков по трудоустройству 10 дней, приемная записка аннулируется.
                </td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-4 text-[10pt] font-bold">Администрация ОК  Сев.РУ</td>
+               <td colspan="2" class="pb-4 text-[10pt] font-bold">Администрация ОК Сев.РУ</td>
             </tr>
             <tr class="text-right">
                <td colspan="2" class="pb-4 text-[10pt] font-bold"></td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-4 text-[10pt] font-bold">Ознакомлен(а)______________________</td>
+               <td colspan="2" class="pb-4 text-[10pt] font-bold">
+                  Ознакомлен(а)______________________
+               </td>
             </tr>
          </tbody>
       </table>
@@ -160,10 +158,9 @@
 </template>
 
 <script setup lang="ts">
-import type { IEmploye } from '@/Interfaces';
+import type { IEmploye } from "@/Interfaces";
 
 const props = defineProps<{
-   employe: IEmploye
-}>()
-
+   employe: IEmploye;
+}>();
 </script>

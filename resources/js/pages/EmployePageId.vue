@@ -22,7 +22,10 @@
          </main>
       </template>
       <template #default>
-         <main v-if="employe" class="flex flex-col bg-surface-100 -mx-5 px-5 -mb-5 pb-6 rounded-b-2xl">
+         <main
+            v-if="employe"
+            class="flex flex-col bg-surface-50 dark:bg-surface-800 -mx-5 px-5 -mb-5 pb-6 rounded-b-2xl"
+         >
             <Teleport to="body">
                <PrintTibbiyYollanma :employe v-if="printPage == 1" />
                <PrintQabulVaraqa :employe v-if="printPage == 2" />
@@ -30,103 +33,119 @@
             <nav class="my-4 flex justify-between items-start">
                <div class="flex flex-col items-start"></div>
                <div>
-                  <ButtonGroup>
-                     <Button
-                        label="Tibbiy ko'rik yo'llanmasi"
-                        size="small"
-                        type="button"
-                        @click="openPrintPage(1)"
-                     />
-                     <Button
-                        label="Qabul varaqasi"
-                        iconPos="right"
-                        size="small"
-                        icon="pi pi-print"
-                        @click="openPrintPage(2)"
-                     />
-                  </ButtonGroup>
+                  <SpeedDial :model="items" direction="left" :transitionDelay="40" pt:menuitem="m-2">
+                     <template #button="{ toggleCallback }">
+                        <Button @click="toggleCallback" size="small" icon="pi pi-print" raised rounded />
+                     </template>
+                     <template #item="{ item, toggleCallback }">
+                        <Button @click="toggleCallback" outlined size="small">
+                           {{ item.label }}
+                        </Button>
+                     </template>
+                  </SpeedDial>
                </div>
             </nav>
             <Panel :header="employe.full_name">
                <table class="w-full">
                   <thead>
                      <tr>
-                        <td class="text-surface-500 text-sm w-1/6">Tug'ilgan yili</td>
-                        <td class="text-surface-500 text-sm w-1/6">Oliy o'quv yurti</td>
-                        <td class="text-surface-500 text-sm w-1/6">Ta'lim darajasi</td>
-                        <td class="text-surface-500 text-sm w-1/6">Ish joyi</td>
-                        <td class="text-surface-500 text-sm w-1/6">Lavozimi</td>
-                        <td class="text-surface-500 text-sm w-1/6">Mehnat sharoiti</td>
+                        <td class="text-surface-500 text-sm w-1/7">Tug'ilgan yili</td>
+                        <td class="text-surface-500 text-sm w-1/7">Oliy o'quv yurti</td>
+                        <td class="text-surface-500 text-sm w-1/7">Ta'lim darajasi</td>
+                        <td class="text-surface-500 text-sm w-1/7">Ish joyi</td>
+                        <td class="text-surface-500 text-sm w-1/7">Uchastka nomi</td>
+                        <td class="text-surface-500 text-sm w-1/7">Lavozimi</td>
+                        <td class="text-surface-500 text-sm w-1/7">Mehnat sharoiti</td>
                      </tr>
                      <tr>
-                        <td class="w-1/6 align-top">
+                        <td class="w-1/7 align-top">
                            {{ moment(employe.birth_date).format("DD-MM-YYYY") }}
                         </td>
-                        <td class="w-1/6 align-top">{{ employe.university }}</td>
-                        <td class="w-1/6 align-top">{{ employe.education_level.name }}</td>
-                        <td class="w-1/6 align-top">{{ employe.organization.shortname }}</td>
-                        <td class="w-1/6 align-top">{{ employe.profession }}</td>
-                        <td class="w-1/6 align-top">{{ employe.work_environment.name }}</td>
+                        <td class="w-1/7 align-top">{{ employe.university }}</td>
+                        <td class="w-1/7 align-top">{{ employe.education_level.name }}</td>
+                        <td class="w-1/7 align-top">{{ employe.organization.shortname }}</td>
+                        <td class="w-1/7 align-top">
+                           {{ employe.division ? employe.division : "---" }}
+                        </td>
+                        <td class="w-1/7 align-top">{{ employe.profession }}</td>
+                        <td class="w-1/7 align-top">{{ employe.work_environment.name }}</td>
                      </tr>
                   </thead>
                </table>
 
+               <main class="flex gap-4 mt-20">
+                  <div class="inline-flex flex-1 flex-col">
+                     <p class="text-surface-500 text-sm">Korxona hisobidan</p>
+                     <i v-if="employe.company" class="pi pi-check text-sm! text-primary"></i>
+                     <i v-else class="pi pi-times text-sm!" style="color: red"></i>
+                  </div>
+                  <div class="inline-flex flex-1 flex-col">
+                     <p class="text-surface-500 text-sm">Nogironligi</p>
+                     <span class="text-sm!" v-if="employe.disability_type">
+                        {{ employe.disability_type.name }}
+                     </span>
+                     <i v-else class="pi pi-times text-sm!" style="color: red"></i>
+                  </div>
+                  <div class="inline-flex flex-1 flex-col">
+                     <p class="text-surface-500 text-sm">Kvotasi</p>
+                     <span class="text-sm!" v-if="employe.quot_type">{{ employe.quot_type.name }}</span>
+                     <i v-else class="pi pi-times text-sm!" style="color: red"></i>
+                  </div>
+                  <div class="inline-flex flex-1 flex-col">
+                     <p class="text-surface-500 text-sm">Qabul shakli</p>
+                     <span class="text-sm!" v-if="employe.cause">{{ employe.cause.name }}</span>
+                     <i v-else class="pi pi-times text-sm!" style="color: red"></i>
+                  </div>
+                  <div class="inline-flex flex-1 flex-col">
+                     <p class="text-surface-500 text-sm">Asos</p>
+                     <span class="text-sm!" v-if="employe.cause_text">{{ employe.cause_text }}</span>
+                     <i v-else class="pi pi-times text-sm!" style="color: red"></i>
+                  </div>
+               </main>
                <div class="flex justify-end mt-10">
-                  <Button :label="employe.phone || ''" variant="text" size="small" icon="pi pi-phone" />
+                  <Button
+                     v-if="employe.phone"
+                     :label="employe.phone || ''"
+                     variant="text"
+                     size="small"
+                     icon="pi pi-phone"
+                  />
+                  <span v-else class="h-9"></span>
                </div>
             </Panel>
             <Stepper value="1" class="my-4">
                <StepList>
-                  <Step v-slot="{ activateCallback, value, a11yAttrs }" asChild :value="1">
-                     <div class="flex flex-row flex-auto gap-4" v-bind="a11yAttrs.root">
+                  <Step v-for="(stat, index) in statuses" asChild :value="stat.id">
+                     <div
+                        class="flex flex-row"
+                        :class="[
+                           { 'flex-auto gap-4': index < statuses.length - 1 },
+                           { 'pl-4': index != 0 },
+                        ]"
+                     >
                         <aside
                            class="text-nowrap inline-flex items-center gap-1"
-                           :class="[{'text-primary font-semibold': (value as number) <= activeStep}]"
+                           :class="[{ 'text-primary font-semibold': stat.id <= employe.status_id }]"
                         >
                            <i
-                              :class="[(value as number) <= activeStep ? 'pi-check-circle' : 'pi-circle']"
+                              :class="[stat.id <= employe.status_id ? 'pi-check-circle' : 'pi-circle']"
                               class="pi"
                            />
-                           Tibbiy ko'rik
+                           {{ stat.name }}
                         </aside>
-                        <Divider class="grow" />
-                     </div>
-                  </Step>
-                  <Step v-slot="{ activateCallback, value, a11yAttrs }" asChild :value="2">
-                     <div class="flex flex-row flex-auto gap-4 pl-4" v-bind="a11yAttrs.root">
-                        <aside
-                           class="text-nowrap inline-flex items-center gap-1"
-                           :class="[{'text-primary font-semibold': (value as number) <= activeStep}]"
-                        >
-                           <i
-                              :class="[(value as number) <= activeStep ? 'pi-check-circle' : 'pi-circle']"
-                              class="pi"
-                           />
-                           Qabul varaqa
-                        </aside>
-                        <Divider />
-                     </div>
-                  </Step>
-                  <Step v-slot="{ activateCallback, value, a11yAttrs }" asChild :value="3">
-                     <div class="flex flex-row pl-4" v-bind="a11yAttrs.root">
-                        <aside
-                           class="text-nowrap inline-flex items-center gap-1"
-                           :class="[{'text-primary font-semibold': (value as number) <= activeStep}]"
-                        >
-                           <i
-                              :class="[(value as number) <= activeStep ? 'pi-check-circle' : 'pi-circle']"
-                              class="pi"
-                           />
-                           Buyruq kutish
-                        </aside>
+                        <Divider v-if="index != statuses.length - 1" class="grow" />
                      </div>
                   </Step>
                </StepList>
             </Stepper>
+
             <aside class="flex justify-between mt-6">
                <div class="inline-flex items-center gap-3">
+                  <span class="text-sm text-surface-500 inline-flex items-center">
+                     # {{ employe.id }}
+                  </span>
                   <span class="text-sm text-surface-500 inline-flex items-center gap-2">
-                     <i class="pi pi-user-edit"></i> {{ employe.creater.name }}
+                     <i class="pi pi-user-edit text-sm!"></i> {{ employe.creater.name }}
                   </span>
                   <span class="text-sm text-surface-500 inline-flex items-center gap-2">
                      <i class="pi pi-clock text-sm!"></i>
@@ -142,7 +161,7 @@
                   <skeleton height="35px" width="309px" />
                </div>
             </nav>
-            <skeleton height="191px" />
+            <skeleton height="202px" />
             <nav class="flex justify-between my-4">
                <skeleton height="32px" width="108px" />
                <skeleton height="32px" width="108px" />
@@ -165,24 +184,25 @@ import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
 const route = useRoute();
-// Dialog holati
 const isDialogVisible = ref(false);
 const employe_id = route.params.id as string;
+const statuses = ref();
 const repo = new CrudRepo("employes");
+const repoStatus = new CrudRepo("status");
 const employe = ref<IEmploye | null>(null);
 const printPage = ref<number | null>(null);
 
-const activeStep = ref(1);
-async function getEmploye() {
-   const as = await repo.show<IEmploye>(employe_id);
-   setTimeout(() => {
-      employe.value = as;
-   }, 300);
+function getEmploye() {
+   setTimeout(async () => {
+      employe.value = await repo.show<IEmploye>(employe_id);
+   }, 200);
 }
 
-onMounted(() => {
+onMounted(async () => {
    isDialogVisible.value = true;
    getEmploye();
+
+   statuses.value = await repoStatus.index();
 });
 
 async function openPrintPage(number) {
@@ -191,5 +211,14 @@ async function openPrintPage(number) {
    window.print();
 }
 
-// 5977137 GMZ PRAV SAYUZ
+const items = ref([
+   {
+      label: "Tibbiy ko'rik yo'llanmasi",
+      command: () => openPrintPage(1),
+   },
+   {
+      label: "Qabul varaqasi",
+      command: () => openPrintPage(2),
+   },
+]);
 </script>

@@ -1,4 +1,4 @@
-import { InputText, DatePicker, Select, Checkbox, SelectButton } from "primevue";
+import { InputText, DatePicker, Select, Checkbox, SelectButton, InputMask } from "primevue";
 import type { IEducationLevel, IFormInputs } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
@@ -183,6 +183,7 @@ export const crudConfigs = {
             name: "created_at",
             placeholder: "Kiritilgan sana",
             notInput: true,
+            notColumn: true,
          },
          {
             is: Select,
@@ -196,11 +197,12 @@ export const crudConfigs = {
             notColumn: true,
          },
          {
-            is: InputText,
+            is: InputMask,
             name: "phone",
             placeholder: "Telefon raqami",
             schema: yup.string().nullable(),
             notColumn: true,
+            attr: { mask: "(99) 999-99-99" },
          },
          {
             is: SelectButton,
