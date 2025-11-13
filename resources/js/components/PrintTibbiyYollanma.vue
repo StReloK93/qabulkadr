@@ -2,27 +2,28 @@
    <div
       class="sheet text-black! invisible p-[1cm] -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
+      <span class="absolute top-3 right-3 text-sm text-gray-500"> #{{ employe.id }} </span>
       <nav class="text-center leading-[18px] font-bold">
-         Тиббий кўрикдан ўтиш учун
+         Tibbiy ko'rikdan o'tish
          <br />
-         <span> Й Ў Л Л А Н М А </span>
+         <span> Y O' L L A N M A </span>
       </nav>
       <main class="text-center mt-3">
          {{ employe.full_name }}
       </main>
-      <main class="border-t text-center text-[9pt]">(фамилия, исми, шарифи)</main>
+      <main class="border-t text-center text-[9pt]">(Familiya, Ismi, Sharifi)</main>
       <table class="w-full text-[10pt]">
          <tbody>
             <tr>
-               <td class="w-2/5 h-6 align-bottom">Туғилган йили</td>
+               <td class="w-2/5 h-6 align-bottom">Tugilgan yili</td>
                <td class="border-b align-bottom pl-2">{{ employe.birth_date }}</td>
             </tr>
             <tr>
-               <td class="w-2/5 h-6 align-bottom">Иш жойи</td>
+               <td class="w-2/5 h-6 align-bottom">Ish joyi</td>
                <td class="border-b align-bottom pl-2">{{ employe.organization.name }}</td>
             </tr>
             <tr>
-               <td class="w-2/5 h-6 align-bottom">Касби (лавозими)</td>
+               <td class="w-2/5 h-6 align-bottom">Kasbi (lavozimi)</td>
                <td class="border-b align-bottom pl-2">{{ employe.profession }}</td>
             </tr>
             <tr>
@@ -35,7 +36,7 @@
             </tr>
             <tr>
                <td class="w-2/5 h-9 align-bottom text-[12pt] font-bold text-right pr-2 pb-0.5">
-                  КБ инспектори
+                  KB inspektori
                </td>
                <td class="border-b"></td>
             </tr>
@@ -44,16 +45,16 @@
                <td></td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-3">«______»________________й</td>
+               <td colspan="2" class="pb-3">«______»________________y</td>
             </tr>
             <tr class="text-center">
-               <td colspan="2" class="pb-0.5 font-bold">Тиббий кўрик натижалари:</td>
+               <td colspan="2" class="pb-0.5 font-bold">Tibbiy ko'rik natijalari:</td>
             </tr>
             <tr v-for="value in 9">
                <td class="border-b h-6" colspan="2"></td>
             </tr>
             <tr>
-               <td class="text-center font-bold text-[11pt]" colspan="2">Бош врач хулосаси:</td>
+               <td class="text-center font-bold text-[11pt]" colspan="2">Bosh vrach xulosasi:</td>
             </tr>
             <tr v-for="value in 3">
                <td class="border-b h-6" colspan="2"></td>
@@ -64,50 +65,50 @@
             </tr>
             <tr>
                <td class="w-2/5 font-bold text-right pr-2 pb-0.5"></td>
-               <td class="text-center">(имзо)</td>
+               <td class="text-center">(imzo)</td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-3">«______»________________й</td>
+               <td colspan="2" class="pb-3">«______»________________y</td>
             </tr>
             <tr>
                <td class="text-center text-[10pt] font-bold pb-1" colspan="2">
-                  Ишга киришда ҳужжатларни расмийлаштириш муддати тўғрисида
+                  Ishga kirishda xujjatlarni rasmiylashtirish muddati to'g'risida
                </td>
             </tr>
             <tr>
-               <td class="text-center text-[10pt] font-bold pb-1.5" colspan="2">ЭСЛАТМА</td>
+               <td class="text-center text-[10pt] font-bold pb-1.5" colspan="2">ESLATMA</td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  1. Шимолий кон бошқармасининг бўлинма ва мутахассислари билан қабул қилиш хатини
-                  келишиб олиш – 2 кун.
+                  1. Shimoliy kon boshqarmasining bo'linma va mutaxassislari bilan qabul qilish xatini
+                  kelishib olish - 2 kun
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  2. Тиббий кўрикдан ўтиш, пластик карта ва жамғариб бориладиган пенсия дафтарчасини
-                  расмийлаштириш – 5 кун.
+                  2. Tibbiy ko'rikdan o'tish , plastik karta va jamg'arib boriladigan pensiya
+                  daftarchasini rasmiylashtirish - 5 kun
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-1" colspan="2">
-                  3. Тиббий кўрикдан ўтгандан кейин, йўриқномаларни ўтиш 3-кун.
+                  3. Tibbiy ko'rikdan o'tgandan keyin , yo'riqnomalarni o'tish 3 - kun
                </td>
             </tr>
             <tr>
                <td class="text-[10pt] pb-0.5" colspan="2">
-                  Ишга киришда ҳужжатларни расмийлаштириш учун 10 кунлик муддатга риоя қилинмаган
-                  ҳолатда, қабул варақаси бекор қилинади.
+                  Ishga kirishda xujjatlarni rasmiylashtirish uchun 10 kunlik muddatga rioya qilinmagan
+                  holatda, qabul varaqasi bekor qilinadi
                </td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-4 text-[10pt] font-bold">ШКБ КБ маъмурияти</td>
+               <td colspan="2" class="pb-4 text-[10pt] font-bold">SHKB KB mamuriyati</td>
             </tr>
             <tr class="text-right">
                <td colspan="2" class="pb-4 text-[10pt] font-bold"></td>
             </tr>
             <tr class="text-right">
-               <td colspan="2" class="pb-4 text-[10pt] font-bold">Танишдим______________________</td>
+               <td colspan="2" class="pb-4 text-[10pt] font-bold">Tanishdim______________________</td>
             </tr>
 
             <tr>

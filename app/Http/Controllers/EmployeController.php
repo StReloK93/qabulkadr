@@ -33,4 +33,12 @@ class EmployeController extends BaseCrudController
         $item->update($request->all());
         return $item;
     }
+
+
+    public function updateStatus(Request $request, $employe_id)
+    {
+        $item = $this->model::findOrFail($employe_id);
+        $item->status_id = $request->status_id;
+        $item->save();
+    }
 }

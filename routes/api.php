@@ -15,6 +15,8 @@ Route::controller(AuthController::class)
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/employes', \App\Http\Controllers\EmployeController::class);
+    Route::post('crud/employes/update-status/{employe_id}', [\App\Http\Controllers\EmployeController::class, 'updateStatus']);
+
 
     Route::apiResource('crud/organization', \App\Http\Controllers\OrganizationController::class);
     Route::apiResource('crud/cause', \App\Http\Controllers\CauseController::class);

@@ -5,17 +5,14 @@
       <!-- invisible -->
       <nav class="flex justify-end">
          <main class="text-right text-[13.5pt]">
-            ШКБ директори Н.Н.Амоновга <br />
-            фуқаро Бегмуродов Беҳзод Қодирович <br />
-            томонидан
+            SHKB Direktori N.N.Amonovga <br />
+            fuqoro Beyzodov Begzod Behzodovich <br />
+            tomonidan
          </main>
       </nav>
       <br /><br />
-      <nav class="text-center text-[12pt] uppercase font-bold tracking-[4px] mb-1">Ариза</nav>
-      <p class="indent-14 text-[12pt]">
-         Мени 3-сонли Гидрометаллургия заводи Майдалаш цехига Цех бошлиғи лавозимига ишга қабул
-         қилишингизни сўрайман
-      </p>
+      <nav class="text-center text-[12pt] uppercase font-bold tracking-[4px] mb-1">Ariza</nav>
+      <p class="indent-14 text-[12pt]">Menga shu dasturni tezroq tugatishimga yordam qiling</p>
    </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
    <section class="relative" id="employe-page">
-      <RouterView />
+      <RouterView @updateEmploye="baseCrudBlock?.loadData()" />
 
-      <BaseCrudBlock entity="employes">
+      <BaseCrudBlock ref="baseCrudBlock" entity="employes">
          <template #column>
             <Column header="Kiritilgan vaqt">
                <template #body="{ data }">
@@ -34,9 +34,10 @@
 </template>
 <script setup lang="ts">
 import moment from "moment";
-import { ref } from "vue";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
-const selectedEmploye = ref<number | null>();
+import { ref } from "vue";
+
+const baseCrudBlock = ref<{ loadData: Function }>();
 
 function setSeverity(status_id) {
    const sever = ["secondary", "success", "info", "warn", "danger", "contrast"];

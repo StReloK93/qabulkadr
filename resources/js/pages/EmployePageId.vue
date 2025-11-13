@@ -102,7 +102,7 @@
                      <i v-else class="pi pi-times text-sm!" style="color: red"></i>
                   </div>
                </main>
-               <div class="flex justify-end mt-10">
+               <div class="flex justify-end mt-6">
                   <Button
                      v-if="employe.phone"
                      :label="employe.phone || ''"
@@ -113,7 +113,7 @@
                   <span v-else class="h-9"></span>
                </div>
             </Panel>
-            <Stepper value="1" class="my-4">
+            <Stepper value="1" class="mt-4">
                <StepList>
                   <Step v-for="(stat, index) in statuses" asChild :value="stat.id">
                      <div
@@ -123,23 +123,23 @@
                            { 'pl-4': index != 0 },
                         ]"
                      >
-                        <aside
-                           class="text-nowrap inline-flex items-center gap-1"
-                           :class="[{ 'text-primary font-semibold': stat.id <= employe.status_id }]"
-                        >
-                           <i
-                              :class="[stat.id <= employe.status_id ? 'pi-check-circle' : 'pi-circle']"
-                              class="pi"
-                           />
-                           {{ stat.name }}
-                        </aside>
+                        <Button
+                           :icon="stat.id <= employe.status_id ? 'pi pi-check-circle' : 'pi pi-circle'"
+                           class="min-w-34"
+                           :loading="stat.id == loadingButton"
+                           :severity="stat.id <= employe.status_id ? '' : 'secondary'"
+                           :label="stat.name"
+                           size="small"
+                           @click="changeEmployeStatus(stat.id)"
+                           variant="text"
+                        />
                         <Divider v-if="index != statuses.length - 1" class="grow" />
                      </div>
                   </Step>
                </StepList>
             </Stepper>
 
-            <aside class="flex justify-between mt-6">
+            <aside class="flex justify-between mt-4">
                <div class="inline-flex items-center gap-3">
                   <span class="text-sm text-surface-500 inline-flex items-center">
                      # {{ employe.id }}
@@ -183,14 +183,18 @@ import { nextTick, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
+import { api } from "@/helpers/useFetch";
 const route = useRoute();
 const isDialogVisible = ref(false);
 const employe_id = route.params.id as string;
+
 const statuses = ref();
 const repo = new CrudRepo("employes");
-const repoStatus = new CrudRepo("status");
 const employe = ref<IEmploye | null>(null);
 const printPage = ref<number | null>(null);
+const loadingButton = ref<null | number>(null);
+
+const emit = defineEmits(["updateEmploye"]);
 
 function getEmploye() {
    setTimeout(async () => {
@@ -198,11 +202,20 @@ function getEmploye() {
    }, 200);
 }
 
+async function changeEmployeStatus(status_id) {
+   loadingButton.value = status_id;
+   await api.post(`crud/employes/update-status/${employe_id}`, { status_id });
+
+   if (employe.value) employe.value.status_id = status_id;
+
+   emit("updateEmploye");
+   loadingButton.value = null;
+}
+
 onMounted(async () => {
    isDialogVisible.value = true;
    getEmploye();
-
-   statuses.value = await repoStatus.index();
+   statuses.value = await new CrudRepo("status").index();
 });
 
 async function openPrintPage(number) {
@@ -212,13 +225,7 @@ async function openPrintPage(number) {
 }
 
 const items = ref([
-   {
-      label: "Tibbiy ko'rik yo'llanmasi",
-      command: () => openPrintPage(1),
-   },
-   {
-      label: "Qabul varaqasi",
-      command: () => openPrintPage(2),
-   },
+   { label: "Tibbiy ko'rik yo'llanmasi", command: () => openPrintPage(1) },
+   { label: "Qabul varaqasi", command: () => openPrintPage(2) },
 ]);
 </script>

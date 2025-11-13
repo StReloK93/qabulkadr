@@ -143,6 +143,8 @@ watch(
    }
 );
 
+defineExpose({ loadData });
+
 onMounted(() => {
    loadData();
 });
