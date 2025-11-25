@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Yoriqnoma;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Database\Seeder;
@@ -118,6 +119,25 @@ class DatabaseSeeder extends Seeder
                 'creater_id' => 1,
 
             ],
+        ]);
+
+
+        Yoriqnoma::insert([
+            [
+                'title' => 'First',
+                'text' => "Mehnatga haq to‘lash : ______________ \n Ish vaqti rejimi: ____________________ \n
+
+Xodim uchun __________ish haftasi belgilanadi. \n
+       uzluksiz 2 smenalik, uzluksiz 1 smenalik, 5 kunlik  \n
+Xodimning ish vaqti soatbay 1-smena soat             dan  \n            gacha hisoblanib, tushlik vaqti soat           dan  \n          gacha hamda soat           dan           gacha;
+2-smena soat             dan             gacha hisoblanib, tushlik vaqti soat           dan           gacha hamda soat           dan           gacha belgilanadi.
+Bunda ish vaqtining davomiyligi haftasiga ____soatgacha etib belgilanadi. \n
+Bo‘linma MTE va IH bo‘yicha mas’ul xodimi    ___________________________                      ________
+  (F.I.SH)                                                                      (imzo)                                                       
+",
+                'colspan' => 0,
+            ],
+
         ]);
     }
 }

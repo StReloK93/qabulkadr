@@ -5,16 +5,18 @@
       <!-- invisible -->
       <nav class="flex justify-end">
          <main class="text-right text-[13.5pt]">
-            SHKB Direktori N.N.Amonovga <br />
-            fuqoro Beyzodov Begzod Behzodovich <br />
+            SHKB Direktori {{ props.qabul.mainBoss }}ga <br />
+            fuqoro {{ props.employe.full_name }} <br />
             tomonidan
          </main>
       </nav>
       <br /><br />
       <nav class="text-center text-[12pt] uppercase font-bold tracking-[4px] mb-1">Ariza</nav>
       <p class="indent-14 text-[12pt]">
-         Meni 3-sonli Gidrometallurgiya zavodi Maydalash tsexiga Tsex boshlig'i lavozimiga ishga qabul
-         qilishingizni so'rayman
+         Meni
+         {{ props.employe.organization.name
+         }}{{ props.employe.division ? ` ${props.employe.division}` : "" }}ga
+         {{ props.employe.profession }} lavozimiga ishga qabul qilishingizni so'rayman
       </p>
       <div class="flex justify-between mt-6">
          <span> «____»_____________ y. </span>
@@ -24,11 +26,11 @@
          </section>
       </div>
       <div class="flex justify-between mt-8 text-[11pt]">
-         <span>Ijrochi: No'monov Sh.O'</span>
+         <span>Ijrochi: {{ UserStore.user?.name }}</span>
          <section class="text-right font-semibold">
             Kadrlar bo'limi boshlig'i
             <br />
-            A.B.Butayev
+            {{ props.qabul.kadrBoss }}
          </section>
       </div>
       <div class="flex justify-end mt-2">
@@ -46,18 +48,20 @@
             <tr>
                <td class="text-[11pt] align-bottom">Familiya, ismi, sharifi</td>
                <td class="text-[13pt] align-bottom border-b px-4 py-0.5">
-                  Palonchayev Pistoncha Pistonchaevich
+                  {{ props.employe.full_name }}
                </td>
             </tr>
             <tr>
                <td class="text-[11pt] align-bottom">Ish joyi</td>
                <td class="text-[13pt] align-bottom border-b px-4 py-0.5">
-                  3-sonli Gidrometallurgiya zavodi , Maydalash tsexi
+                  {{ props.employe.organization.name }} {{ props.employe.division }}
                </td>
             </tr>
             <tr>
                <td class="text-[11pt] align-bottom">Kasbi (lavozimi)</td>
-               <td class="text-[13pt] align-bottom border-b px-4 py-0.5">Sex boshlig‘i</td>
+               <td class="text-[13pt] align-bottom border-b px-4 py-0.5">
+                  {{ props.employe.profession }}
+               </td>
             </tr>
             <tr>
                <td class="text-[11pt] align-bottom">Razryadi (oklad)</td>
@@ -69,7 +73,7 @@
       <table class="text-[10pt]">
          <tbody>
             <tr class="text-center leading-3">
-               <td class="border py-0.5 min-w-8">№</td>
+               <td class="border py-0.5 min-w-10">№</td>
                <td class="border py-0.5 w-full">Yo'riqnoma o'tiladigan joylar</td>
                <td class="border py-0.5 min-w-26">Yo'riqnoma o'tkazilgan kun</td>
                <td class="border py-0.5 min-w-26">Yo'riqnoma o'tqazuvchi</td>
@@ -82,9 +86,38 @@
                   imzosi
                </td>
             </tr>
+            <tr v-for="(item, index) in qabul.yoriqnomalar">
+               <td class="border py-1 px-2 min-w-10 text-center">{{ index + 1 }}.</td>
+               <td class="border py-1 px-2 min-w-8" v-html="item.title"></td>
+               <td class="border py-1 px-2 min-w-8 whitespace-pre max-w-80" :colspan="item.colspan">
+                  <span v-html="item.text"></span>
+               </td>
+               <td
+                  class="border py-1 px-2 min-w-8"
+                  v-for="value in 3 - (item.colspan ? item.colspan - 1 : 0)"
+               ></td>
+            </tr>
          </tbody>
       </table>
    </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from "@/stories/UserStore";
+const UserStore = useUserStore();
+
+interface IQabul {
+   yoriqnomalar: { title: string; text: string; colspan: number }[] | null;
+   kadrBoss: string;
+   mainBoss: string;
+}
+
+interface INeedEmploye {
+   full_name: string;
+   organization: { name: string };
+   division: string | null;
+   profession: string;
+}
+
+const props = defineProps<{ qabul: IQabul; employe: INeedEmploye }>();
+</script>

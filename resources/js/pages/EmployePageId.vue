@@ -28,7 +28,7 @@
          >
             <Teleport to="body">
                <PrintTibbiyYollanma :employe v-if="printPage == 1" />
-               <PrintQabulVaraqa :employe v-if="printPage == 2" />
+               <PrintQabulVaraqa :employe :qabul="qabulTest" v-if="printPage == 2" />
             </Teleport>
             <nav class="my-4 flex justify-between items-start">
                <div class="flex flex-col items-start"></div>
@@ -179,7 +179,7 @@
 import PrintTibbiyYollanma from "@/components/PrintTibbiyYollanma.vue";
 import PrintQabulVaraqa from "@/components/PrintQabulVaraqa.vue";
 import moment from "moment";
-import { nextTick, onMounted, ref } from "vue";
+import { nextTick, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
@@ -193,12 +193,19 @@ const repo = new CrudRepo("employes");
 const employe = ref<IEmploye | null>(null);
 const printPage = ref<number | null>(null);
 const loadingButton = ref<null | number>(null);
-
+const yoriqnomalar = ref<null | number>(null);
 const emit = defineEmits(["updateEmploye"]);
+
+const qabulTest = reactive({
+   yoriqnomalar: null,
+   kadrBoss: "A.B.Butayev",
+   mainBoss: "N.N.Amonov",
+});
 
 function getEmploye() {
    setTimeout(async () => {
       employe.value = await repo.show<IEmploye>(employe_id);
+      qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").index();
    }, 200);
 }
 

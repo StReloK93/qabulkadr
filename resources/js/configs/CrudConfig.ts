@@ -1,4 +1,4 @@
-import { InputText, DatePicker, Select, Checkbox, SelectButton, InputMask } from "primevue";
+import { InputText, DatePicker, Select, Checkbox, SelectButton, InputMask, Textarea } from "primevue";
 import type { IEducationLevel, IFormInputs } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
@@ -73,6 +73,31 @@ export const crudConfigs = {
             name: "name",
             placeholder: "Nomi",
             schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
+
+   yoriqnoma: {
+      title: "Yo'riqnomalar",
+      parentTitle: "Qo'llanmalar",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "title",
+            placeholder: "Yo'riqnoma o'tiladigan joylar",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: Textarea,
+            name: "text",
+            placeholder: "Malumot",
+            schema: yup.string(),
+         },
+         {
+            is: InputText,
+            name: "colspan",
+            placeholder: "Kataklar soni",
+            schema: yup.string(),
          },
       ],
    },

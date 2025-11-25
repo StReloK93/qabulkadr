@@ -25,4 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/disability_type', \App\Http\Controllers\DisabilityTypeController::class);
     Route::apiResource('crud/quot_type', \App\Http\Controllers\QuotTypeController::class);
     Route::apiResource('crud/status', \App\Http\Controllers\StatusController::class);
+    Route::apiResource('crud/yoriqnoma', \App\Http\Controllers\YoriqnomaController::class);
+
+
 });
