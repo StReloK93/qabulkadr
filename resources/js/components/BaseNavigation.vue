@@ -64,6 +64,6 @@ const crudPages = [
    { name: "disability_type", label: "Nogironlik turlari", icon: "pi pi-clone" },
    { name: "quot_type", label: "Kvota turlari", icon: "pi pi-bookmark" },
    { name: "status", label: "Jarayon turlari", icon: "pi pi-tags" },
-   { name: "yoriqnoma", label: "Yo'riqnomalar", icon: "pi pi-tags" },
+   { name: "yoriqnoma", label: "Yo'riqnomalar", icon: "pi pi-eraser" },
 ];
 </script>

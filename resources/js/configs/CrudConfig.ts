@@ -82,16 +82,20 @@ export const crudConfigs = {
       parentTitle: "Qo'llanmalar",
       inputs: <IFormInputs[]>[
          {
-            is: InputText,
+            is: Textarea,
             name: "title",
             placeholder: "Yo'riqnoma o'tiladigan joylar",
             schema: yup.string().required("To'ldiring"),
+            attr: { autoResize: true },
+            parentClass: "font-[Times_New_Roman]!",
          },
          {
             is: Textarea,
             name: "text",
             placeholder: "Malumot",
-            schema: yup.string(),
+            schema: yup.string().nullable(),
+            attr: { autoResize: true },
+            parentClass: "font-[Times_New_Roman]!",
          },
          {
             is: InputText,
@@ -196,7 +200,6 @@ export const crudConfigs = {
             name: "division",
             placeholder: "Uchastka nomi",
             schema: yup.string().nullable(),
-            notColumn: true,
          },
          {
             is: InputText,

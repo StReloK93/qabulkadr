@@ -11,8 +11,8 @@
 }
 
 @page {
-   size: A4; /* yoki 'A4' */
-   margin: 0mm; /* sahifa marginlari */
+   size: A4;
+   margin: 1sm;
 }
 
 @media print {

@@ -26,10 +26,6 @@
             v-if="employe"
             class="flex flex-col bg-surface-50 dark:bg-surface-800 -mx-5 px-5 -mb-5 pb-6 rounded-b-2xl"
          >
-            <Teleport to="body">
-               <PrintTibbiyYollanma :employe v-if="printPage == 1" />
-               <PrintQabulVaraqa :employe :qabul="qabulTest" v-if="printPage == 2" />
-            </Teleport>
             <nav class="my-4 flex justify-between items-start">
                <div class="flex flex-col items-start"></div>
                <div>
@@ -62,13 +58,13 @@
                            {{ moment(employe.birth_date).format("DD-MM-YYYY") }}
                         </td>
                         <td class="w-1/7 align-top">{{ employe.university }}</td>
-                        <td class="w-1/7 align-top">{{ employe.education_level.name }}</td>
-                        <td class="w-1/7 align-top">{{ employe.organization.shortname }}</td>
+                        <td class="w-1/7 align-top">{{ employe.education_level?.name }}</td>
+                        <td class="w-1/7 align-top">{{ employe.organization?.shortname }}</td>
                         <td class="w-1/7 align-top">
                            {{ employe.division ? employe.division : "---" }}
                         </td>
                         <td class="w-1/7 align-top">{{ employe.profession }}</td>
-                        <td class="w-1/7 align-top">{{ employe.work_environment.name }}</td>
+                        <td class="w-1/7 align-top">{{ employe.work_environment?.name }}</td>
                      </tr>
                   </thead>
                </table>
@@ -82,18 +78,18 @@
                   <div class="inline-flex flex-1 flex-col">
                      <p class="text-surface-500 text-sm">Nogironligi</p>
                      <span class="text-sm!" v-if="employe.disability_type">
-                        {{ employe.disability_type.name }}
+                        {{ employe.disability_type?.name }}
                      </span>
                      <i v-else class="pi pi-times text-sm!" style="color: red"></i>
                   </div>
                   <div class="inline-flex flex-1 flex-col">
                      <p class="text-surface-500 text-sm">Kvotasi</p>
-                     <span class="text-sm!" v-if="employe.quot_type">{{ employe.quot_type.name }}</span>
+                     <span class="text-sm!" v-if="employe.quot_type">{{ employe.quot_type?.name }}</span>
                      <i v-else class="pi pi-times text-sm!" style="color: red"></i>
                   </div>
                   <div class="inline-flex flex-1 flex-col">
                      <p class="text-surface-500 text-sm">Qabul shakli</p>
-                     <span class="text-sm!" v-if="employe.cause">{{ employe.cause.name }}</span>
+                     <span class="text-sm!" v-if="employe.cause">{{ employe.cause?.name }}</span>
                      <i v-else class="pi pi-times text-sm!" style="color: red"></i>
                   </div>
                   <div class="inline-flex flex-1 flex-col">
@@ -176,10 +172,8 @@
 </template>
 
 <script setup lang="ts">
-import PrintTibbiyYollanma from "@/components/PrintTibbiyYollanma.vue";
-import PrintQabulVaraqa from "@/components/PrintQabulVaraqa.vue";
 import moment from "moment";
-import { nextTick, onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
@@ -191,21 +185,13 @@ const employe_id = route.params.id as string;
 const statuses = ref();
 const repo = new CrudRepo("employes");
 const employe = ref<IEmploye | null>(null);
-const printPage = ref<number | null>(null);
-const loadingButton = ref<null | number>(null);
-const yoriqnomalar = ref<null | number>(null);
-const emit = defineEmits(["updateEmploye"]);
 
-const qabulTest = reactive({
-   yoriqnomalar: null,
-   kadrBoss: "A.B.Butayev",
-   mainBoss: "N.N.Amonov",
-});
+const loadingButton = ref<null | number>(null);
+const emit = defineEmits(["updateEmploye", "onPrintPage"]);
 
 function getEmploye() {
    setTimeout(async () => {
       employe.value = await repo.show<IEmploye>(employe_id);
-      qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").index();
    }, 200);
 }
 
@@ -226,9 +212,7 @@ onMounted(async () => {
 });
 
 async function openPrintPage(number) {
-   printPage.value = number;
-   await nextTick();
-   window.print();
+   emit("onPrintPage", { page: number, employe: employe.value });
 }
 
 const items = ref([

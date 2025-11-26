@@ -1,6 +1,6 @@
 <template>
    <div
-      class="sheet text-black! invisible p-[1cm] -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
+      class="sheet text-black! invisible p-px -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
       <span class="absolute top-3 right-3 text-sm text-gray-500"> #{{ employe.id }} </span>
       <nav class="text-center leading-[18px] font-bold">

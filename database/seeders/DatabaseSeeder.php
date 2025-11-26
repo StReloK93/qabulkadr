@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Shoxa Admin',
+            'name' => "No'monov Shohrux",
             'login' => 'admin',
             'password' => Hash::make('zzzz1111*'),
         ]);
@@ -124,20 +124,92 @@ class DatabaseSeeder extends Seeder
 
         Yoriqnoma::insert([
             [
-                'title' => 'First',
-                'text' => "Mehnatga haq to‘lash : ______________ \n Ish vaqti rejimi: ____________________ \n
-
-Xodim uchun __________ish haftasi belgilanadi. \n
-       uzluksiz 2 smenalik, uzluksiz 1 smenalik, 5 kunlik  \n
-Xodimning ish vaqti soatbay 1-smena soat             dan  \n            gacha hisoblanib, tushlik vaqti soat           dan  \n          gacha hamda soat           dan           gacha;
-2-smena soat             dan             gacha hisoblanib, tushlik vaqti soat           dan           gacha hamda soat           dan           gacha belgilanadi.
-Bunda ish vaqtining davomiyligi haftasiga ____soatgacha etib belgilanadi. \n
-Bo‘linma MTE va IH bo‘yicha mas’ul xodimi    ___________________________                      ________
-  (F.I.SH)                                                                      (imzo)                                                       
-",
-                'colspan' => 0,
+                'title' => "Ichki mehnat tartib qoidalari 
+(Boshqarma Kadrlar boʻlimi 3-bino 1-qavat  8-xona)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Mehnatga haq toʻlash tizimi boʻyicha 
+(Boshqarma Mehnatni tashkil etish va ish haqi
+boʻlimi 1-bino 1- qavat 305-xona )",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Yongʻinga qarshi tadbirlar 16:00
+(Yongʻin xafvsizlik qismi)",
+                'text' => "",
+                'colspan' => 0
             ],
 
+            [
+                'title' => "Favqulodda vaziyatlar xizmati  16:00
+(Boshqarma 3-bino 3-qavat 28-xona)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Mehnat muhofazasi va texnika xavfsizligi boʻlimi
+(Boshqarma 3-bino 3- qavat 32-34-xona)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Ҳарбий-ҳисобга олиш столи 
+(Бошқарма 3-бино 1- қават 7А-хона)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => ' Boʻlinma MTE va IHB',
+                'text' => "Mehnatga haq to‘lash:__________________
+Ish vaqti rejimi:_______________________
+Xodim uchun_______ish haftasi belgilanadi.
+              <span style='font-size: 9px'>uzluksiz 2 smenalik, uzluksiz 1 smenalik, 5 kunlik</span>
+Xodimning ish vaqti soatbay
+1-smena soat_____dan_____gacha hisoblanib
+tushlik vaqti soat_____dan_____gacha
+hamda soat_____dan_____gacha;
+2-smena soat_____dan_____gacha hisoblanib
+tushlik vaqti soat_____dan_____gacha
+hamda soat_____dan_____gacha belgilanadi.
+Bunda ish vaqtining davomiyligi
+haftasiga_____soatgacha etib belgilanadi. 
+
+Bo‘linma MTE va IH bo‘yicha mas’ul xodimi 
+_____________________              ________
+(F.I.SH)                                                 (imzo)",
+                'colspan' => 3,
+            ],
+            [
+                'title' => "Tartibot boʻlimi   
+(Boshqarma 1-bino 1- qavat 107-xona)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Markazlashtirilgan buxgalteriya 
+(Boshqarma  2-bino 2- qavat)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Boʻlinma mehnat muhofazasi va texnika xavfsizligi boʻlimi",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Komplayens xizmati 
+(Boshqarma 1-bino 1-qavat 110-xona)",
+                'text' => "",
+                'colspan' => 0
+            ],
+            [
+                'title' => "Boʻlinma kadrlar xizmati",
+                'text' => "",
+                'colspan' => 0
+            ],
         ]);
     }
 }

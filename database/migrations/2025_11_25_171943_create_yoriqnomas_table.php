@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('yoriqnomas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('text');
+            $table->text('text')->nullable();
             $table->integer('colspan')->default(0);
         });
     }
