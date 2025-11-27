@@ -26,6 +26,19 @@ const routes: RouteRecordRaw[] = [
             ],
          },
          {
+            path: "finished-employe",
+            name: "finished-employe-page",
+            component: () => import("@pages/FinishedEmployePage.vue"),
+            // children: [
+            //    {
+            //       path: ":id",
+            //       props: true,
+            //       name: "employe-id-page",
+            //       component: () => import("@pages/FinishedEmployePageId.vue"),
+            //    },
+            // ],
+         },
+         {
             path: "crud/:entity",
             props: true,
             name: "crud-page",

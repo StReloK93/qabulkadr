@@ -31,6 +31,10 @@ return new class extends Migration {
             $table->integer('quot_type_id')->nullable()->default(null);
             $table->integer('status_id')->default(1);
             $table->integer('creater_id');
+
+            $table->date('buyruq_sanasi')->nullable()->default(null);
+            $table->date('ishga_qabul_kuni')->nullable()->default(null);
+            $table->bigInteger('buyruq_raqami')->nullable()->default(null);
             $table->timestamps();
         });
     }

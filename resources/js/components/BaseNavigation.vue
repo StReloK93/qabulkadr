@@ -22,12 +22,24 @@
                size="small"
             />
          </RouterLink>
+         <p class="text-xs text-surface-600 dark:text-surface-400 px-3">Xodimlar</p>
+
          <RouterLink class="w-full" :to="{ name: 'employe-page' }">
             <Button
                :severity="route.name == 'employe-page' ? 'primary' : 'contrast'"
                class="w-full justify-start! border border-surface-300"
                variant="text"
-               label="Xodimlar"
+               label="Jarayondagilar"
+               icon="pi pi-user-plus"
+               size="small"
+            />
+         </RouterLink>
+         <RouterLink class="w-full" :to="{ name: 'finished-employe-page' }">
+            <Button
+               :severity="route.name == 'finished-employe-page' ? 'primary' : 'contrast'"
+               class="w-full justify-start! border border-surface-300"
+               variant="text"
+               label="Ishga qabul qilinganlar"
                icon="pi pi-users"
                size="small"
             />

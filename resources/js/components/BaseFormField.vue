@@ -6,7 +6,7 @@
                :is="props.field.is"
                :name="props.field.name"
                v-bind="props.field.attr"
-               v-model="field.value"
+               v-model="props.field.value"
                fluid
                :input-id="props.field.name"
                size="small"

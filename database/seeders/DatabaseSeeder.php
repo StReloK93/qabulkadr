@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
         Status::insert([
             ['name' => "Tibbiy ko'rik"],
             ['name' => "Yo'llanma"],
+            ['name' => "Buyruq kutish"],
         ]);
 
         Employe::insert([
@@ -88,34 +89,6 @@ class DatabaseSeeder extends Seeder
                 'work_environment_id' => 1,
                 'company' => false,
                 'created_at' => Carbon::parse('2025-10-10'),
-                'creater_id' => 1,
-
-            ],
-            [
-                'full_name' => "Mustafoyev Zukhriddin",
-                'birth_date' => '2025-11-06',
-                'education_level_id' => 1,
-                'university' => "INST",
-                'cause_id' => 1,
-                'organization_id' => 1,
-                'profession' => 'KIASI BOR',
-                'work_environment_id' => 1,
-                'company' => false,
-                'created_at' => Carbon::parse('2025-11-10'),
-                'creater_id' => 1,
-
-            ],
-            [
-                'full_name' => "Ravshanov Jamshid",
-                'birth_date' => '2025-11-06',
-                'education_level_id' => 1,
-                'university' => "UNVRSTT",
-                'cause_id' => 1,
-                'organization_id' => 1,
-                'profession' => 'Jumshud',
-                'work_environment_id' => 1,
-                'company' => false,
-                'created_at' => Carbon::parse('2025-12-10'),
                 'creater_id' => 1,
 
             ],

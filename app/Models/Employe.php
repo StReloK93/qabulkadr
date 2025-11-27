@@ -19,7 +19,6 @@ class Employe extends Model
         'quot_type_id' => 'integer',
         'status_id' => 'integer',
         'company' => 'boolean',
-        // 'created_at' => 'datetime:d.m.Y H:s',
     ];
     protected $with = ['organization', 'education_level', 'work_environment', 'cause', 'status', 'creater'];
     protected $fillable = [
@@ -40,6 +39,10 @@ class Employe extends Model
         'quot_type_id',
         'status_id',
         'creater_id',
+
+        'buyruq_sanasi',
+        'ishga_qabul_luni',
+        'buyruq_raqami'
     ];
 
     public function organization()

@@ -12,6 +12,7 @@ export interface IFormInputs {
    placeholder: string;
    schema: yup.AnySchema;
    value?: string | number | null | boolean;
+   default?: string | number | null | boolean;
    withLabel?: boolean;
    notColumn?: boolean;
    notInput?: boolean;
@@ -53,8 +54,8 @@ export interface IEmploye {
    cause_text: string | null;
    company: boolean;
    status: IQuotType;
-   disability_type: IQuotType
-   quot_type: IQuotType
+   disability_type: IQuotType;
+   quot_type: IQuotType;
 
    work_environment_id: number;
    organization_id: number;

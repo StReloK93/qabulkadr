@@ -9,6 +9,16 @@ class EmployeController extends BaseCrudController
 {
     protected string $model = Employe::class;
 
+    public function index()
+    {
+        return $this->model::whereNull(['buyruq_raqami', 'ishga_qabul_kuni', 'buyruq_sanasi'])->get();
+    }
+
+    public function getSuccess()
+    {
+        return $this->model::whereNotNull(['buyruq_raqami', 'ishga_qabul_kuni', 'buyruq_sanasi'])->get();
+    }
+
 
     public function store(Request $request)
     {
@@ -39,6 +49,16 @@ class EmployeController extends BaseCrudController
     {
         $item = $this->model::findOrFail($employe_id);
         $item->status_id = $request->status_id;
+        $item->save();
+    }
+
+    public function success(Request $request, $employe_id)
+    {
+        $item = $this->model::findOrFail($employe_id);
+
+        $item->buyruq_sanasi = $request->buyruq_sanasi;
+        $item->ishga_qabul_kuni = $request->ishga_qabul_kuni;
+        $item->buyruq_raqami = $request->buyruq_raqami;
         $item->save();
     }
 }

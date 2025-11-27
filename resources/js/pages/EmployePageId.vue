@@ -148,6 +148,28 @@
                      {{ moment(employe.created_at).format("DD-MM-YYYY HH:mm") }}
                   </span>
                </div>
+               <div>
+                  <Dialog
+                     v-model:visible="isIshgaQabulDialog"
+                     modal
+                     :closable="false"
+                     header="Buyruq rekvizitlari"
+                     :style="{ width: '25rem' }"
+                  >
+                     <BaseForm
+                        :submit="onIshgaQabul"
+                        :setting-inputs="qabulFormInputs"
+                        @close="isIshgaQabulDialog = false"
+                     />
+                  </Dialog>
+                  <Button
+                     :disabled="!finishedProcess"
+                     @click="isIshgaQabulDialog = true"
+                     icon="pi pi-check"
+                     label="Ishga qabul qilindi"
+                     size="small"
+                  />
+               </div>
             </aside>
          </main>
          <main v-else>
@@ -172,14 +194,19 @@
 </template>
 
 <script setup lang="ts">
+import BaseForm from "@/components/BaseForm.vue";
+import { qabulFormInputs } from "@/configs/CrudConfig";
 import moment from "moment";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
+import router from "@/router";
+
 const route = useRoute();
 const isDialogVisible = ref(false);
+const isIshgaQabulDialog = ref(false);
 const employe_id = route.params.id as string;
 
 const statuses = ref();
@@ -189,10 +216,20 @@ const employe = ref<IEmploye | null>(null);
 const loadingButton = ref<null | number>(null);
 const emit = defineEmits(["updateEmploye", "onPrintPage"]);
 
-function getEmploye() {
-   setTimeout(async () => {
-      employe.value = await repo.show<IEmploye>(employe_id);
-   }, 200);
+async function getEmploye() {
+   employe.value = await repo.show<IEmploye>(employe_id);
+}
+
+const finishedProcess = computed(() => {
+   const latest = statuses.value?.at(-1);
+   if (latest) return latest.id == employe.value?.status_id;
+   return false;
+});
+
+async function onIshgaQabul(values: unknown): Promise<void> {
+   await api.post(`crud/employes/success/${employe_id}`, values);
+   emit("updateEmploye");
+   isDialogVisible.value = false;
 }
 
 async function changeEmployeStatus(status_id) {
