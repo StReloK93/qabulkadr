@@ -8,9 +8,13 @@ abstract class BaseCrudController extends Controller
 {
    protected string $model;
 
-   public function index()
+   public function all()
    {
       return $this->model::all();
+   }
+   public function index(Request $request)
+   {
+      return $this->model::paginate(10);
    }
 
    public function show($id)

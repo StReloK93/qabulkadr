@@ -13,6 +13,26 @@ import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
 
 export const crudConfigs = {
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    organization: {
       title: "Bo'limlar",
       parentTitle: "Qo'llanmalar",
@@ -37,6 +57,27 @@ export const crudConfigs = {
          },
       ],
    },
+
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    cause: {
       title: "Qabul shakllari",
       parentTitle: "Qo'llanmalar",
@@ -49,6 +90,27 @@ export const crudConfigs = {
          },
       ],
    },
+
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    work_environment: {
       title: "Mehnat sharoitlari",
       parentTitle: "Qo'llanmalar",
@@ -61,6 +123,26 @@ export const crudConfigs = {
          },
       ],
    },
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    education_level: {
       title: "Ta'lim darajasi",
       parentTitle: "Qo'llanmalar",
@@ -73,6 +155,27 @@ export const crudConfigs = {
          },
       ],
    },
+
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    disability_type: {
       title: "Nogironlik turlari",
       parentTitle: "Qo'llanmalar",
@@ -85,7 +188,26 @@ export const crudConfigs = {
          },
       ],
    },
-
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    yoriqnoma: {
       title: "Yo'riqnomalar",
       parentTitle: "Qo'llanmalar",
@@ -140,6 +262,27 @@ export const crudConfigs = {
       ],
    },
 
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+
    employes: {
       title: "Xodimlar",
       parentTitle: "Asosiy bo'lim",
@@ -165,7 +308,7 @@ export const crudConfigs = {
             placeholder: "Ma'lumoti",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/education_level`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/education_level/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -183,7 +326,7 @@ export const crudConfigs = {
             placeholder: "Qabul shakli",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/cause`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/cause/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -200,7 +343,7 @@ export const crudConfigs = {
             placeholder: "Bo'lim",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/organization`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -209,6 +352,7 @@ export const crudConfigs = {
             name: "division",
             placeholder: "Uchastka nomi",
             schema: yup.string().nullable(),
+            notColumn: true,
          },
          {
             is: InputText,
@@ -228,7 +372,7 @@ export const crudConfigs = {
             placeholder: "Mehnat sharoiti",
             schema: yup.number().required("To'ldiring"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/work_environment`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/work_environment/all`);
                this.attr = selectOption(data, "name");
             },
             notColumn: true,
@@ -252,7 +396,7 @@ export const crudConfigs = {
             value: 1,
             default: 1,
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/status`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/status/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -272,7 +416,7 @@ export const crudConfigs = {
             placeholder: "Nogironlik turlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/disability_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/disability_type/all`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
@@ -283,7 +427,7 @@ export const crudConfigs = {
             placeholder: "Kvota yo'nalishlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/quot_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/quot_type/all`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
@@ -291,8 +435,26 @@ export const crudConfigs = {
          },
       ],
    },
-   //
 
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
    //
 
    finished_employes: {
@@ -320,7 +482,7 @@ export const crudConfigs = {
             placeholder: "Ma'lumoti",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/education_level`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/education_level/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -338,7 +500,7 @@ export const crudConfigs = {
             placeholder: "Qabul shakli",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/cause`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/cause/all`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -355,15 +517,16 @@ export const crudConfigs = {
             placeholder: "Bo'lim",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/organization`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization/all`);
                this.attr = selectOption(data, "name");
             },
          },
          {
             is: InputText,
             name: "division",
-            placeholder: "Uchastka nomi",
+            placeholder: "Uchastka",
             schema: yup.string().nullable(),
+            notColumn: true,
          },
          {
             is: InputText,
@@ -371,6 +534,32 @@ export const crudConfigs = {
             placeholder: "Lavozimi",
             schema: yup.string().required("To'ldiring"),
          },
+         //
+         //
+         //
+         {
+            is: InputText,
+            parentClass: ["mt-4!"],
+            name: "buyruq_sanasi",
+            placeholder: "B.Sanasi",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: InputText,
+            name: "buyruq_raqami",
+            placeholder: "B.Raqami",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: InputText,
+            name: "ishga_qabul_kuni",
+            placeholder: "Ishga qabul kuni",
+            schema: yup.string().required("To'ldiring"),
+            parentClass: ["mb-8!"],
+         },
+         //
+         //
+         //
          {
             name: "created_at",
             placeholder: "Kiritilgan sana",
@@ -383,7 +572,7 @@ export const crudConfigs = {
             placeholder: "Mehnat sharoiti",
             schema: yup.number().required("To'ldiring"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/work_environment`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/work_environment/all`);
                this.attr = selectOption(data, "name");
             },
             notColumn: true,
@@ -395,21 +584,6 @@ export const crudConfigs = {
             schema: yup.string().nullable(),
             notColumn: true,
             attr: { mask: "(99) 999-99-99" },
-         },
-         {
-            is: SelectButton,
-            name: "status_id",
-            columnName: "status.name",
-            placeholder: "",
-            schema: yup.number().nullable(),
-            notColumn: true,
-            parentClass: ["mb-1!"],
-            value: 1,
-            default: 1,
-            generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/status`);
-               this.attr = selectOption(data, "name");
-            },
          },
          {
             is: Checkbox,
@@ -427,7 +601,7 @@ export const crudConfigs = {
             placeholder: "Nogironlik turlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/disability_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/disability_type/all`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
@@ -438,7 +612,7 @@ export const crudConfigs = {
             placeholder: "Kvota yo'nalishlari",
             schema: yup.number().nullable(),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/quot_type`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/quot_type/all`);
                this.attr = selectOption(data, "name", true);
             },
             notColumn: true,
@@ -446,6 +620,27 @@ export const crudConfigs = {
          },
       ],
    },
+
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
 };
 
 export function inputValues(inputs: IFormInputs[], values: object) {

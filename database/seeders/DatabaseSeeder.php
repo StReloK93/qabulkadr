@@ -64,36 +64,6 @@ class DatabaseSeeder extends Seeder
             ['name' => "Buyruq kutish"],
         ]);
 
-        Employe::insert([
-            [
-                'full_name' => 'Soliyev Aziz Mardonovich',
-                'birth_date' => '2025-11-06',
-                'education_level_id' => 1,
-                'university' => "TDTU",
-                'cause_id' => 1,
-                'organization_id' => 1,
-                'profession' => 'Dasturchi',
-                'work_environment_id' => 1,
-                'company' => false,
-                'created_at' => Carbon::parse('2025-09-10'),
-                'creater_id' => 1,
-            ],
-            [
-                'full_name' => "No'monov Shoxruh",
-                'birth_date' => '2025-11-06',
-                'education_level_id' => 1,
-                'university' => "INST",
-                'cause_id' => 1,
-                'organization_id' => 1,
-                'profession' => 'ABRA KADABRA',
-                'work_environment_id' => 1,
-                'company' => false,
-                'created_at' => Carbon::parse('2025-10-10'),
-                'creater_id' => 1,
-
-            ],
-        ]);
-
 
         Yoriqnoma::insert([
             [
@@ -184,5 +154,20 @@ _____________________              ________
                 'colspan' => 0
             ],
         ]);
+
+
+
+
+
+
+
+
+        Employe::factory()->count(30)->create();
+
+
+
+
     }
+
+
 }

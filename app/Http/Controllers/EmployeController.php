@@ -9,9 +9,29 @@ class EmployeController extends BaseCrudController
 {
     protected string $model = Employe::class;
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->model::whereNull(['buyruq_raqami', 'ishga_qabul_kuni', 'buyruq_sanasi'])->get();
+
+        $query = ($this->model)::query();
+
+        // Qidiruv
+        if ($request->filled('search')) {
+            $search = $request->search;
+            // Qidirish kerak bo‘lgan ustunlar
+            $searchable = ['full_name', 'id', 'cause_text'];
+
+            $query->where(function ($q) use ($searchable, $search) {
+                foreach ($searchable as $column) {
+                    $q->orWhere($column, 'like', "%{$search}%");
+                }
+            });
+        }
+
+        return $query->where(function ($q) {
+            $q->whereNull('buyruq_raqami')
+                ->orWhereNull('ishga_qabul_kuni')
+                ->orWhereNull('buyruq_sanasi');
+        })->paginate(10)->withQueryString();
     }
 
     public function getSuccess()

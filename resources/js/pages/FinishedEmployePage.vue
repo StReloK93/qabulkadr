@@ -10,18 +10,13 @@
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" @onPrintPage="onPrintPage" />
 
-      <BaseCrudBlock ref="baseCrudBlock" entity="finished_employes">
-         <!-- <template #column>
-            <Column header="Kiritilgan vaqt">
-               <template #body="{ data }">
-                  {{ moment(data.created_at).format("DD-MM-YYYY HH:mm") }}
-               </template>
-            </Column>
-            <Column>
-               <template #body="{ data }">
-                  <Tag :value="data.status?.name" :severity="setSeverity(data.status)"></Tag>
-               </template>
-            </Column>
+      <BaseCrudBlock
+         ref="baseCrudBlock"
+         entity="finished_employes"
+         :addButton="false"
+         :withSearch="true"
+      >
+         <template #column>
             <Column>
                <template #body="{ data }">
                   <Button
@@ -42,7 +37,7 @@
 
          <template #buttons>
             <Button icon="pi pi-filter" size="small" rounded variant="text" />
-         </template> -->
+         </template>
       </BaseCrudBlock>
    </section>
 </template>

@@ -66,3 +66,18 @@ export interface IEmploye {
    cause_id: number;
    id?: string | number;
 }
+
+export interface IPaginator {
+   current_page: number;
+   data: any[];
+   first_page_url: URL;
+   from: number;
+   last_page: number;
+   last_page_url: URL;
+   next_page_url: URL | null;
+   path: URL;
+   per_page: number;
+   prev_page_url: URL | null;
+   to: number;
+   total: number;
+}

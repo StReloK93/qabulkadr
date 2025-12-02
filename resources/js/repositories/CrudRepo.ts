@@ -5,8 +5,13 @@ export default class CrudRepo {
       this.endpoint = endpoint;
    }
 
-   async index<T>(): Promise<T> {
-      const response = await api.get<T>(`crud/${this.endpoint}`);
+   async all<T>(): Promise<T> {
+      const response = await api.get<T>(`crud/${this.endpoint}/all`);
+      return response.data;
+   }
+
+   async index<T>(params = { page: 1 }): Promise<T> {
+      const response = await api.get<T>(`crud/${this.endpoint}`, { params: params });
       return response.data;
    }
 

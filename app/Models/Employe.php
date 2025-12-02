@@ -41,7 +41,7 @@ class Employe extends Model
         'creater_id',
 
         'buyruq_sanasi',
-        'ishga_qabul_luni',
+        'ishga_qabul_kuni',
         'buyruq_raqami'
     ];
 

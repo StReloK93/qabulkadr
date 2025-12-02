@@ -158,7 +158,7 @@
                   >
                      <BaseForm
                         :submit="onIshgaQabul"
-                        :setting-inputs="qabulFormInputs"
+                        :setting-inputs="valuesFormInputs"
                         @close="isIshgaQabulDialog = false"
                      />
                   </Dialog>
@@ -195,14 +195,13 @@
 
 <script setup lang="ts">
 import BaseForm from "@/components/BaseForm.vue";
-import { qabulFormInputs } from "@/configs/CrudConfig";
+import { generateAttributes, inputValues, qabulFormInputs } from "@/configs/CrudConfig";
 import moment from "moment";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, shallowRef } from "vue";
 import { useRoute } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
-import router from "@/router";
 
 const route = useRoute();
 const isDialogVisible = ref(false);
@@ -216,8 +215,11 @@ const employe = ref<IEmploye | null>(null);
 const loadingButton = ref<null | number>(null);
 const emit = defineEmits(["updateEmploye", "onPrintPage"]);
 
+const valuesFormInputs = shallowRef();
 async function getEmploye() {
    employe.value = await repo.show<IEmploye>(employe_id);
+   const fullInputs = await generateAttributes(qabulFormInputs);
+   valuesFormInputs.value = inputValues(fullInputs, employe.value);
 }
 
 const finishedProcess = computed(() => {
@@ -245,7 +247,7 @@ async function changeEmployeStatus(status_id) {
 onMounted(async () => {
    isDialogVisible.value = true;
    getEmploye();
-   statuses.value = await new CrudRepo("status").index();
+   statuses.value = await new CrudRepo("status").all();
 });
 
 async function openPrintPage(number) {

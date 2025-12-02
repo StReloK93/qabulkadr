@@ -1,11 +1,11 @@
 <template>
    <main class="p-1">
       <DataTable
-         class="border border-surface-200 dark:border-surface-800 rounded-xl overflow-hidden no-last-border"
+         class="border border-surface-200 dark:border-surface-800 rounded-xl overflow-hidden no-last-border text-sm"
          :value="items"
          size="small"
       >
-         <Column body-style="text-align:center;width:5rem" field="id" header="ID" header-class="px-8!" />
+         <Column body-style="text-align:center;width:3rem" field="id" header="ID" header-class="px-4!" />
          <Column v-for="col in columns" :key="col.name" :field="col.name" :header="col.placeholder" />
          <slot name="column"></slot>
 

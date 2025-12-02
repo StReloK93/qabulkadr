@@ -10,7 +10,7 @@
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" @onPrintPage="onPrintPage" />
 
-      <BaseCrudBlock ref="baseCrudBlock" entity="employes">
+      <BaseCrudBlock ref="baseCrudBlock" entity="employes" :withSearch="true">
          <template #column>
             <Column header="Kiritilgan vaqt">
                <template #body="{ data }">
@@ -80,6 +80,6 @@ async function onPrintPage({ page, employe }) {
 }
 
 onMounted(async () => {
-   qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").index();
+   qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
 });
 </script>
