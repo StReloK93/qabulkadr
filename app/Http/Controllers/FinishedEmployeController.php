@@ -27,6 +27,29 @@ class FinishedEmployeController extends BaseCrudController
             });
         }
 
+        $multiFilters = [
+            'organization_id',
+            'education_level_id',
+            'cause_id',
+            'work_environment_id',
+            'disability_type_id',
+            'quot_type_id',
+            'status_id',
+        ];
+
+        foreach ($multiFilters as $filter) {
+            if ($request->filled($filter)) {
+                $query->whereIn($filter, $request->$filter);
+            }
+        }
+
+        /** -------------------------
+         *   3) SIMPLE EQUAL FILTER
+         * ------------------------ */
+        if ($request->filled('company')) {
+            $query->where('company', $request->company);
+        }
+
         return $query->whereNotNull(['buyruq_raqami', 'ishga_qabul_kuni', 'buyruq_sanasi'])->paginate(10)->withQueryString();
     }
 

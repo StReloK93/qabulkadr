@@ -15,6 +15,7 @@
          entity="finished_employes"
          :addButton="false"
          :withSearch="true"
+         :withFilter="true"
       >
          <template #column>
             <Column>
@@ -33,10 +34,6 @@
                   />
                </template>
             </Column>
-         </template>
-
-         <template #buttons>
-            <Button icon="pi pi-filter" size="small" rounded variant="text" />
          </template>
       </BaseCrudBlock>
    </section>
@@ -62,11 +59,6 @@ const selectedEmploye = ref<IEmploye | null>(null);
 
 const baseCrudBlock = ref<{ loadData: Function }>();
 
-function setSeverity(status) {
-   if (status == null) return "secondary";
-   const sever = ["secondary", "success", "info", "warn", "danger", "contrast"];
-   return sever[status.id];
-}
 async function onPrintPage({ page, employe }) {
    selectedEmploye.value = employe;
    printPage.value = page;
@@ -75,6 +67,6 @@ async function onPrintPage({ page, employe }) {
 }
 
 onMounted(async () => {
-   qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").index();
+   qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
 });
 </script>

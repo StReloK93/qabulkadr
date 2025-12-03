@@ -1,4 +1,9 @@
 import { api } from "@/helpers/useFetch";
+interface IQueryParams {
+   page?: number | null;
+   search?: string | null;
+   [key: string]: any; // qo‘shimcha parametrlarga ruxsat beradi
+}
 export default class CrudRepo {
    endpoint: string;
    constructor(endpoint: string) {
@@ -10,7 +15,7 @@ export default class CrudRepo {
       return response.data;
    }
 
-   async index<T>(params = { page: 1 }): Promise<T> {
+   async index<T>(params: IQueryParams): Promise<T> {
       const response = await api.get<T>(`crud/${this.endpoint}`, { params: params });
       return response.data;
    }

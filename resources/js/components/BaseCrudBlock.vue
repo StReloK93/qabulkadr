@@ -16,7 +16,12 @@
          <div v-if="props.withSearch">
             <Form @submit="onSearch">
                <InputGroup>
-                  <InputText v-model="crudData.searchText" placeholder="Qidiruv" size="small" />
+                  <InputText
+                     v-model="queryParams.search"
+                     @input="onClearInput"
+                     placeholder="Qidiruv"
+                     size="small"
+                  />
                   <Button icon="pi pi-search" size="small" type="submit" />
                </InputGroup>
             </Form>
@@ -33,6 +38,22 @@
             >
                <div>
                   <slot name="buttons"></slot>
+                  <BaseCrudFilter
+                     v-if="props.withSearch"
+                     @filter="onFilter"
+                     :entity
+                     :startData="queryParams.filters"
+                  />
+                  <Button
+                     v-if="queryParams.filters != null"
+                     @click="clearFilters"
+                     icon="pi pi-times"
+                     aria-label="Save"
+                     size="small"
+                     severity="danger"
+                     rounded
+                     variant="text"
+                  />
                </div>
                <Dialog
                   class="w-1/3"
@@ -90,6 +111,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseCrudFilter from "./BaseCrudFilter.vue";
 import BaseForm from "@/components/BaseForm.vue";
 import { onMounted, watch, ref, shallowRef, type Ref, reactive } from "vue";
 import { crudConfigs, inputValues, columns, generateAttributes } from "@/configs/CrudConfig";
@@ -101,12 +123,31 @@ const props = withDefaults(
       entity: string;
       addButton?: boolean;
       withSearch?: boolean;
+      withFilter?: boolean;
    }>(),
    {
       addButton: true,
       withSearch: false,
+      withFilter: false,
    }
 );
+
+const queryParams = reactive<{ page: null | number; search: null | string; filters: object | null }>({
+   page: null,
+   search: null,
+
+   filters: null,
+});
+
+async function onFilter(params) {
+   queryParams.filters = params;
+   await loadData();
+}
+
+async function clearFilters() {
+   queryParams.filters = null;
+   await loadData();
+}
 
 const crudRepo = new CrudRepo(props.entity);
 let submit: (values: unknown) => Promise<void>;
@@ -120,46 +161,56 @@ const editButtonLoading: Ref<null | number> = ref(null);
 const deleteButtonLoading: Ref<null | number> = ref(null);
 const selectedRow: Ref<null | number> = ref(null);
 
+async function onClearInput() {
+   if (queryParams.search == "") {
+      queryParams.page = 1;
+      await loadData();
+   }
+}
+
 interface ICrudData {
    data: null | any[];
    total: null | number;
    per_page: null | number;
-   current_page: null | number;
    loading: boolean;
-   searchText: string;
 }
 
 const crudData = reactive<ICrudData>({
    data: null,
    total: null,
    per_page: null,
-   current_page: null,
    loading: false,
-   searchText: "",
 });
 
 async function onSearch() {
-   await loadData({ search: crudData.searchText });
+   if (queryParams.search?.trim() == "") return;
+   await loadData();
 }
 
 async function onPage(pageState) {
-   if (crudData.current_page == pageState.page + 1) return;
+   if (queryParams.page == pageState.page + 1) return;
    crudData.loading = true;
-   await loadData({ page: pageState.page + 1, search: crudData.searchText });
+   queryParams.page = pageState.page + 1;
+   await loadData();
    crudData.loading = false;
 }
 
-async function loadData(params) {
-   try {
-      const paginator = await crudRepo.index<IPaginator>(params);
+async function loadData() {
+   crudData.loading = true;
 
-      crudData.current_page = paginator.current_page;
+   try {
+      const paginator = await crudRepo.index<IPaginator>({
+         page: queryParams.page,
+         search: queryParams.search,
+         ...queryParams.filters,
+      });
+
+      queryParams.page = paginator.current_page;
       crudData.data = paginator.data;
       crudData.total = paginator.total;
       crudData.per_page = paginator.per_page;
-   } catch (error) {
-      console.error("Xatolik:", error);
-      crudData.data = [];
+   } finally {
+      crudData.loading = false;
    }
 }
 
@@ -181,8 +232,6 @@ async function openEditForm(id) {
 
    const result = (await crudRepo.show(id)) as object;
    const fullInputs = await generateAttributes(crudConfigs[crudRepo.endpoint].inputs);
-   console.log(inputValues(fullInputs, result));
-
    configInputs.value = inputValues(fullInputs, result);
    openDrawer.value = true;
    editButtonLoading.value = null;
@@ -192,7 +241,7 @@ async function deleteItem(id: number) {
    deleteButtonLoading.value = id;
    await crudRepo.delete(id);
    deleteButtonLoading.value = null;
-   await loadData({ page: crudData.current_page });
+   await loadData();
 }
 
 watch(
@@ -201,7 +250,7 @@ watch(
       configInputs.value = null;
       configColumns.value = null;
       crudRepo.endpoint = currentEntity as string;
-      await loadData({ page: crudData.current_page });
+      await loadData();
       configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
       configColumns.value = columns(crudConfigs[crudRepo.endpoint].inputs);
    }
@@ -210,6 +259,6 @@ watch(
 defineExpose({ loadData });
 
 onMounted(() => {
-   loadData({ page: crudData.current_page });
+   loadData();
 });
 </script>

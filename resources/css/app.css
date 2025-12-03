@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.p-popover-content {
+   @apply bg-zinc-50 rounded-md;
+}
+
 @font-face {
    font-family: "Trickster";
    src: url("./Copperplate\ Regular.ttf") format("truetype");

@@ -10,7 +10,7 @@
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" @onPrintPage="onPrintPage" />
 
-      <BaseCrudBlock ref="baseCrudBlock" entity="employes" :withSearch="true">
+      <BaseCrudBlock ref="baseCrudBlock" entity="employes" :withSearch="true" :withFilter="true">
          <template #column>
             <Column header="Kiritilgan vaqt">
                <template #body="{ data }">
@@ -38,10 +38,6 @@
                   />
                </template>
             </Column>
-         </template>
-
-         <template #buttons>
-            <Button icon="pi pi-filter" size="small" rounded variant="text" />
          </template>
       </BaseCrudBlock>
    </section>

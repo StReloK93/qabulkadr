@@ -673,7 +673,7 @@ export async function generateAttributes(inputs: IFormInputs[]) {
    );
 }
 
-function selectOption(array: any[], key: string, showClear: boolean = false) {
+export function selectOption(array: any[], key: string, showClear: boolean = false) {
    return {
       options: array.map((dept: { id: number }) => ({
          label: dept[key],
@@ -685,7 +685,7 @@ function selectOption(array: any[], key: string, showClear: boolean = false) {
    };
 }
 
-export const qabulFormInputs = [
+export const qabulFormInputs: IFormInputs[] = [
    {
       is: InputNumber,
       name: "buyruq_raqami",

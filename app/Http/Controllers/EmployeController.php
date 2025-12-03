@@ -14,10 +14,8 @@ class EmployeController extends BaseCrudController
 
         $query = ($this->model)::query();
 
-        // Qidiruv
         if ($request->filled('search')) {
             $search = $request->search;
-            // Qidirish kerak bo‘lgan ustunlar
             $searchable = ['full_name', 'id', 'cause_text'];
 
             $query->where(function ($q) use ($searchable, $search) {
@@ -25,6 +23,29 @@ class EmployeController extends BaseCrudController
                     $q->orWhere($column, 'like', "%{$search}%");
                 }
             });
+        }
+
+        $multiFilters = [
+            'organization_id',
+            'education_level_id',
+            'cause_id',
+            'work_environment_id',
+            'disability_type_id',
+            'quot_type_id',
+            'status_id',
+        ];
+
+        foreach ($multiFilters as $filter) {
+            if ($request->filled($filter)) {
+                $query->whereIn($filter, $request->$filter);
+            }
+        }
+
+        /** -------------------------
+         *   3) SIMPLE EQUAL FILTER
+         * ------------------------ */
+        if ($request->filled('company')) {
+            $query->where('company', $request->company);
         }
 
         return $query->where(function ($q) {
