@@ -50,6 +50,13 @@ class FinishedEmployeController extends BaseCrudController
             $query->where('company', $request->company);
         }
 
+        if ($request->filled('created_at')) {
+            $time = Carbon::parse($request->created_at);
+            dd($time);
+            $query->whereMonth('created_at', $request->created_at);
+        }
+
+
         return $query->whereNotNull(['buyruq_raqami', 'ishga_qabul_kuni', 'buyruq_sanasi'])->paginate(10)->withQueryString();
     }
 

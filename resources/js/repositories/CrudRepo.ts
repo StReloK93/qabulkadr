@@ -43,4 +43,12 @@ export default class CrudRepo {
       const response = await api.delete<T>(`crud/${this.endpoint}/${id}`);
       return response.data;
    }
+
+   async exportExcel<T>(params: IQueryParams): Promise<T> {
+      const response = await api.get<T>(`export-excel/${this.endpoint}`, {
+         params: params,
+         responseType: "blob",
+      });
+      return response.data;
+   }
 }

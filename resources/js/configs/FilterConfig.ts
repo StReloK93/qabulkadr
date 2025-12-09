@@ -1,10 +1,16 @@
-import { Checkbox, SelectButton, MultiSelect } from "primevue";
+import { Checkbox, SelectButton, MultiSelect, DatePicker } from "primevue";
 import type { IEducationLevel, IFilterInputs } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
 import { selectOption } from "./CrudConfig";
 
 const baseEmployeFilters = <IFilterInputs[]>[
+   {
+      is: DatePicker,
+      name: "created_at",
+      placeholder: "Kiritilgan vaqt",
+      attr: { view: "month", dateFormat: "mm-yy" },
+   },
    {
       is: MultiSelect,
       name: "education_level_id",
@@ -36,20 +42,10 @@ const baseEmployeFilters = <IFilterInputs[]>[
       is: MultiSelect,
       name: "work_environment_id",
       placeholder: "Mehnat sharoiti",
+      parentClass: ["mb-1.5!"],
       generateAttributes: async function () {
          const { data } = await api.get<IEducationLevel[]>(`crud/work_environment/all`);
          this.attr = selectOption(data, "name");
-      },
-   },
-   {
-      is: SelectButton,
-      name: "status_id",
-      placeholder: "",
-      parentClass: ["mb-1!"],
-      value: 1,
-      generateAttributes: async function () {
-         const { data } = await api.get<IEducationLevel[]>(`crud/status/all`);
-         this.attr = { ...selectOption(data, "name"), multiple: true };
       },
    },
    {
@@ -64,7 +60,6 @@ const baseEmployeFilters = <IFilterInputs[]>[
       is: MultiSelect,
       name: "disability_type_id",
       placeholder: "Nogironlik turlari",
-      schema: yup.number().nullable(),
       generateAttributes: async function () {
          const { data } = await api.get<IEducationLevel[]>(`crud/disability_type/all`);
          this.attr = selectOption(data, "name", true);
@@ -74,18 +69,28 @@ const baseEmployeFilters = <IFilterInputs[]>[
       is: MultiSelect,
       name: "quot_type_id",
       placeholder: "Kvota yo'nalishlari",
-      schema: yup.number().nullable(),
       generateAttributes: async function () {
          const { data } = await api.get<IEducationLevel[]>(`crud/quot_type/all`);
          this.attr = selectOption(data, "name", true);
       },
-      parentClass: ["mb-0!"],
    },
 ];
 
 export const filterConfig = {
    employes: {
-      inputs: baseEmployeFilters,
+      inputs: <IFilterInputs[]>[
+         ...baseEmployeFilters,
+         {
+            is: SelectButton,
+            name: "status_id",
+            placeholder: "",
+            parentClass: ["mb-0!"],
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/status/all`);
+               this.attr = { ...selectOption(data, "name"), multiple: true };
+            },
+         },
+      ],
    },
    finished_employes: {
       inputs: baseEmployeFilters,

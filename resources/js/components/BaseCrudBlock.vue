@@ -36,8 +36,32 @@
             <nav
                class="flex justify-between items-center px-6 py-3 border-b border-surface-200 dark:border-surface-800"
             >
-               <div>
+               <Dialog
+                  class="w-1/3"
+                  modal
+                  pt:mask:class="backdrop-blur-xs"
+                  :show-close-icon="false"
+                  v-model:visible="openDrawer"
+                  :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
+                  @hide="selectedRow = null"
+               >
+                  <BaseForm
+                     :submit
+                     :setting-inputs="configInputs"
+                     @on-submit="loadData"
+                     @close="openDrawer = false"
+                  />
+               </Dialog>
+               <div class="flex gap-2 items-center">
                   <slot name="buttons"></slot>
+                  <Button
+                     icon="pi pi-file-excel"
+                     @click="exportExcel"
+                     size="small"
+                     rounded
+                     variant="text"
+                  />
+
                   <BaseCrudFilter
                      v-if="props.withSearch"
                      @filter="onFilter"
@@ -55,22 +79,6 @@
                      variant="text"
                   />
                </div>
-               <Dialog
-                  class="w-1/3"
-                  modal
-                  pt:mask:class="backdrop-blur-xs"
-                  :show-close-icon="false"
-                  v-model:visible="openDrawer"
-                  :header="selectedRow ? 'Tahrirlash' : 'Kiritish'"
-                  @hide="selectedRow = null"
-               >
-                  <BaseForm
-                     :submit
-                     :setting-inputs="configInputs"
-                     @on-submit="loadData"
-                     @close="openDrawer = false"
-                  />
-               </Dialog>
                <div>
                   <Button
                      v-if="props.addButton"
@@ -141,6 +149,7 @@ const queryParams = reactive<{ page: null | number; search: null | string; filte
 
 async function onFilter(params) {
    queryParams.filters = params;
+   queryParams.page = 1;
    await loadData();
 }
 
@@ -242,6 +251,20 @@ async function deleteItem(id: number) {
    await crudRepo.delete(id);
    deleteButtonLoading.value = null;
    await loadData();
+}
+
+async function exportExcel() {
+   const response = await crudRepo.exportExcel<BlobPart>({
+      ...queryParams.filters,
+   });
+
+   const url = window.URL.createObjectURL(new Blob([response]));
+   const link = document.createElement("a");
+   link.href = url;
+
+   link.setAttribute("download", `${crudConfigs[crudRepo.endpoint].title}.xlsx`); // Excel fayl nomi
+   document.body.appendChild(link);
+   link.click();
 }
 
 watch(

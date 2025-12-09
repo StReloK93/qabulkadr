@@ -48,6 +48,12 @@ class EmployeController extends BaseCrudController
             $query->where('company', $request->company);
         }
 
+        if ($request->filled('created_at')) {
+            $time = Carbon::parse($request->created_at)->timezone('Asia/Tashkent');
+            $query->whereYear('created_at', $time->year)
+                ->whereMonth('created_at', $time->month);
+        }
+
         return $query->where(function ($q) {
             $q->whereNull('buyruq_raqami')
                 ->orWhereNull('ishga_qabul_kuni')

@@ -1,6 +1,13 @@
 <?php
+use App\Http\Controllers\ExcelExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+
+
+
+Route::get("export-excel/employes", [ExcelExportController::class, 'employes']);
+Route::get("export-excel/finished_employes", [ExcelExportController::class, 'finished_employes']);
+
 
 Route::post('login', [AuthController::class, 'login']);
 
