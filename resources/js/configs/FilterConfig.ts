@@ -95,4 +95,26 @@ export const filterConfig = {
    finished_employes: {
       inputs: baseEmployeFilters,
    },
+   suhbat: {
+      inputs: <IFilterInputs[]>[
+         {
+            is: MultiSelect,
+            name: "organization_id",
+            placeholder: "Bo'lim",
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization/all`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            is: MultiSelect,
+            name: "creater_id",
+            placeholder: "Ijrochi",
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`users`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+      ],
+   },
 };

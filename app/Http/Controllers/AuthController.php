@@ -17,6 +17,11 @@ class AuthController extends Controller
         return $request->user();
     }
 
+    public function users()
+    {
+        return User::all();
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -52,12 +57,12 @@ class AuthController extends Controller
             'phone' => 'required|unique:users',
             'password' => 'required|min:6|max:255|confirmed',
         ], $messages = [
-                'required' => ":attribute bo'sh bo'lmasligi kerak.",
-                'unique' => ":attribute band.",
-                'min' => ":attribute :min simboldan kam bo'lmasligi kerak.",
-                'phone' => ":attribute to'gri emas",
-                'confirmed' => ":attributelar mos kelmayabdi"
-            ], [
+            'required' => ":attribute bo'sh bo'lmasligi kerak.",
+            'unique' => ":attribute band.",
+            'min' => ":attribute :min simboldan kam bo'lmasligi kerak.",
+            'phone' => ":attribute to'gri emas",
+            'confirmed' => ":attributelar mos kelmayabdi"
+        ], [
             'phone' => "Login",
             'password' => 'Parol'
         ]);
@@ -93,10 +98,10 @@ class AuthController extends Controller
             'old' => 'required',
             'new' => 'required|min:6|max:255|confirmed',
         ], $messages = [
-                'required' => ":attribute bo'sh bo'lmasligi kerak.",
-                'min' => ":attribute :min simboldan kam bo'lmasligi kerak.",
-                'confirmed' => ":attributelar mos kelmayabdi"
-            ], [
+            'required' => ":attribute bo'sh bo'lmasligi kerak.",
+            'min' => ":attribute :min simboldan kam bo'lmasligi kerak.",
+            'confirmed' => ":attributelar mos kelmayabdi"
+        ], [
             'new' => 'Parol'
         ]);
 

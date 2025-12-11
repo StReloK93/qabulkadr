@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ExcelExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get("export-excel/employes", [ExcelExportController::class, 'employes']);
 Route::get("export-excel/finished_employes", [ExcelExportController::class, 'finished_employes']);
+Route::get("export-excel/suhbat", [ExcelExportController::class, 'suhbat']);
 
 
 Route::post('login', [AuthController::class, 'login']);
@@ -35,12 +37,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('crud/yoriqnoma/all', [\App\Http\Controllers\YoriqnomaController::class, 'all']);
 
 
+    Route::get('users', [\App\Http\Controllers\AuthController::class, 'users']);
+
+
 
     Route::apiResource('crud/finished_employes', \App\Http\Controllers\FinishedEmployeController::class);
 
     Route::apiResource('crud/employes', \App\Http\Controllers\EmployeController::class);
     Route::post('crud/employes/update-status/{employe_id}', [\App\Http\Controllers\EmployeController::class, 'updateStatus']);
     Route::post('crud/employes/success/{employe_id}', [\App\Http\Controllers\EmployeController::class, 'success']);
+
+
 
 
     Route::apiResource('crud/organization', \App\Http\Controllers\OrganizationController::class);
@@ -51,8 +58,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/quot_type', \App\Http\Controllers\QuotTypeController::class);
     Route::apiResource('crud/status', \App\Http\Controllers\StatusController::class);
     Route::apiResource('crud/yoriqnoma', \App\Http\Controllers\YoriqnomaController::class);
-
-
-
-
+    Route::apiResource('crud/suhbat', \App\Http\Controllers\SuhbatController::class);
 });

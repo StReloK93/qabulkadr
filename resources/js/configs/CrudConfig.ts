@@ -262,6 +262,55 @@ export const crudConfigs = {
       ],
    },
 
+   suhbat: {
+      title: "Jarayon turlari",
+      parentTitle: "Qo'llanmalar",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: InputMask,
+            name: "phone",
+            placeholder: "Telefon raqami",
+            schema: yup.string().nullable(),
+            notColumn: true,
+            attr: { mask: "(99) 999-99-99" },
+         },
+         {
+            is: Textarea,
+            name: "profession",
+            placeholder: "Lavozim",
+            schema: yup.string().required("To'ldiring"),
+            attr: { autoResize: true },
+         },
+         {
+            is: Select,
+            name: "organization_id",
+            columnName: "organization.shortname",
+            placeholder: "Bo'lim",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization/all`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            name: "creater_id",
+            columnName: "creater.name",
+            placeholder: "Ijrochi",
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/organization/all`);
+               this.attr = selectOption(data, "name");
+            },
+            notInput: true,
+         },
+      ],
+   },
+
    //
    //
    //

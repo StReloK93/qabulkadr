@@ -1,8 +1,7 @@
 <template>
    <div
-      class="sheet text-black! -z-10 absolute p-px top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
+      class="sheet text-black! invisible -z-10 absolute p-px top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
-      <!-- invisible -->
       <nav class="flex justify-end">
          <main class="text-right text-[13.5pt]">
             SHKB Direktori {{ props.qabul.mainBoss }}ga <br />

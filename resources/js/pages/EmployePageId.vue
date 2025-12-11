@@ -3,7 +3,7 @@
       v-model:visible="isDialogVisible"
       modal
       :style="{ width: '60rem' }"
-      @after-hide="$router.push({ name: 'employe-page' })"
+      @after-hide="closeModalPage"
       :closable="false"
    >
       <template #header>
@@ -69,7 +69,7 @@
                   </thead>
                </table>
 
-               <main class="flex gap-4 mt-20">
+               <main class="flex gap-4 mt-12">
                   <div class="inline-flex flex-1 flex-col">
                      <p class="text-surface-500 text-sm">Korxona hisobidan</p>
                      <i v-if="employe.company" class="pi pi-check text-sm! text-primary"></i>
@@ -98,18 +98,25 @@
                      <i v-else class="pi pi-times text-sm!" style="color: red"></i>
                   </div>
                </main>
-               <div class="flex justify-end mt-6">
-                  <Button
-                     v-if="employe.phone"
-                     :label="employe.phone || ''"
-                     variant="text"
-                     size="small"
-                     icon="pi pi-phone"
-                  />
-                  <span v-else class="h-9"></span>
+               <table v-if="parentName != 'employe-page'" class="mt-8">
+                  <thead>
+                     <tr>
+                        <td class="text-surface-500 text-sm w-1/7">Buyruq raqami</td>
+                        <td class="text-surface-500 text-sm w-1/7">Buyruq sanasi</td>
+                        <td class="text-surface-500 text-sm w-1/7">Ishga qabul kuni</td>
+                     </tr>
+                     <tr>
+                        <td class="w-1/7 align-top">{{ employe.buyruq_raqami }}</td>
+                        <td class="w-1/7 align-top">{{ employe.buyruq_sanasi }}</td>
+                        <td class="w-1/7 align-top">{{ employe.ishga_qabul_kuni }}</td>
+                     </tr>
+                  </thead>
+               </table>
+               <div v-if="employe.phone" class="flex justify-end mt-6">
+                  <Button :label="employe.phone || ''" variant="text" size="small" icon="pi pi-phone" />
                </div>
             </Panel>
-            <Stepper value="1" class="mt-4">
+            <Stepper v-if="parentName == 'employe-page'" value="1" class="mt-4">
                <StepList>
                   <Step v-for="(stat, index) in statuses" asChild :value="stat.id">
                      <div
@@ -148,7 +155,7 @@
                      {{ moment(employe.created_at).format("DD-MM-YYYY HH:mm") }}
                   </span>
                </div>
-               <div>
+               <div v-if="parentName == 'employe-page'">
                   <Dialog
                      v-model:visible="isIshgaQabulDialog"
                      modal
@@ -198,12 +205,17 @@ import BaseForm from "@/components/BaseForm.vue";
 import { generateAttributes, inputValues, qabulFormInputs } from "@/configs/CrudConfig";
 import moment from "moment";
 import { computed, onMounted, ref, shallowRef } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 
 const route = useRoute();
+const matched = route.matched;
+const parentRoute = matched.length > 1 ? matched[matched.length - 2] : undefined;
+const parentName = parentRoute?.name;
+
+const router = useRouter();
 const isDialogVisible = ref(false);
 const isIshgaQabulDialog = ref(false);
 const employe_id = route.params.id as string;
@@ -258,4 +270,8 @@ const items = ref([
    { label: "Tibbiy ko'rik yo'llanmasi", command: () => openPrintPage(1) },
    { label: "Qabul varaqasi", command: () => openPrintPage(2) },
 ]);
+
+function closeModalPage() {
+   router.push({ name: parentName });
+}
 </script>

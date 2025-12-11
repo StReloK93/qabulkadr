@@ -76,6 +76,9 @@ async function onPrintPage({ page, employe }) {
 }
 
 onMounted(async () => {
+   window.onafterprint = function () {
+      printPage.value = null;
+   };
    qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
 });
 </script>

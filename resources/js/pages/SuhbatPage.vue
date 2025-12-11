@@ -1,36 +1,19 @@
 <template>
    <section class="relative" id="employe-page">
       <Teleport to="body">
-         <PrintTibbiyYollanma :employe="selectedEmploye" v-if="selectedEmploye && printPage == 1" />
-         <PrintQabulVaraqa
-            :employe="selectedEmploye"
-            :qabul="qabulTest"
-            v-if="selectedEmploye && printPage == 2"
-         />
+         <PrintSuhbatVaraqa :employe="selectedEmploye" v-if="selectedEmploye && printPage == 1" />
       </Teleport>
-      <RouterView @updateEmploye="baseCrudBlock?.loadData()" @onPrintPage="onPrintPage" />
+      <RouterView @updateEmploye="baseCrudBlock?.loadData()" />
 
-      <BaseCrudBlock
-         ref="baseCrudBlock"
-         entity="finished_employes"
-         :addButton="false"
-         :withSearch="true"
-         :withFilter="true"
-      >
+      <BaseCrudBlock ref="baseCrudBlock" entity="suhbat" :withSearch="true" :withFilter="true">
          <template #column>
             <Column>
                <template #body="{ data }">
                   <Button
-                     icon="pi pi-eye"
-                     text
-                     rounded
-                     @click="$router.push({ name: 'finished-employe-id-page', params: { id: data.id } })"
-                  />
-                  <Button
                      icon="pi pi-print"
                      text
                      rounded
-                     @click="onPrintPage({ page: 2, employe: data })"
+                     @click="onPrintPage({ page: 1, employe: data })"
                   />
                </template>
             </Column>
@@ -39,8 +22,7 @@
    </section>
 </template>
 <script setup lang="ts">
-import PrintTibbiyYollanma from "@/components/PrintTibbiyYollanma.vue";
-import PrintQabulVaraqa from "@/components/PrintQabulVaraqa.vue";
+import PrintSuhbatVaraqa from "@/components/PrintSuhbatVaraqa.vue";
 import CrudRepo from "@/repositories/CrudRepo";
 import { api } from "@/helpers/useFetch";
 import moment from "moment";

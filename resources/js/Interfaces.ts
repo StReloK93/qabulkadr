@@ -76,6 +76,10 @@ export interface IEmploye {
    status_id: number;
    cause_id: number;
    id?: string | number;
+
+   buyruq_sanasi: string | null;
+   buyruq_raqami: string | null;
+   ishga_qabul_kuni: string | null;
 }
 
 export interface IPaginator {
