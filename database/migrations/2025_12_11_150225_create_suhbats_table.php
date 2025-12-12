@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->text('profession');
+            $table->text('cause');
             $table->integer('organization_id');
             $table->integer('creater_id');
             $table->timestamps();

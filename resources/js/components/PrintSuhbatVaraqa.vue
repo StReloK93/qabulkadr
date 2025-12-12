@@ -124,4 +124,9 @@
    </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { ISuhbat } from "@/Interfaces";
+
+const props = defineProps<{ suhbat: ISuhbat }>();
+console.log(props.suhbat);
+</script>

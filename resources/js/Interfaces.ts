@@ -96,3 +96,13 @@ export interface IPaginator {
    to: number;
    total: number;
 }
+
+export interface ISuhbat {
+   name: string;
+   cause: string;
+   profession: string;
+   organization_id: string;
+   organization: IOrganization;
+   creater: IUser;
+   creater_id: number;
+}

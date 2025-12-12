@@ -1,7 +1,7 @@
 <template>
    <section class="relative" id="employe-page">
       <Teleport to="body">
-         <PrintSuhbatVaraqa :employe="selectedEmploye" v-if="selectedEmploye && printPage == 1" />
+         <PrintSuhbatVaraqa :suhbat="selected" v-if="selected && printPage == 1" />
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" />
 
@@ -13,7 +13,7 @@
                      icon="pi pi-print"
                      text
                      rounded
-                     @click="onPrintPage({ page: 1, employe: data })"
+                     @click="onPrintPage({ page: 1, suhbat: data })"
                   />
                </template>
             </Column>
@@ -28,7 +28,7 @@ import { api } from "@/helpers/useFetch";
 import moment from "moment";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
-import type { IEmploye } from "@/Interfaces";
+import type { ISuhbat } from "@/Interfaces";
 
 const qabulTest = reactive({
    yoriqnomalar: null,
@@ -37,12 +37,12 @@ const qabulTest = reactive({
 });
 
 const printPage = ref<number | null>(null);
-const selectedEmploye = ref<IEmploye | null>(null);
+const selected = ref<ISuhbat | null>(null);
 
 const baseCrudBlock = ref<{ loadData: Function }>();
 
-async function onPrintPage({ page, employe }) {
-   selectedEmploye.value = employe;
+async function onPrintPage({ page, suhbat }) {
+   selected.value = suhbat;
    printPage.value = page;
    await nextTick();
    window.print();

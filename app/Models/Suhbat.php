@@ -19,6 +19,7 @@ class Suhbat extends Model
         'name',
         'phone',
         'organization_id',
+        'cause',
         'profession',
         'creater_id',
     ];

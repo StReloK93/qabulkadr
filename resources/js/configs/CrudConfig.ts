@@ -288,6 +288,13 @@ export const crudConfigs = {
             attr: { autoResize: true },
          },
          {
+            is: Textarea,
+            name: "cause",
+            placeholder: "Asos",
+            schema: yup.string(),
+            attr: { autoResize: true },
+         },
+         {
             is: Select,
             name: "organization_id",
             columnName: "organization.shortname",
