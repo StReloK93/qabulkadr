@@ -389,6 +389,17 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
          },
          {
             is: Select,
+            name: "rahbar_id",
+            columnName: "rahbar.name",
+            placeholder: "Kimni nomiga",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/all`);
+               this.attr = selectOption(data, "name");
+            },
+         },
+         {
+            is: Select,
             name: "education_level_id",
             columnName: "education_level.name",
             placeholder: "Ma'lumoti",
@@ -561,6 +572,17 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
             notColumn: true,
             schema: yup.date().required("Kunni tanlang"),
             attr: { showIcon: true, iconDisplay: "input", dateFormat: "dd.mm.yy" },
+         },
+         {
+            is: Select,
+            name: "rahbar_id",
+            columnName: "rahbar.name",
+            placeholder: "Kimni nomiga",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/all`);
+               this.attr = selectOption(data, "name");
+            },
          },
          {
             is: Select,

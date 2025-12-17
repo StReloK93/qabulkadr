@@ -3,8 +3,8 @@
       class="sheet text-black! invisible -z-10 absolute p-px top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
       <nav class="flex justify-end">
-         <main class="text-right text-[13.5pt]">
-            SHKB Direktori {{ props.qabul.mainBoss }}ga <br />
+         <main class="text-right text-[13.5pt] w-60">
+            {{ props.employe.rahbar.profession }} {{ props.employe.rahbar.name }}ga <br />
             fuqoro {{ props.employe.full_name }} <br />
             tomonidan
          </main>
@@ -118,6 +118,7 @@ interface INeedEmploye {
    full_name: string;
    organization: { name: string };
    division: string | null;
+   rahbar: {name: string , profession: string };
    profession: string;
    cause_text: string | null;
 }

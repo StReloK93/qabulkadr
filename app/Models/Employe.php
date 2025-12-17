@@ -12,6 +12,7 @@ class Employe extends Model
     protected $casts = [
         'education_level_id' => 'integer',
         'organization_id' => 'integer',
+        'rahbar_id' => 'integer',
         'cause_id' => 'integer',
         'work_environment_id' => 'integer',
         'disability_type_id' => 'integer',
@@ -20,12 +21,13 @@ class Employe extends Model
         'status_id' => 'integer',
         'company' => 'boolean',
     ];
-    protected $with = ['organization', 'education_level', 'work_environment', 'cause', 'status', 'creater'];
+    protected $with = ['organization', 'education_level', 'work_environment', 'cause', 'status', 'creater', 'rahbar'];
     protected $fillable = [
         'full_name',
         'cause_text',
         'birth_date',
         'education_level_id',
+        'rahbar_id',
         'university',
         'cause_id',
         'organization_id',
@@ -48,6 +50,11 @@ class Employe extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+        public function rahbar()
+    {
+        return $this->belongsTo(Rahbar::class);
     }
 
 

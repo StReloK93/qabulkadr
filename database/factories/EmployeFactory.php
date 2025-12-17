@@ -43,6 +43,7 @@ class EmployeFactory extends Factory
             'full_name' => fake()->name(),
             'birth_date' => fake()->date(),
             'education_level_id' => fake()->numberBetween(1, 3),
+            'rahbar_id' => fake()->numberBetween(1, 2),
             'university' => fake()->streetName(),
             'cause_id' => fake()->numberBetween(1, 3),
             'cause_text' => fake()->randomElement($causes),

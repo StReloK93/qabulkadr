@@ -48,6 +48,16 @@ const baseEmployeFilters = <IFilterInputs[]>[
          this.attr = selectOption(data, "name");
       },
    },
+      {
+      is: MultiSelect,
+      name: "rahbar_id",
+      placeholder: "Kimni nomiga",
+      parentClass: ["mb-1.5!"],
+      generateAttributes: async function () {
+         const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/all`);
+         this.attr = selectOption(data, "name");
+      },
+   },
    {
       is: Checkbox,
       name: "company",

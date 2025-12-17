@@ -68,6 +68,7 @@ export interface IEmploye {
    university: string;
 
    organization: IOrganization;
+   rahbar: {name: string , profession: string };
    division: string | null;
 
    profession: string;

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->text('cause_text')->nullable();
 
             $table->integer('organization_id');
+            $table->string('rahbar_id');
             $table->text('division')->nullable();
             $table->text('profession');
             $table->text('work_environment_id');

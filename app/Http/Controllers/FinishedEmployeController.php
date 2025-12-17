@@ -30,6 +30,7 @@ class FinishedEmployeController extends BaseCrudController
         $multiFilters = [
             'organization_id',
             'education_level_id',
+            'rahbar_id',
             'cause_id',
             'work_environment_id',
             'disability_type_id',

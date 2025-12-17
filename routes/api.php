@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('crud/quot_type/all', [\App\Http\Controllers\QuotTypeController::class, 'all']);
     Route::get('crud/status/all', [\App\Http\Controllers\StatusController::class, 'all']);
     Route::get('crud/yoriqnoma/all', [\App\Http\Controllers\YoriqnomaController::class, 'all']);
+    Route::get('crud/rahbar/all', [\App\Http\Controllers\RahbarController::class, 'all']);
 
 
     Route::get('users', [\App\Http\Controllers\AuthController::class, 'users']);

@@ -49,6 +49,7 @@ import type { IEmploye } from "@/Interfaces";
 
 const qabulTest = reactive({
    yoriqnomalar: null,
+   rahbar: null,
    kadrBoss: "A.B.Butayev",
    mainBoss: "N.N.Amonov",
 });
@@ -67,5 +68,6 @@ async function onPrintPage({ page, employe }) {
 
 onMounted(async () => {
    qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
+   qabulTest.rahbar = await new CrudRepo("rahbar").index({}).data;
 });
 </script>

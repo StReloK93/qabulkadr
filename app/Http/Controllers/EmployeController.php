@@ -28,6 +28,7 @@ class EmployeController extends BaseCrudController
         $multiFilters = [
             'organization_id',
             'education_level_id',
+            'rahbar_id',
             'cause_id',
             'work_environment_id',
             'disability_type_id',
@@ -103,8 +104,13 @@ class EmployeController extends BaseCrudController
     {
         $item = $this->model::findOrFail($employe_id);
 
-        $item->buyruq_sanasi = $request->buyruq_sanasi;
-        $item->ishga_qabul_kuni = $request->ishga_qabul_kuni;
+
+        $item->buyruq_sanasi = Carbon::parse($request->buyruq_sanasi)
+            ->timezone('Asia/Tashkent')
+            ->format('Y-m-d');
+        $item->ishga_qabul_kuni = Carbon::parse($request->ishga_qabul_kuni)
+            ->timezone('Asia/Tashkent')
+            ->format('Y-m-d');
         $item->buyruq_raqami = $request->buyruq_raqami;
         $item->save();
     }
