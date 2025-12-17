@@ -8,11 +8,20 @@ import {
    Textarea,
    InputNumber,
 } from "primevue";
-import type { IEducationLevel, IFormInputs } from "@/Interfaces";
+import type { IEducationLevel, IFormInputs, CrudKey } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 import * as yup from "yup";
 
-export const crudConfigs = {
+export interface ICrudConfig {
+   title: string;
+   parentTitle?: string;
+   createButtonHide?: boolean;
+   editButtonHide?: boolean;
+   deleteButtonHide?: boolean;
+   inputs: IFormInputs[];
+}
+
+export const crudConfigs: Record<CrudKey, ICrudConfig> = {
    //
    //
    //
@@ -236,6 +245,27 @@ export const crudConfigs = {
          },
       ],
    },
+
+   rahbar: {
+      title: "Rahbarlar",
+      parentTitle: "Qo'llanmalar",
+      createButtonHide: true,
+      deleteButtonHide: true,
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "F.I.SH",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            name: "profession",
+            placeholder: "Lavozimi",
+            notInput: true,
+         },
+      ],
+   },
+
    quot_type: {
       title: "Kvota turlari",
       parentTitle: "Qo'llanmalar",
@@ -516,6 +546,7 @@ export const crudConfigs = {
    finished_employes: {
       title: "Ishga qabul qilingan xodimlar",
       parentTitle: "Asosiy bo'lim",
+      createButtonHide: true,
       inputs: <IFormInputs[]>[
          {
             is: InputText,

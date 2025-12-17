@@ -9,9 +9,13 @@
          <Column v-for="col in columns" :key="col.name" :field="col.name" :header="col.placeholder" />
          <slot name="column"></slot>
 
-         <Column body-style="text-align:center;width:6rem">
+         <Column
+            v-if="!crudConfig.editButtonHide || !crudConfig.deleteButtonHide"
+            body-style="text-align:center;width:6rem"
+         >
             <template #body="{ data }">
                <Button
+                  v-if="!crudConfig.editButtonHide"
                   icon="pi pi-pencil"
                   text
                   severity="info"
@@ -20,6 +24,7 @@
                   @click="emit('edit', data.id)"
                />
                <Button
+                  v-if="!crudConfig.deleteButtonHide"
                   icon="pi pi-trash"
                   text
                   rounded
@@ -70,6 +75,10 @@ const props = defineProps<{
          placeholder: string;
       }
    ];
+   crudConfig: {
+      editButtonHide: boolean;
+      deleteButtonHide: boolean;
+   };
    editButtonLoading: number | null;
    deleteButtonLoading: number | null;
 }>();

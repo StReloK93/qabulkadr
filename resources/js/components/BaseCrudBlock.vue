@@ -55,6 +55,7 @@
                <div class="flex gap-2 items-center">
                   <slot name="buttons"></slot>
                   <Button
+                     v-if="props.withSearch"
                      icon="pi pi-file-excel"
                      @click="exportExcel"
                      size="small"
@@ -63,7 +64,7 @@
                   />
 
                   <BaseCrudFilter
-                     v-if="props.withSearch"
+                     v-if="props.withFilter"
                      @filter="onFilter"
                      :entity
                      :startData="queryParams.filters"
@@ -79,15 +80,17 @@
                      variant="text"
                   />
                </div>
+
                <div>
                   <Button
-                     v-if="props.addButton"
+                     v-if="!crudConfigs[crudRepo.endpoint].createButtonHide"
                      icon="pi pi-plus"
                      rounded
                      size="small"
                      :loading="createButtonLoading"
                      @click="openCreateForm"
                   />
+                  <span v-else class="h-8 block"></span>
                </div>
             </nav>
          </template>
@@ -96,6 +99,7 @@
                v-if="crudData.loading == false"
                :items="crudData.data"
                :columns="configColumns"
+               :crudConfig="crudConfigs[crudRepo.endpoint]"
                :edit-button-loading
                :delete-button-loading
                @edit="openEditForm"
@@ -125,16 +129,14 @@ import { onMounted, watch, ref, shallowRef, type Ref, reactive } from "vue";
 import { crudConfigs, inputValues, columns, generateAttributes } from "@/configs/CrudConfig";
 import CrudRepo from "@/repositories/CrudRepo";
 import CrudTable from "@/components/CrudTable.vue";
-import type { IPaginator } from "@/Interfaces";
+import type { CrudKey, IPaginator } from "@/Interfaces";
 const props = withDefaults(
    defineProps<{
       entity: string;
-      addButton?: boolean;
       withSearch?: boolean;
       withFilter?: boolean;
    }>(),
    {
-      addButton: true,
       withSearch: false,
       withFilter: false,
    }
@@ -157,11 +159,10 @@ async function clearFilters() {
    queryParams.filters = null;
    await loadData();
 }
-
 const crudRepo = new CrudRepo(props.entity);
 let submit: (values: unknown) => Promise<void>;
 
-const configColumns: Ref<any> = shallowRef(columns(crudConfigs[crudRepo.endpoint].inputs));
+const configColumns: Ref<any> = shallowRef(columns(crudConfigs[props.entity as CrudKey].inputs));
 const configInputs: Ref<any> = shallowRef(null);
 
 const openDrawer = ref(false);
@@ -272,7 +273,7 @@ watch(
    async (currentEntity) => {
       configInputs.value = null;
       configColumns.value = null;
-      crudRepo.endpoint = currentEntity as string;
+      crudRepo.endpoint = currentEntity as CrudKey;
       await loadData();
       configInputs.value = crudConfigs[crudRepo.endpoint].inputs;
       configColumns.value = columns(crudConfigs[crudRepo.endpoint].inputs);

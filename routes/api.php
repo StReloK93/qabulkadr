@@ -59,4 +59,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/status', \App\Http\Controllers\StatusController::class);
     Route::apiResource('crud/yoriqnoma', \App\Http\Controllers\YoriqnomaController::class);
     Route::apiResource('crud/suhbat', \App\Http\Controllers\SuhbatController::class);
+    Route::apiResource('crud/rahbar', \App\Http\Controllers\RahbarController::class);
 });

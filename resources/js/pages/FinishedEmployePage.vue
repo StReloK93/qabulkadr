@@ -13,7 +13,6 @@
       <BaseCrudBlock
          ref="baseCrudBlock"
          entity="finished_employes"
-         :addButton="false"
          :withSearch="true"
          :withFilter="true"
       >

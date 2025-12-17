@@ -1,5 +1,20 @@
 import type { Component } from "vue";
 import * as yup from "yup";
+
+export type CrudKey =
+   | "finished_employes"
+   | "employes"
+   | "organization"
+   | "disability_type"
+   | "cause"
+   | "work_environment"
+   | "education_level"
+   | "yoriqnoma"
+   | "rahbar"
+   | "quot_type"
+   | "status"
+   | "suhbat";
+
 export interface IUser {
    name: string;
    login: string;
