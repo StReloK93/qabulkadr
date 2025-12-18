@@ -394,7 +394,7 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
             placeholder: "Kimni nomiga",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/all`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/main`);
                this.attr = selectOption(data, "name");
             },
          },
@@ -580,7 +580,7 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
             placeholder: "Kimni nomiga",
             schema: yup.number().required("Tanlang"),
             generateAttributes: async function () {
-               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/all`);
+               const { data } = await api.get<IEducationLevel[]>(`crud/rahbar/main`);
                this.attr = selectOption(data, "name");
             },
          },

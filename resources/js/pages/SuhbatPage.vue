@@ -1,7 +1,7 @@
 <template>
    <section class="relative" id="employe-page">
       <Teleport to="body">
-         <PrintSuhbatVaraqa :suhbat="selected" v-if="selected && printPage == 1" />
+         <PrintSuhbatVaraqa :suhbat="selected" :kadrBoss="kadrBoss!" v-if="selected && printPage == 1" />
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" />
 
@@ -24,17 +24,11 @@
 <script setup lang="ts">
 import PrintSuhbatVaraqa from "@/components/PrintSuhbatVaraqa.vue";
 import CrudRepo from "@/repositories/CrudRepo";
-import { api } from "@/helpers/useFetch";
-import moment from "moment";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
 import type { ISuhbat } from "@/Interfaces";
 
-const qabulTest = reactive({
-   yoriqnomalar: null,
-   kadrBoss: "A.B.Butayev",
-   mainBoss: "N.N.Amonov",
-});
+const kadrBoss = ref();
 
 const printPage = ref<number | null>(null);
 const selected = ref<ISuhbat | null>(null);
@@ -49,6 +43,7 @@ async function onPrintPage({ page, suhbat }) {
 }
 
 onMounted(async () => {
-   qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
+   const result = (await new CrudRepo("rahbar").all()) as [any, any, any];
+   kadrBoss.value = result[2];
 });
 </script>

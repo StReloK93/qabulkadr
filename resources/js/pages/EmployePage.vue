@@ -51,10 +51,9 @@ import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
 import type { IEmploye } from "@/Interfaces";
 
-const qabulTest = reactive({
+const qabulTest = reactive<any>({
    yoriqnomalar: null,
-   kadrBoss: "A.B.Butayev",
-   mainBoss: "N.N.Amonov",
+   kadrBoss: null,
 });
 
 const printPage = ref<number | null>(null);
@@ -80,5 +79,8 @@ onMounted(async () => {
       printPage.value = null;
    };
    qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
+   const result = (await new CrudRepo("rahbar").all()) as [any, any, any];
+
+   qabulTest.kadrBoss = result[2];
 });
 </script>

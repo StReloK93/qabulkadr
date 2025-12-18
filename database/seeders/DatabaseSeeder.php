@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 		User::create([
 			'name' => "No'monov Shohrux",
 			'login' => 'admin',
+			'phone' => '597-23-14',
 			'password' => Hash::make('zzzz1111*'),
 		]);
 

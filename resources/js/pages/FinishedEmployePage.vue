@@ -41,17 +41,13 @@
 import PrintTibbiyYollanma from "@/components/PrintTibbiyYollanma.vue";
 import PrintQabulVaraqa from "@/components/PrintQabulVaraqa.vue";
 import CrudRepo from "@/repositories/CrudRepo";
-import { api } from "@/helpers/useFetch";
-import moment from "moment";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
 import type { IEmploye } from "@/Interfaces";
 
-const qabulTest = reactive({
+const qabulTest = reactive<any>({
    yoriqnomalar: null,
-   rahbar: null,
-   kadrBoss: "A.B.Butayev",
-   mainBoss: "N.N.Amonov",
+   kadrBoss: null,
 });
 
 const printPage = ref<number | null>(null);
@@ -68,6 +64,8 @@ async function onPrintPage({ page, employe }) {
 
 onMounted(async () => {
    qabulTest.yoriqnomalar = await new CrudRepo("yoriqnoma").all();
-   qabulTest.rahbar = await new CrudRepo("rahbar").index({}).data;
+   const result = (await new CrudRepo("rahbar").all()) as [any, any, any];
+
+   qabulTest.kadrBoss = result[2];
 });
 </script>

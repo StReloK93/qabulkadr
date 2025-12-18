@@ -41,7 +41,7 @@ class EmployeFactory extends Factory
 
         return [
             'full_name' => fake()->name(),
-            'birth_date' => fake()->date(),
+            'birth_date' => fake()->dateTimeBetween('1990-01-01', '2005-12-31'),
             'education_level_id' => fake()->numberBetween(1, 3),
             'rahbar_id' => fake()->numberBetween(1, 2),
             'university' => fake()->streetName(),
@@ -54,7 +54,7 @@ class EmployeFactory extends Factory
             'company' => false,
             'status_id' => fake()->numberBetween(1, 3),
 
-            'created_at' => fake()->dateTime(),
+            'created_at' => fake()->dateTimeBetween('2025-01-01', '2025-12-31'),
             'creater_id' => 1,
         ];
     }

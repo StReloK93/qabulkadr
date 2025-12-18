@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcelExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -36,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('crud/status/all', [\App\Http\Controllers\StatusController::class, 'all']);
     Route::get('crud/yoriqnoma/all', [\App\Http\Controllers\YoriqnomaController::class, 'all']);
     Route::get('crud/rahbar/all', [\App\Http\Controllers\RahbarController::class, 'all']);
+    Route::get('crud/rahbar/main', [\App\Http\Controllers\RahbarController::class, 'main']);
 
 
     Route::get('users', [\App\Http\Controllers\AuthController::class, 'users']);
@@ -61,4 +63,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/yoriqnoma', \App\Http\Controllers\YoriqnomaController::class);
     Route::apiResource('crud/suhbat', \App\Http\Controllers\SuhbatController::class);
     Route::apiResource('crud/rahbar', \App\Http\Controllers\RahbarController::class);
+
+
+
+    Route::post('dashboard', DashboardController::class);
 });

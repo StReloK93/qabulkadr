@@ -86,6 +86,6 @@ const crudPages = [
    { name: "quot_type", label: "Kvota turlari", icon: "pi pi-bookmark" },
    { name: "status", label: "Jarayon turlari", icon: "pi pi-tags" },
    { name: "yoriqnoma", label: "Yo'riqnomalar", icon: "pi pi-eraser" },
-   { name: "rahbar", label: "Rahbarlar", icon: "pi pi-star-fill" },
+   { name: "rahbar", label: "Rahbarlar", icon: "pi pi-ethereum" },
 ];
 </script>

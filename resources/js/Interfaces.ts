@@ -19,6 +19,7 @@ export interface IUser {
    name: string;
    login: string;
    role: number;
+   phone: string;
 }
 
 export interface IFormInputs {
@@ -52,6 +53,7 @@ export interface IOrganization {
    id: number;
    name: string;
    shortname: string;
+   bossname: string;
 }
 
 export interface IQuotType {
@@ -68,7 +70,7 @@ export interface IEmploye {
    university: string;
 
    organization: IOrganization;
-   rahbar: {name: string , profession: string };
+   rahbar: { name: string; profession: string };
    division: string | null;
 
    profession: string;
@@ -116,6 +118,7 @@ export interface IPaginator {
 export interface ISuhbat {
    name: string;
    cause: string;
+   phone: string;
    profession: string;
    organization_id: string;
    organization: IOrganization;

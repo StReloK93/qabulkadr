@@ -9,19 +9,19 @@
       <div class="text-center font-bold text-[10pt]">2025-yil «______»____</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline"> Bosh geolog bo`limi boshlig'i </span>
+         <span class="underline"> {{ props.suhbat.organization.name }} boshlig'i </span>
       </div>
       <div class="text-center text-[10pt]">(Bo'linma nomi)</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline"> BESHIMOV ABROR GAYBULLOYEVICH</span>
+         <span class="underline"> {{ props.suhbat.organization.bossname }}</span>
       </div>
       <div class="text-center text-[10pt]">(Rahbarning F.I.Sh)</div>
       <br />
       <div class="text-center text-[10pt]">Shimoliy kon boshqarmasi Kadrlar bo'limi tomonidan</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline">Qarshiyev Zarif Zafar o'g'li</span>
+         <span class="underline">{{ props.suhbat.name }}</span>
       </div>
       <div class="text-center text-[10pt]">(nomzodning F.I.Sh)</div>
       <br />
@@ -29,36 +29,31 @@
          Sizga suhbat o'tkazish uchun (zaxira sifatida) yuborilmoqda
       </div>
       <br />
-      <div class="text-center text-[12pt]">
-         <span class="underline leading-[18px]">
-            "Sharqiy koni" Geologiya-geofizika byurosiga,
-            <br />
-            Ishlab chiqarishni avtomatlashtirilgan tizim
-            <br />
-            orqali boshqarish muhandisi
+      <div class="flex justify-center text-center text-[12pt]">
+         <span class="underline leading-[18px] w-80 block">
+            {{ props.suhbat.profession }}
          </span>
       </div>
       <div class="text-center text-[10pt]">(Lavozim yoki kasbning nomi)</div>
       <br />
-      <div class="text-center text-[10pt]">Nomzod(ish izlovchi)ning telefon raqami</div>
+      <div class="text-center text-[10pt]">
+         Nomzod(ish izlovchi)ning telefon raqami: {{ props.suhbat.phone }}
+      </div>
       <br />
       <br />
 
       <div class="font-bold text-[10pt] flex justify-between px-18 items-end leading-[15px]">
          <span>
             Shimoliy kon boshqarmasi
-            <br />Kadrlar bo'limi boshlig'i
+            <br />{{ kadrBoss.profession }}
          </span>
-         <span> A.B.Butayev </span>
+         <span> {{ kadrBoss.name }} </span>
       </div>
       <br />
       <br />
       <br />
       <div class="text-[10pt] flex justify-between px-18 items-end leading-[15px]">
-         <span>
-            Ijr:Nusratov.R.R
-            <br />597-23-14
-         </span>
+         <span> Ijr:{{ props.suhbat.creater.name }} <br />{{ props.suhbat.creater.phone }} </span>
       </div>
       <br />
       <br />
@@ -126,7 +121,5 @@
 
 <script setup lang="ts">
 import type { ISuhbat } from "@/Interfaces";
-
-const props = defineProps<{ suhbat: ISuhbat }>();
-console.log(props.suhbat);
+const props = defineProps<{ suhbat: ISuhbat; kadrBoss: { name: string; profession: string } }>();
 </script>

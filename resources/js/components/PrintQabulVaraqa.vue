@@ -27,9 +27,9 @@
       <div class="flex justify-between mt-8 text-[11pt]">
          <span>Ijrochi: {{ UserStore.user?.name }}</span>
          <section class="text-right font-semibold">
-            Kadrlar bo'limi boshlig'i
+            {{ props.qabul.kadrBoss.profession }}
             <br />
-            {{ props.qabul.kadrBoss }}
+            {{ props.qabul.kadrBoss.name }}
          </section>
       </div>
       <div class="flex justify-end mt-2">
@@ -110,15 +110,14 @@ const UserStore = useUserStore();
 
 interface IQabul {
    yoriqnomalar: { title: string; text: string; colspan: number }[] | null;
-   kadrBoss: string;
-   mainBoss: string;
+   kadrBoss: { name: string; profession: string };
 }
 
 interface INeedEmploye {
    full_name: string;
    organization: { name: string };
    division: string | null;
-   rahbar: {name: string , profession: string };
+   rahbar: { name: string; profession: string };
    profession: string;
    cause_text: string | null;
 }

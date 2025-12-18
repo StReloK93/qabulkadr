@@ -21,18 +21,44 @@
             :loading="UserStore.logoutLoading"
             rounded
             aria-label="Star"
-            @click="UserStore.logout()"
+            @click="confirmDelete"
          />
       </aside>
    </nav>
 </template>
 
 <script setup lang="ts">
+import { useStorage } from "@vueuse/core";
 import { useUserStore } from "@/stories/UserStore";
-import { ref } from "vue";
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
 const UserStore = useUserStore();
 
-const themeMoon = ref(false);
+const confirmDelete = (event) => {
+   confirm.require({
+      target: event.currentTarget,
+      message: "Dasturdan chiqmoqchimisiz?",
+      rejectProps: {
+         label: "Bekor qilish",
+         severity: "secondary",
+         outlined: true,
+      },
+      acceptProps: {
+         label: "Chiqish",
+         severity: "danger",
+      },
+      accept: () => {
+         UserStore.logout();
+      },
+   });
+};
+
+const themeMoon = useStorage("theme", false);
+
+if (themeMoon.value && document.documentElement.classList.contains("dark") == false) {
+   document.documentElement.classList.add("dark");
+}
+
 function toggleDarkMode() {
    document.documentElement.classList.toggle("dark");
    themeMoon.value = document.documentElement.classList.contains("dark");

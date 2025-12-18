@@ -10,9 +10,15 @@ class RahbarController extends BaseCrudController
 
     public function all()
     {
-        return $this->model::whereIn('id', [1,2])->get();
+        return $this->model::all();
     }
 
+    public function main()
+    {
+        return $this->model::whereIn('id', [1, 2])->get();
+    }
 
-    public function destroy($id){}
+    public function destroy($id)
+    {
+    }
 }
