@@ -8,9 +8,7 @@
          autocomplete="off"
       >
          <Card class="w-96 max-w-md">
-            <template #title>
-               Kirish
-            </template>
+            <template #title> Kirish </template>
             <template #content>
                <div class="flex flex-col gap-4">
                   <aside>
@@ -22,12 +20,7 @@
                         fluid
                         autocomplete="new-login"
                      />
-                     <Message
-                        v-if="$form.login?.invalid"
-                        severity="error"
-                        size="small"
-                        variant="simple"
-                     >
+                     <Message v-if="$form.login?.invalid" severity="error" size="small" variant="simple">
                         {{ $form.login.error?.message }}
                      </Message>
                   </aside>
@@ -49,24 +42,14 @@
                         {{ $form.password.error?.message }}
                      </Message>
                   </aside>
-                  <Message
-                     v-if="error.length"
-                     severity="error"
-                     size="small"
-                     variant="simple"
-                  >
+                  <Message v-if="error.length" severity="error" size="small" variant="simple">
                      {{ error }}
                   </Message>
                </div>
             </template>
             <template #footer>
                <div class="flex">
-                  <Button
-                     :loading="loading"
-                     type="submit"
-                     label="Kirish"
-                     class="w-full"
-                  />
+                  <Button :loading="loading" type="submit" label="Kirish" class="w-full" />
                </div>
             </template>
          </Card>

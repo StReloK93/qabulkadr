@@ -1,7 +1,11 @@
 <template>
    <section class="relative" id="employe-page">
       <Teleport to="body">
-         <PrintSuhbatVaraqa :suhbat="selected" :kadrBoss="kadrBoss!" v-if="selected && printPage == 1" />
+         <div v-if="selected && printPage == 1">
+            <PrintSuhbatVaraqa :suhbat="selected" :kadrBoss="kadrBoss!" />
+            <br />
+            <PrintSuhbatVaraqaBottom :suhbat="selected" />
+         </div>
       </Teleport>
       <RouterView @updateEmploye="baseCrudBlock?.loadData()" />
 
@@ -23,6 +27,7 @@
 </template>
 <script setup lang="ts">
 import PrintSuhbatVaraqa from "@/components/PrintSuhbatVaraqa.vue";
+import PrintSuhbatVaraqaBottom from "@/components/PrintSuhbatVaraqaBottom.vue";
 import CrudRepo from "@/repositories/CrudRepo";
 import BaseCrudBlock from "@/components/BaseCrudBlock.vue";
 import { ref, reactive, onMounted, nextTick } from "vue";
