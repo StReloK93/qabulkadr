@@ -53,29 +53,45 @@
                size="small"
             />
          </RouterLink>
-         <Divider />
-         <p class="text-xs text-surface-600 dark:text-surface-400 px-3">Qo'llanmalar</p>
-         <RouterLink
-            v-for="page in crudPages"
-            class="w-full"
-            :to="{ name: 'crud-page', params: { entity: page.name } }"
-            :key="page.name"
-         >
-            <Button
-               class="w-full justify-start! border border-surface-300"
-               variant="text"
-               :severity="route.params.entity == page.name ? 'primary' : 'contrast'"
-               :label="page.label"
-               :icon="page.icon"
-               size="small"
-            />
-         </RouterLink>
+         <template v-if="AuthStore.isAdmin">
+            <Divider />
+            <p class="text-xs text-surface-600 dark:text-surface-400 px-3">Qo'llanmalar</p>
+            <RouterLink
+               v-for="page in crudPages"
+               class="w-full"
+               :to="{ name: 'crud-page', params: { entity: page.name } }"
+               :key="page.name"
+            >
+               <Button
+                  class="w-full justify-start! border border-surface-300"
+                  variant="text"
+                  :severity="route.params.entity == page.name ? 'primary' : 'contrast'"
+                  :label="page.label"
+                  :icon="page.icon"
+                  size="small"
+               />
+            </RouterLink>
+            <Divider />
+            <RouterLink class="w-full" :to="{ name: 'user-page' }">
+               <Button
+                  :severity="route.name == 'user-page' ? 'primary' : 'contrast'"
+                  class="w-full justify-start! border border-surface-300"
+                  variant="text"
+                  label="Foydalanuvchilar"
+                  icon="pi pi-users"
+                  size="small"
+               />
+            </RouterLink>
+         </template>
       </div>
    </nav>
 </template>
 <script setup lang="ts">
+import { useUserStore } from "@/stories/UserStore";
 import { useRoute } from "vue-router";
 const route = useRoute();
+
+const AuthStore = useUserStore();
 
 const crudPages = [
    { name: "organization", label: "Bo'limlar ro'yhati", icon: "pi pi-building" },
@@ -87,5 +103,6 @@ const crudPages = [
    { name: "status", label: "Jarayon turlari", icon: "pi pi-tags" },
    { name: "yoriqnoma", label: "Yo'riqnomalar", icon: "pi pi-eraser" },
    { name: "rahbar", label: "Rahbarlar", icon: "pi pi-ethereum" },
+   { name: "suhbatsarlavha", label: "Suhbat sarlavhalari", icon: "pi pi-thumbtack" },
 ];
 </script>

@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('crud/finished_employes/all', [\App\Http\Controllers\FinishedEmployeController::class, 'all']);
     Route::get('crud/employes/all', [\App\Http\Controllers\EmployeController::class, 'all']);
+    Route::get('crud/suhbatsarlavha/all', [\App\Http\Controllers\SuhbatSarlavhaController::class, 'all']);
     Route::get('crud/organization/all', [\App\Http\Controllers\OrganizationController::class, 'all']);
     Route::get('crud/cause/all', [\App\Http\Controllers\CauseController::class, 'all']);
     Route::get('crud/work_environment/all', [\App\Http\Controllers\WorkEnvironmentController::class, 'all']);
@@ -63,7 +64,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('crud/yoriqnoma', \App\Http\Controllers\YoriqnomaController::class);
     Route::apiResource('crud/suhbat', \App\Http\Controllers\SuhbatController::class);
     Route::apiResource('crud/rahbar', \App\Http\Controllers\RahbarController::class);
-
+    Route::apiResource('crud/users', \App\Http\Controllers\UserController::class);
+    Route::apiResource('crud/suhbatsarlavha', \App\Http\Controllers\SuhbatSarlavhaController::class);
 
 
     Route::post('dashboard', DashboardController::class);

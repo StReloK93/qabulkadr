@@ -2,6 +2,8 @@ import type { Component } from "vue";
 import * as yup from "yup";
 
 export type CrudKey =
+   | "users"
+   | "suhbatsarlavha"
    | "finished_employes"
    | "employes"
    | "organization"
@@ -117,7 +119,7 @@ export interface IPaginator {
 
 export interface ISuhbat {
    name: string;
-   cause: string;
+   suhbatsarlavha: { id: number; description: string };
    phone: string;
    profession: string;
    organization_id: string;

@@ -17,9 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $casts = [
+        'role' => 'boolean',
+    ];
     protected $fillable = [
         'name',
         'login',
+        'role',
         'phone',
         'password',
     ];

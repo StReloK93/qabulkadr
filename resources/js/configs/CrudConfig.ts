@@ -22,6 +22,41 @@ export interface ICrudConfig {
 }
 
 export const crudConfigs: Record<CrudKey, ICrudConfig> = {
+   users: {
+      title: "Foydalanuvchilar",
+      parentTitle: "Qo'llanmalar",
+      deleteButtonHide: true,
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "name",
+            placeholder: "Nomi",
+            schema: yup.string().required("To'ldiring"),
+         },
+         {
+            is: InputText,
+            name: "login",
+            placeholder: "Login",
+            schema: yup.string(),
+         },
+         {
+            is: Checkbox,
+            name: "role",
+            placeholder: "Admin",
+            schema: yup.boolean(),
+            withLabel: true,
+            attr: { binary: true },
+            notColumn: true,
+         },
+         {
+            is: InputMask,
+            name: "phone",
+            placeholder: "Telefon raqami",
+            schema: yup.string().nullable(),
+            attr: { mask: "999-99-99" },
+         },
+      ],
+   },
    //
    //
    //
@@ -107,6 +142,25 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
    //
    //
    //
+   //
+   //
+   //
+   //
+   //
+   //
+   //
+   suhbatsarlavha: {
+      title: "Suhbat sarlavhalari",
+      parentTitle: "Qo'llanmalar",
+      inputs: <IFormInputs[]>[
+         {
+            is: InputText,
+            name: "description",
+            placeholder: "Tarkibi",
+            schema: yup.string().required("To'ldiring"),
+         },
+      ],
+   },
    //
    //
    //
@@ -299,7 +353,7 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
          {
             is: InputText,
             name: "name",
-            placeholder: "Nomi",
+            placeholder: "F.I.Sh",
             schema: yup.string().required("To'ldiring"),
          },
          {
@@ -318,11 +372,15 @@ export const crudConfigs: Record<CrudKey, ICrudConfig> = {
             attr: { autoResize: true },
          },
          {
-            is: Textarea,
-            name: "cause",
-            placeholder: "Asos",
-            schema: yup.string(),
-            attr: { autoResize: true },
+            is: Select,
+            name: "suhbatsarlavha_id",
+            columnName: "suhbatsarlavha.description",
+            placeholder: "Sarlavha",
+            schema: yup.number().required("Tanlang"),
+            generateAttributes: async function () {
+               const { data } = await api.get<IEducationLevel[]>(`crud/suhbatsarlavha/all`);
+               this.attr = selectOption(data, "description");
+            },
          },
          {
             is: Select,

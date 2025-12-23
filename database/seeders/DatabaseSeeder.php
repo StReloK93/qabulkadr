@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 		User::create([
 			'name' => "No'monov Shohrux",
 			'login' => 'admin',
+			'role' => 1,
 			'phone' => '597-23-14',
 			'password' => Hash::make('zzzz1111*'),
 		]);
@@ -171,5 +172,16 @@ _____________________              ________
 
 
 		Employe::factory()->count(400)->create();
+
+		Employe::inRandomOrder()
+			->limit(100)
+			->get()
+			->each(function ($employe) {
+				$employe->update([
+					'buyruq_raqami' => fake()->numberBetween(100, 999),
+					'ishga_qabul_kuni' => fake()->date(),
+					'buyruq_sanasi' => fake()->date(),
+				]);
+			});
 	}
 }

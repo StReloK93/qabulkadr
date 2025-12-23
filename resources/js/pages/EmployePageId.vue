@@ -133,6 +133,7 @@
                            :severity="stat.id <= employe.status_id ? '' : 'secondary'"
                            :label="stat.name"
                            size="small"
+                           :disabled="!AuthStore.isAdmin"
                            @click="changeEmployeStatus(stat.id)"
                            variant="text"
                         />
@@ -148,14 +149,14 @@
                      # {{ employe.id }}
                   </span>
                   <span class="text-sm text-surface-500 inline-flex items-center gap-2">
-                     <i class="pi pi-user-edit text-sm!"></i> {{ employe.creater.name }}
+                     <i class="pi pi-user-edit text-sm!"></i> {{ employe.creater?.name }}
                   </span>
                   <span class="text-sm text-surface-500 inline-flex items-center gap-2">
                      <i class="pi pi-clock text-sm!"></i>
                      {{ moment(employe.created_at).format("DD-MM-YYYY HH:mm") }}
                   </span>
                </div>
-               <div v-if="parentName == 'employe-page'">
+               <div v-if="parentName == 'employe-page' && AuthStore.isAdmin">
                   <Dialog
                      v-model:visible="isIshgaQabulDialog"
                      modal
@@ -201,6 +202,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from "@/stories/UserStore";
 import BaseForm from "@/components/BaseForm.vue";
 import { generateAttributes, inputValues, qabulFormInputs } from "@/configs/CrudConfig";
 import moment from "moment";
@@ -210,6 +212,7 @@ import CrudRepo from "@/repositories/CrudRepo";
 import type { IEmploye } from "@/Interfaces";
 import { api } from "@/helpers/useFetch";
 
+const AuthStore = useUserStore();
 const route = useRoute();
 const matched = route.matched;
 const parentRoute = matched.length > 1 ? matched[matched.length - 2] : undefined;

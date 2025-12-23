@@ -3,25 +3,25 @@
       class="sheet text-black! invisible print:p-px! -z-10 absolute top-0 left-0 print:static w-[210mm] h-[297mm] box-border font-[Times_New_Roman] print:visible leading-none"
    >
       <nav class="text-center font-bold text-[10pt]">
-         "NKMK" AJ ShKB bo'linmalarida faoliyat olib borayotgan fuqarolar uchun suhbatga YO'LLANMA
+         {{ props.suhbat.suhbatsarlavha?.description }}
       </nav>
       <br />
       <div class="text-center font-bold text-[10pt]">2025-yil «______»____</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline"> {{ props.suhbat.organization.name }} boshlig'i </span>
+         <span class="underline"> {{ props.suhbat.organization?.name }} boshlig'i </span>
       </div>
       <div class="text-center text-[10pt]">(Bo'linma nomi)</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline"> {{ props.suhbat.organization.bossname }}</span>
+         <span class="underline"> {{ props.suhbat.organization?.bossname }}</span>
       </div>
       <div class="text-center text-[10pt]">(Rahbarning F.I.Sh)</div>
       <br />
       <div class="text-center text-[10pt]">Shimoliy kon boshqarmasi Kadrlar bo'limi tomonidan</div>
       <br />
       <div class="text-center text-[14pt]">
-         <span class="underline">{{ props.suhbat.name }}</span>
+         <span class="underline">{{ props.suhbat?.name }}</span>
       </div>
       <div class="text-center text-[10pt]">(nomzodning F.I.Sh)</div>
       <br />
@@ -53,7 +53,7 @@
       <br />
       <br />
       <div class="text-[10pt] flex justify-between px-18 items-end leading-[15px]">
-         <span> Ijr:{{ props.suhbat.creater.name }} <br />{{ props.suhbat.creater.phone }} </span>
+         <span> Ijro: {{ props.suhbat.creater?.name }} <br />{{ props.suhbat.creater?.phone }} </span>
       </div>
       <br />
       <br />

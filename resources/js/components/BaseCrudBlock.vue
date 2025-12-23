@@ -83,7 +83,7 @@
 
                <div>
                   <Button
-                     v-if="!crudConfigs[crudRepo.endpoint].createButtonHide"
+                     v-if="!crudConfigs[crudRepo.endpoint].createButtonHide && AuthStore.isAdmin"
                      icon="pi pi-plus"
                      rounded
                      size="small"
@@ -130,6 +130,9 @@ import { crudConfigs, inputValues, columns, generateAttributes } from "@/configs
 import CrudRepo from "@/repositories/CrudRepo";
 import CrudTable from "@/components/CrudTable.vue";
 import type { CrudKey, IPaginator } from "@/Interfaces";
+import { useUserStore } from "@/stories/UserStore";
+const AuthStore = useUserStore();
+
 const props = withDefaults(
    defineProps<{
       entity: string;

@@ -13,18 +13,19 @@ class Suhbat extends Model
     protected $casts = [
         'organization_id' => 'integer',
         'creater_id' => 'integer',
+        'suhbatsarlavha_id' => 'integer',
     ];
 
     protected $fillable = [
         'name',
         'phone',
         'organization_id',
-        'cause',
+        'suhbatsarlavha_id',
         'profession',
         'creater_id',
     ];
 
-    protected $with = ['organization', 'creater'];
+    protected $with = ['organization', 'creater', 'suhbatsarlavha'];
 
 
     public function organization()
@@ -32,8 +33,13 @@ class Suhbat extends Model
         return $this->belongsTo(Organization::class);
     }
 
+
+    public function suhbatsarlavha()
+    {
+        return $this->belongsTo(SuhbatSarlavha::class);
+    }
     public function creater()
     {
-        return $this->belongsTo(User::class, 'creater_id', 'id')->select('name', 'id');
+        return $this->belongsTo(User::class, 'creater_id', 'id')->select('name', 'id', 'phone');
     }
 }

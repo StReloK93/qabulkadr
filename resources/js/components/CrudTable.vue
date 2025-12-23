@@ -10,7 +10,7 @@
          <slot name="column"></slot>
 
          <Column
-            v-if="!crudConfig.editButtonHide || !crudConfig.deleteButtonHide"
+            v-if="(!crudConfig.editButtonHide || !crudConfig.deleteButtonHide) && AuthStore.isAdmin"
             body-style="text-align:center;width:6rem"
          >
             <template #body="{ data }">
@@ -39,9 +39,11 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from "@/stories/UserStore";
 import { useConfirm } from "primevue/useconfirm";
 const confirm = useConfirm();
 
+const AuthStore = useUserStore();
 const confirmDelete = (event, id: number) => {
    confirm.require({
       target: event.currentTarget,

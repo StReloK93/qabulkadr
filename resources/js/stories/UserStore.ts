@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import UserRepo from "@/repositories/UserRepo";
 import type { IUser } from "@/Interfaces";
 import { AxiosError } from "axios";
@@ -23,8 +23,7 @@ export const useUserStore = defineStore("userStore", () => {
       } catch (e) {
          const error = e as AxiosError;
          if (error.response?.status === 401) user.value = null;
-      }
-      finally {
+      } finally {
          initialized.value = true;
       }
    }
@@ -38,5 +37,7 @@ export const useUserStore = defineStore("userStore", () => {
       await router.push({ name: "login-page" });
    }
 
-   return { user, initialized, login, getAuthUser, logout, logoutLoading };
+   const isAdmin = computed(() => user.value?.role);
+
+   return { user, initialized, login, getAuthUser, logout, logoutLoading, isAdmin };
 });

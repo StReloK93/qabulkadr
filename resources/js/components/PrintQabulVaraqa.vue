@@ -25,7 +25,7 @@
          </section>
       </div>
       <div class="flex justify-between mt-8 text-[11pt]">
-         <span>Ijrochi: {{ UserStore.user?.name }}</span>
+         <span>Ijrochi: {{ props.employe.creater?.name }}</span>
          <section class="text-right font-semibold">
             {{ props.qabul.kadrBoss.profession }}
             <br />
@@ -105,9 +105,6 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stories/UserStore";
-const UserStore = useUserStore();
-
 interface IQabul {
    yoriqnomalar: { title: string; text: string; colspan: number }[] | null;
    kadrBoss: { name: string; profession: string };
@@ -120,6 +117,7 @@ interface INeedEmploye {
    rahbar: { name: string; profession: string };
    profession: string;
    cause_text: string | null;
+   creater: { name: string };
 }
 
 const props = defineProps<{ qabul: IQabul; employe: INeedEmploye }>();
