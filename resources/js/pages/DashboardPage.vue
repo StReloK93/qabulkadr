@@ -23,7 +23,7 @@
             />
          </div>
       </main>
-      <h3 class="px-4 mb-2 text-xl text-surface-300">Jarayondagi Xodimlar</h3>
+      <h3 class="px-2 mb-2 text-xl dark:text-surface-300">Jarayondagi Xodimlar</h3>
       <main class="flex gap-2 mb-2">
          <Card
             class="border border-surface-200 dark:border-surface-800 dark:bg-surface-950! shadow-none! grow"
@@ -100,8 +100,8 @@
             </template>
          </Card>
       </main>
-      <h3 class="px-4 mb-4 text-xl text-surface-300">Ishga qabul qilingan xodimlar</h3>
-      <main class="flex gap-2 mb-4">
+      <h3 class="px-2 mb-2 text-xl dark:text-surface-300">Ishga qabul qilingan xodimlar</h3>
+      <main class="flex gap-2">
          <Card
             class="border border-surface-200 dark:border-surface-800 dark:bg-surface-950! shadow-none! w-1/2"
          >
@@ -149,7 +149,7 @@
                class="border border-surface-200 dark:border-surface-800 dark:bg-surface-950! shadow-none!"
             >
                <template #title>
-                  <div class="text-blue-400 font-light">Qabul shakli bo'yicha</div>
+                  <div class="text-blue-400 font-light">Kvota turlari bo'yicha</div>
                </template>
                <template #content>
                   <main class="flex gap-4 justify-between">
