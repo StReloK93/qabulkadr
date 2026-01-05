@@ -26,41 +26,41 @@ class DatabaseSeeder extends Seeder
 			'password' => Hash::make('zzzz1111*'),
 		]);
 
-		Organization::insert([
-			['name' => 'Avtomobil transport boshqarmasi', 'shortname' => 'ATB', 'bossname' => 'Boss - 1'],
-			['name' => 'Axborot kommunikatsiya texnologiyalar markazi', 'shortname' => 'AKTM', 'bossname' => 'Boss - 2'],
-			['name' => 'Shimoliy kon boshqarmasi', 'shortname' => 'SHKB', 'bossname' => 'Boss - 3'],
-		]);
+		// Organization::insert([
+		// 	['name' => 'Avtomobil transport boshqarmasi', 'shortname' => 'ATB', 'bossname' => 'Boss - 1'],
+		// 	['name' => 'Axborot kommunikatsiya texnologiyalar markazi', 'shortname' => 'AKTM', 'bossname' => 'Boss - 2'],
+		// 	['name' => 'Shimoliy kon boshqarmasi', 'shortname' => 'SHKB', 'bossname' => 'Boss - 3'],
+		// ]);
 
-		Cause::insert([
-			['name' => 'Qorboboni jiyani'],
-			['name' => 'Tanishi bor'],
-			['name' => 'Kallasi bigiz']
-		]);
+		// Cause::insert([
+		// 	['name' => 'Qorboboni jiyani'],
+		// 	['name' => 'Tanishi bor'],
+		// 	['name' => 'Kallasi bigiz']
+		// ]);
 
-		WorkEnvironment::insert([
-			['name' => 'Yengil'],
-			['name' => "Og'ir"],
-			['name' => "O'ta Og'ir"]
-		]);
+		// WorkEnvironment::insert([
+		// 	['name' => 'Yengil'],
+		// 	['name' => "Og'ir"],
+		// 	['name' => "O'ta Og'ir"]
+		// ]);
 
-		\App\Models\EducationLevel::insert([
-			['name' => "O'rta"],
-			['name' => "O'rta maxsus"],
-			['name' => "Oliy"]
-		]);
+		// \App\Models\EducationLevel::insert([
+		// 	['name' => "O'rta"],
+		// 	['name' => "O'rta maxsus"],
+		// 	['name' => "Oliy"]
+		// ]);
 
-		\App\Models\DisabilityType::insert([
-			['name' => "1 - Nogironlik"],
-			['name' => "2 - Nogironlik"],
-			['name' => "3 - Nogironlik"]
-		]);
+		// \App\Models\DisabilityType::insert([
+		// 	['name' => "1 - Nogironlik"],
+		// 	['name' => "2 - Nogironlik"],
+		// 	['name' => "3 - Nogironlik"]
+		// ]);
 
-		\App\Models\QuotType::insert([
-			['name' => "1 - Kvota"],
-			['name' => "2 - Kvota"],
-			['name' => "3 - Kvota"]
-		]);
+		// \App\Models\QuotType::insert([
+		// 	['name' => "1 - Kvota"],
+		// 	['name' => "2 - Kvota"],
+		// 	['name' => "3 - Kvota"]
+		// ]);
 
 
 		Status::insert([
@@ -171,17 +171,17 @@ _____________________              ________
 
 
 
-		Employe::factory()->count(400)->create();
+		// Employe::factory()->count(400)->create();
 
-		Employe::inRandomOrder()
-			->limit(100)
-			->get()
-			->each(function ($employe) {
-				$employe->update([
-					'buyruq_raqami' => fake()->numberBetween(100, 999),
-					'ishga_qabul_kuni' => fake()->date(),
-					'buyruq_sanasi' => fake()->date(),
-				]);
-			});
+		// Employe::inRandomOrder()
+		// 	->limit(100)
+		// 	->get()
+		// 	->each(function ($employe) {
+		// 		$employe->update([
+		// 			'buyruq_raqami' => fake()->numberBetween(100, 999),
+		// 			'ishga_qabul_kuni' => fake()->date(),
+		// 			'buyruq_sanasi' => fake()->date(),
+		// 		]);
+		// 	});
 	}
 }
