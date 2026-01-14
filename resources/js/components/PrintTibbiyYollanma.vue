@@ -27,8 +27,8 @@
                <td class="border-b align-bottom pl-2">{{ employe.profession }}</td>
             </tr>
             <tr>
-               <td class="w-2/5 h-6 align-bottom"></td>
-               <td class="border-b"></td>
+               <td class="w-2/5 h-6 align-bottom">Mehnat sharoiti</td>
+               <td class="border-b align-bottom pl-2">{{ employe.work_environment.name }}</td>
             </tr>
             <tr>
                <td class="w-2/5 h-6 align-bottom"></td>
